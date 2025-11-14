@@ -11,9 +11,9 @@ Bu proje GitHub Pages'de yayınlanmak üzere yapılandırılmıştır.
 1. GitHub repository'nize gidin: https://github.com/efecanzaim/gozumunnuru
 2. **Settings** → **Pages** sekmesine gidin
 3. **Source** bölümünde:
-   - **Branch**: `main` seçin
-   - **Folder**: `/ (root)` seçin
+   - **GitHub Actions** seçin (Branch değil!)
 4. **Save** butonuna tıklayın
+5. İlk deployment için GitHub Actions'ın tamamlanmasını bekleyin (birkaç dakika sürebilir)
 
 ### Otomatik Deployment
 
