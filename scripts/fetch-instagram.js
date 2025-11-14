@@ -1,21 +1,20 @@
-import { NextResponse } from 'next/server';
+// Build zamanında Instagram verilerini çekip static JSON dosyası olarak kaydeder
+const fs = require('fs');
+const path = require('path');
 
-// Instagram Graph API ile medya çekmek için
-// Bu endpoint'i kullanmak için Instagram Business Account ve Access Token gerekiyor
-export async function GET() {
+async function fetchInstagramData() {
   try {
-    // Environment variables'dan alınacak
     const INSTAGRAM_ACCESS_TOKEN = process.env.INSTAGRAM_ACCESS_TOKEN;
     const INSTAGRAM_BUSINESS_ACCOUNT_ID = process.env.INSTAGRAM_BUSINESS_ACCOUNT_ID;
 
     if (!INSTAGRAM_ACCESS_TOKEN || !INSTAGRAM_BUSINESS_ACCOUNT_ID) {
-      return NextResponse.json(
-        { error: 'Instagram credentials not configured' },
-        { status: 500 }
-      );
+      console.log('Instagram credentials not found, creating empty data file');
+      const emptyData = { data: [] };
+      const outputPath = path.join(process.cwd(), 'public', 'instagram-data.json');
+      fs.writeFileSync(outputPath, JSON.stringify(emptyData, null, 2));
+      return;
     }
 
-    // Instagram Graph API'den medya çek
     const response = await fetch(
       `https://graph.instagram.com/${INSTAGRAM_BUSINESS_ACCOUNT_ID}/media?fields=id,caption,media_type,media_url,permalink,thumbnail_url,timestamp&access_token=${INSTAGRAM_ACCESS_TOKEN}&limit=12`
     );
@@ -26,9 +25,8 @@ export async function GET() {
 
     const data = await response.json();
 
-    // Her medya için detaylı bilgi çek (caption için)
     const mediaWithDetails = await Promise.all(
-      data.data.map(async (media: any) => {
+      data.data.map(async (media) => {
         if (media.media_type === 'VIDEO' && media.thumbnail_url) {
           return {
             id: media.id,
@@ -50,13 +48,17 @@ export async function GET() {
       })
     );
 
-    return NextResponse.json({ data: mediaWithDetails });
+    const outputPath = path.join(process.cwd(), 'public', 'instagram-data.json');
+    fs.writeFileSync(outputPath, JSON.stringify({ data: mediaWithDetails }, null, 2));
+    console.log(`Instagram data saved to ${outputPath}`);
   } catch (error) {
-    console.error('Instagram API Error:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch Instagram posts' },
-      { status: 500 }
-    );
+    console.error('Error fetching Instagram data:', error);
+    // Hata durumunda boş data dosyası oluştur
+    const emptyData = { data: [] };
+    const outputPath = path.join(process.cwd(), 'public', 'instagram-data.json');
+    fs.writeFileSync(outputPath, JSON.stringify(emptyData, null, 2));
   }
 }
+
+fetchInstagramData();
 

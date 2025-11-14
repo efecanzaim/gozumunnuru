@@ -61,7 +61,7 @@ export default function InstagramFeed() {
   useEffect(() => {
     async function fetchInstagramPosts() {
       try {
-        const response = await fetch("/api/instagram");
+        const response = await fetch("/gozumunnuru/instagram-data.json");
         if (response.ok) {
           const data = await response.json();
           setPosts(data.data || []);
