@@ -27,7 +27,9 @@ export default function RootLayout({
         style={{ 
           "--base-path": basePath,
           "--hero-image": `url("${basePath}/hero1.png")`,
-          "--newsection-image": `url("${basePath}/newsection.jpg")`
+          "--newsection-image": `url("${basePath}/newsection.jpg")`,
+          "--necklace-image": `url("${basePath}/necklace.jpg")`,
+          "--bracelets-image": `url("${basePath}/bracelets.jpg")`
         } as React.CSSProperties}
       >
         <Navbar />
