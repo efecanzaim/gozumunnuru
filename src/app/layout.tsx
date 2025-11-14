@@ -18,9 +18,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const basePath = process.env.NODE_ENV === "production" ? "/gozumunnuru" : "";
+  
   return (
     <html lang="tr">
-      <body className={dmSans.className}>
+      <body 
+        className={dmSans.className}
+        style={{ 
+          "--base-path": basePath,
+          "--hero-image": `url("${basePath}/hero1.png")`,
+          "--newsection-image": `url("${basePath}/newsection.jpg")`
+        } as React.CSSProperties}
+      >
         <Navbar />
         <main>{children}</main>
       </body>

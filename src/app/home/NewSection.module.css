@@ -1,7 +1,7 @@
 .newSection {
   width: 100%;
   min-height: 600px;
-  background-image: url("/newsection.jpg");
+  background-image: var(--newsection-image, url("/newsection.jpg"));
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
