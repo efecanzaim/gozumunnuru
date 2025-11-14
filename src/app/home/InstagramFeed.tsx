@@ -61,7 +61,9 @@ export default function InstagramFeed() {
   useEffect(() => {
     async function fetchInstagramPosts() {
       try {
-        const response = await fetch("/gozumunnuru/instagram-data.json");
+        // BasePath'i dinamik olarak belirle
+        const basePath = process.env.NODE_ENV === "production" ? "/gozumunnuru" : "";
+        const response = await fetch(`${basePath}/instagram-data.json`);
         if (response.ok) {
           const data = await response.json();
           setPosts(data.data || []);
