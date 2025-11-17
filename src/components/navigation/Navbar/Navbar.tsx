@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { FocusEvent, TransitionEvent } from "react";
-import { ChevronDown, Search, Instagram } from "lucide-react";
+import { Globe, Search, Instagram, X, Check, User, Heart, ShoppingCart } from "lucide-react";
 import styles from "./Navbar.module.css";
 
 type LanguageOption = {
@@ -41,11 +42,50 @@ const languageOptions: LanguageOption[] = [
   { code: "ru", label: "Русский", labelUppercase: "РУССКИЙ", title: "Rusça (Russian)" },
 ];
 
-const topLinks = [
-  { href: "/hakkimizda", label: "Hakkımızda" },
-  { href: "/blog", label: "Blog" },
-  { href: "/iletisim", label: "İletişim" },
-  { href: "https://instagram.com/", label: "Instagram", external: true },
+const translations: Record<string, Record<string, string>> = {
+  tr: {
+    about: "Hakkımızda",
+    blog: "Blog",
+    contact: "İletişim",
+    instagram: "Instagram",
+    languageSelection: "Dil Seçimi",
+    language: "Dil",
+    apply: "Uygula",
+    close: "Kapat",
+    search: "Ürün Arayın",
+    searchLabel: "Arama (Search)",
+  },
+  en: {
+    about: "About",
+    blog: "Blog",
+    contact: "Contact",
+    instagram: "Instagram",
+    languageSelection: "Language Selection",
+    language: "Language",
+    apply: "Apply",
+    close: "Close",
+    search: "Search Products",
+    searchLabel: "Search",
+  },
+  ru: {
+    about: "О нас",
+    blog: "Блог",
+    contact: "Контакты",
+    instagram: "Instagram",
+    languageSelection: "Выбор языка",
+    language: "Язык",
+    apply: "Применить",
+    close: "Закрыть",
+    search: "Поиск продуктов",
+    searchLabel: "Поиск",
+  },
+};
+
+const topLinksConfig = [
+  { href: "/hakkimizda", key: "about" },
+  { href: "/blog", key: "blog" },
+  { href: "/iletisim", key: "contact" },
+  { href: "https://instagram.com/", key: "instagram", external: true },
 ];
 
 const auxiliaryBottomLinks = [{ href: "/yatirim", label: "Yatırım" }];
@@ -163,123 +203,158 @@ export default function Navbar() {
   }, []);
 
   const showPanelBorder = isPanelVisible || isPanelClosing;
+  const t = translations[selectedLanguage.code] || translations.tr;
 
   return (
     <header className={styles.container}>
       <div className={styles.topBar}>
         <nav className={styles.topLinks}>
-          {topLinks.map((link) => {
+          {topLinksConfig.map((link) => {
             const anchorProps = link.external
               ? { target: "_blank", rel: "noopener noreferrer" }
               : {};
+            const label = t[link.key];
+            const isInstagram = link.key === "instagram";
 
             return (
               <Link
                 key={link.href}
                 href={link.href}
                 {...anchorProps}
-                className={link.label === "Instagram" ? styles.topLinkWithIcon : undefined}
+                className={isInstagram ? styles.topLinkWithIcon : undefined}
               >
-                {link.label === "Instagram" && (
+                {isInstagram && (
                   <Instagram size={14} className={styles.topLinkIcon} />
                 )}
-                {link.label}
+                {label}
               </Link>
             );
           })}
+          <div className={styles.languageSelectWrapper}>
+            <button
+              type="button"
+              className={styles.languageSelectButton}
+              onClick={() => setIsLanguageDropdownOpen(!isLanguageDropdownOpen)}
+              aria-expanded={isLanguageDropdownOpen}
+              aria-haspopup="true"
+              aria-label="Dil seçimi"
+            >
+              <Globe
+                className={styles.languageSelectIcon}
+                aria-hidden="true"
+                size={14}
+              />
+              <span className={styles.languageSelectText}>
+                {selectedLanguage.code.toUpperCase()}
+              </span>
+            </button>
+            <>
+              {isLanguageDropdownOpen && (
+                <div
+                  className={styles.languageOverlay}
+                />
+              )}
+              <div
+                className={`${styles.languageDropdown} ${
+                  isLanguageDropdownOpen ? styles.languageDropdownOpen : ""
+                }`}
+                role="dialog"
+                aria-hidden={!isLanguageDropdownOpen}
+                aria-labelledby="language-dialog-title"
+              >
+                  <div className={styles.languageDropdownHeader}>
+                    <h2 id="language-dialog-title" className={styles.languageDropdownTitle}>
+                      {t.languageSelection}
+                    </h2>
+                    <button
+                      type="button"
+                      className={styles.languageDropdownClose}
+                      onClick={() => setIsLanguageDropdownOpen(false)}
+                      aria-label={t.close}
+                    >
+                      <X size={24} strokeWidth={2} />
+                    </button>
+                  </div>
+                  <div className={styles.languageDropdownContent}>
+                    <p className={styles.languageDropdownSectionTitle}>{t.language}</p>
+                    <div className={styles.languageDropdownList}>
+                      {languageOptions.map((option) => (
+                        <button
+                          key={option.code}
+                          type="button"
+                          className={`${styles.languageDropdownItem} ${
+                            option.code === selectedLanguage.code
+                              ? styles.languageDropdownItemActive
+                              : ""
+                          }`}
+                          onClick={() => setSelectedLanguage(option)}
+                          title={option.title}
+                        >
+                          <span className={styles.languageRadioButton}>
+                            {option.code === selectedLanguage.code && (
+                              <span className={styles.languageRadioButtonInner} />
+                            )}
+                          </span>
+                          <span>{option.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className={styles.languageDropdownFooter}>
+                    <button
+                      type="button"
+                      className={styles.languageDropdownApply}
+                      onClick={() => setIsLanguageDropdownOpen(false)}
+                    >
+                      {t.apply}
+                    </button>
+                  </div>
+              </div>
+            </>
+          </div>
         </nav>
       </div>
 
       <div className={styles.middleBar}>
+        <Link href="/" className={styles.brand} aria-label="gözümün nuru">
+          <Image
+            src="/gozumun-nuru-logo.svg"
+            alt="gözümün nuru"
+            width={260}
+            height={60}
+            className={styles.brandImage}
+            priority
+          />
+        </Link>
+
         <form className={styles.searchForm} role="search">
           <label htmlFor="nav-search" className={styles.srOnly}>
-            Arama (Search)
+            {t.searchLabel}
           </label>
           <input
             id="nav-search"
             type="search"
-            placeholder="Ara..."
-            aria-label="Arama (Search)"
+            placeholder={t.search}
+            aria-label={t.searchLabel}
           />
-          <button type="submit" className={styles.searchButton} aria-label="Ara">
+          <button type="submit" className={styles.searchButton} aria-label={t.search} disabled>
             <Search size={18} />
           </button>
         </form>
-
-        <div className={styles.brand}>gözümün nuru</div>
-
-        <div
-          className={styles.languageSelectWrapper}
-          onMouseLeave={(e) => {
-            const relatedTarget = e.relatedTarget as Node | null;
-            if (!relatedTarget) {
-              setIsLanguageDropdownOpen(false);
-              return;
-            }
-            if (!e.currentTarget.contains(relatedTarget)) {
-              setIsLanguageDropdownOpen(false);
-            }
-          }}
-          onBlur={(e) => {
-            if (!e.currentTarget.contains(e.relatedTarget as Node)) {
-              setIsLanguageDropdownOpen(false);
-            }
-          }}
-        >
-          <button
-            type="button"
-            className={styles.languageSelectButton}
-            onClick={() => setIsLanguageDropdownOpen(!isLanguageDropdownOpen)}
-            onMouseEnter={() => setIsLanguageDropdownOpen(true)}
-            onKeyDown={(e) => {
-              if (e.key === "Escape") {
-                setIsLanguageDropdownOpen(false);
-              }
-            }}
-            aria-expanded={isLanguageDropdownOpen}
-            aria-haspopup="true"
-            aria-label="Dil seçimi"
-          >
-            <span className={styles.languageSelectText}>
-              {selectedLanguage.labelUppercase}
-            </span>
-            <ChevronDown
-              className={`${styles.languageSelectArrow} ${
-                isLanguageDropdownOpen ? styles.languageSelectArrowOpen : ""
-              }`}
-              aria-hidden="true"
-              size={16}
-            />
-          </button>
-          <div
-            className={`${styles.languageDropdown} ${
-              isLanguageDropdownOpen ? styles.languageDropdownOpen : ""
-            }`}
-            role="menu"
-            aria-hidden={!isLanguageDropdownOpen}
-            onMouseEnter={() => setIsLanguageDropdownOpen(true)}
-          >
-            {languageOptions.map((option) => (
-              <button
-                key={option.code}
-                type="button"
-                role="menuitem"
-                className={`${styles.languageDropdownItem} ${
-                  option.code === selectedLanguage.code
-                    ? styles.languageDropdownItemActive
-                    : ""
-                }`}
-                onClick={() => {
-                  setSelectedLanguage(option);
-                  setIsLanguageDropdownOpen(false);
-                }}
-                title={option.title}
-              >
-                {option.labelUppercase}
-              </button>
-            ))}
-          </div>
-        </div>
+        <nav className={styles.middleBarActions}>
+          <Link href="/hesabim" className={styles.middleBarAction}>
+            <User size={24} />
+            <span>Hesabım</span>
+          </Link>
+          <Link href="/favorilerim" className={styles.middleBarAction}>
+            <Heart size={24} />
+            <span>Favorilerim</span>
+          </Link>
+          <Link href="/sepetim" className={styles.middleBarAction}>
+            <ShoppingCart size={24} />
+            <span>Sepetim</span>
+          </Link>
+        </nav>
       </div>
 
       <div
@@ -359,7 +434,11 @@ export default function Navbar() {
           }}
           onMouseLeave={(e) => {
             const relatedTarget = e.relatedTarget as Element | null;
-            if (!relatedTarget || !relatedTarget.closest(`.${styles.bottomBar}`)) {
+            const isInsideBottomBar =
+              relatedTarget && typeof relatedTarget.closest === "function"
+                ? relatedTarget.closest(`.${styles.bottomBar}`)
+                : false;
+            if (!isInsideBottomBar) {
               setOpenPanel(null);
             }
           }}
