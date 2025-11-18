@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { FocusEvent, TransitionEvent } from "react";
 import { Globe, Search, Instagram, X, Check, User, Heart, ShoppingCart } from "lucide-react";
 import styles from "./Navbar.module.css";
+import { getBasePath } from "@/utils/basePath";
 
 type LanguageOption = {
   code: string;
@@ -121,6 +122,7 @@ const giftLinks: PanelLink[] = [
 ];
 
 export default function Navbar() {
+  const basePath = getBasePath();
   const [selectedLanguage, setSelectedLanguage] = useState(languageOptions[0]);
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
   const [openPanel, setOpenPanel] = useState<string | null>(null);
@@ -318,7 +320,7 @@ export default function Navbar() {
       <div className={styles.middleBar}>
         <Link href="/" className={styles.brand} aria-label="gözümün nuru">
           <Image
-            src="/gozumun-nuru-logo.svg"
+            src={`${basePath}/gozumun-nuru-logo.svg`}
             alt="gözümün nuru"
             width={260}
             height={60}

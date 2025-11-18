@@ -4,15 +4,16 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { MoveLeft, MoveRight } from "lucide-react";
 import styles from "./Slider.module.css";
-
-const slides = [
-  { id: 1, src: "/slider1.jpg", alt: "Slider 1" },
-  { id: 2, src: "/slider2.jpg", alt: "Slider 2" },
-  { id: 3, src: "/slider3.jpg", alt: "Slider 3" },
-  { id: 4, src: "/slider4.jpg", alt: "Slider 4" },
-];
+import { getBasePath } from "@/utils/basePath";
 
 export default function Slider() {
+  const basePath = getBasePath();
+  const slides = [
+    { id: 1, src: `${basePath}/slider1.jpg`, alt: "Slider 1" },
+    { id: 2, src: `${basePath}/slider2.jpg`, alt: "Slider 2" },
+    { id: 3, src: `${basePath}/slider3.jpg`, alt: "Slider 3" },
+    { id: 4, src: `${basePath}/slider4.jpg`, alt: "Slider 4" },
+  ];
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {

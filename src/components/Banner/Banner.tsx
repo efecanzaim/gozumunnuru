@@ -1,13 +1,15 @@
 import Image from "next/image";
 import styles from "./Banner.module.css";
+import { getBasePath } from "@/utils/basePath";
 
 export default function Banner() {
+  const basePath = getBasePath();
   return (
     <section className={styles.banner}>
       <div className={styles.bannerContainer}>
         <div className={`${styles.bannerItem} ${styles.twoBanner}`}>
           <Image
-            src="/banner1.jpg"
+            src={`${basePath}/banner1.jpg`}
             alt="Banner 1"
             width={557}
             height={786}
@@ -20,7 +22,7 @@ export default function Banner() {
         </div>
         <div className={`${styles.bannerItem} ${styles.twoBanner}`}>
           <Image
-            src="/banner2.jpg"
+            src={`${basePath}/banner2.jpg`}
             alt="Banner 2"
             width={557}
             height={786}
@@ -33,7 +35,7 @@ export default function Banner() {
         </div>
         <div className={`${styles.bannerItem} ${styles.threeBanner}`}>
           <Image
-            src="/banner3.jpg"
+            src={`${basePath}/banner3.jpg`}
             alt="Banner 3"
             width={557}
             height={786}
@@ -45,7 +47,7 @@ export default function Banner() {
         </div>
         <div className={`${styles.bannerItem} ${styles.threeBanner}`}>
           <Image
-            src="/banner4.jpg"
+            src={`${basePath}/banner4.jpg`}
             alt="Banner 4"
             width={557}
             height={786}
@@ -57,7 +59,7 @@ export default function Banner() {
         </div>
         <div className={`${styles.bannerItem} ${styles.threeBanner}`}>
           <Image
-            src="/banner5.jpg"
+            src={`${basePath}/banner5.jpg`}
             alt="Banner 5"
             width={557}
             height={786}
@@ -69,7 +71,7 @@ export default function Banner() {
         </div>
         <div className={`${styles.bannerItem} ${styles.threeBanner}`}>
           <Image
-            src="/banner6.jpg"
+            src={`${basePath}/banner6.jpg`}
             alt="Banner 6"
             width={557}
             height={786}
@@ -81,7 +83,7 @@ export default function Banner() {
         </div>
         <div className={`${styles.bannerItem} ${styles.threeBanner}`}>
           <Image
-            src="/banner7.jpg"
+            src={`${basePath}/banner7.jpg`}
             alt="Banner 7"
             width={557}
             height={786}
@@ -93,7 +95,7 @@ export default function Banner() {
         </div>
         <div className={`${styles.bannerItem} ${styles.threeBanner}`}>
           <Image
-            src="/banner8.jpg"
+            src={`${basePath}/banner8.jpg`}
             alt="Banner 8"
             width={557}
             height={786}
@@ -105,7 +107,7 @@ export default function Banner() {
         </div>
         <div className={`${styles.bannerItem} ${styles.threeBanner}`}>
           <Image
-            src="/banner9.jpg"
+            src={`${basePath}/banner9.jpg`}
             alt="Banner 9"
             width={557}
             height={786}
@@ -117,7 +119,7 @@ export default function Banner() {
         </div>
         <div className={`${styles.bannerItem} ${styles.threeBanner}`}>
           <Image
-            src="/banner10.jpg"
+            src={`${basePath}/banner10.jpg`}
             alt="Banner 10"
             width={557}
             height={786}
@@ -129,7 +131,7 @@ export default function Banner() {
         </div>
         <div className={`${styles.bannerItem} ${styles.threeBanner}`}>
           <Image
-            src="/banner11.jpg"
+            src={`${basePath}/banner11.jpg`}
             alt="Banner 11"
             width={557}
             height={786}
