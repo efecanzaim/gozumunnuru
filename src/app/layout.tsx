@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import Navbar from "@/components/navigation/Navbar/Navbar";
+import Header from "@/components/Header/Header";
+import Slider from "@/components/Slider/Slider";
+import Banner from "@/components/Banner/Banner";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -33,6 +36,9 @@ export default function RootLayout({
         } as React.CSSProperties}
       >
         <Navbar />
+        <Header />
+        <Slider />
+        <Banner />
         <main>{children}</main>
       </body>
     </html>

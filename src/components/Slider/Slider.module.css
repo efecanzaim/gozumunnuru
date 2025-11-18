@@ -1,0 +1,180 @@
+.slider {
+  width: 100%;
+  background: #fff;
+  padding: 1rem 0 2rem 0;
+}
+
+.sliderContainer {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.sliderWrapper {
+  position: relative;
+  width: fit-content;
+  height: auto;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slideReference {
+  position: relative;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.slideActive {
+  opacity: 1;
+  z-index: 1;
+}
+
+.slideImage {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  display: block;
+}
+
+.sliderButton {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%) translateX(-100%);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  width: 65px;
+  height: 45px;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.3s ease, background 0.3s ease, opacity 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  color: #ffffff;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.slider:hover .sliderButton,
+.sliderContainer:hover .sliderButton {
+  transform: translateY(-50%) translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sliderButton:hover {
+  background: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.sliderButton:active {
+  transform: translateY(-50%) translateX(0) scale(0.95);
+}
+
+.sliderButtonNext {
+  left: auto;
+  right: 0;
+  transform: translateY(-50%) translateX(100%);
+}
+
+.slider:hover .sliderButtonNext,
+.sliderContainer:hover .sliderButtonNext {
+  transform: translateY(-50%) translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sliderButtonNext:active {
+  transform: translateY(-50%) translateX(0) scale(0.95);
+}
+
+.sliderDots {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid #9999a5;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+  padding: 0;
+}
+
+.dot:hover {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: #9999a5;
+  transform: scale(1.2);
+}
+
+.dotActive {
+  background: #111;
+  border-color: #9999a5;
+  transform: scale(1.2);
+}
+
+@media (max-width: 1366px) {
+  .sliderContainer {
+    width: fit-content;
+    max-width: 100%;
+    padding: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .slider {
+    padding: 1rem 0;
+  }
+
+  .sliderContainer {
+    padding: 0;
+  }
+
+  .sliderWrapper {
+    height: 400px;
+  }
+
+  .sliderButton {
+    width: 40px;
+    height: 40px;
+  }
+
+  .sliderButton {
+    left: 0.5rem;
+  }
+
+  .sliderButtonNext {
+    right: 0.5rem;
+  }
+
+  .sliderDots {
+    bottom: 1rem;
+  }
+}
+
