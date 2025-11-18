@@ -4,6 +4,8 @@ import Navbar from "@/components/navigation/Navbar/Navbar";
 import Header from "@/components/Header/Header";
 import Slider from "@/components/Slider/Slider";
 import Banner from "@/components/Banner/Banner";
+import ProductSection from "@/components/ProductSection/ProductSection";
+import { featuredProducts } from "@/components/ProductSection/productsData";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -39,6 +41,7 @@ export default function RootLayout({
         <Header />
         <Slider />
         <Banner />
+        <ProductSection title="Gözümün Nuru Öneriyor" products={featuredProducts} />
         <main>{children}</main>
       </body>
     </html>
