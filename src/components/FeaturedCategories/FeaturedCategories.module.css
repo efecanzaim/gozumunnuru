@@ -1,0 +1,221 @@
+.featuredCategories {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  --featured-side-padding: 48px;
+  padding: 0 var(--featured-side-padding) 80px;
+  text-align: center;
+}
+
+@media (max-width: 1200px) {
+  .featuredCategories {
+    --featured-side-padding: 32px;
+    padding: 0 var(--featured-side-padding) 72px;
+  }
+}
+
+@media (max-width: 992px) {
+  .featuredCategories {
+    --featured-side-padding: 24px;
+    padding: 0 var(--featured-side-padding) 64px;
+  }
+}
+
+@media (max-width: 768px) {
+  .featuredCategories {
+    --featured-side-padding: 16px;
+    padding: 0 var(--featured-side-padding) 56px;
+  }
+}
+
+@media (max-width: 576px) {
+  .featuredCategories {
+    --featured-side-padding: 12px;
+    padding: 0 var(--featured-side-padding) 48px;
+  }
+}
+
+.inner {
+  width: 100%;
+  max-width: 1367px;
+  margin: 0 auto;
+}
+
+.title {
+  width: 100%;
+  padding: 24px 0;
+  color: #111;
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 24px;
+  letter-spacing: 1px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+@media (max-width: 991.98px) {
+  .title {
+    font-size: 1.375rem;
+    margin-top: 16px;
+    letter-spacing: 0.92px;
+  }
+
+  .banner {
+    flex: 0 0 calc(50% - 16px);
+    max-width: calc(50% - 16px);
+  }
+}
+
+.banners {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.banner {
+  position: relative;
+  flex-basis: calc(25% - 12px);
+  max-width: calc(25% - 32px);
+  margin: 0 8px;
+}
+
+.bannerLink {
+  display: flex;
+  position: relative;
+  width: 100%;
+  padding-top: calc(276 / 374 * 100%);
+}
+
+.bannerImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bannerTitle {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  padding-right: 24px;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 40px;
+  letter-spacing: 0.5px;
+  text-align: right;
+  text-decoration: underline;
+}
+
+.bannerTitle::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 12px;
+  height: 20px;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='12'%3E%3Cpath d='M0 0l6 6-6 6z' fill='%23FFF' fill-rule='nonzero'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 50%;
+}
+
+@media (max-width: 991.98px) {
+  .bannerTitle {
+    height: 24px;
+    font-size: 0.75rem;
+    line-height: 24px;
+    letter-spacing: 0.43px;
+  }
+
+  .bannerTitle::after {
+    top: 3px;
+  }
+}
+
+.links {
+  display: none;
+  margin-top: 24px;
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  column-count: 5;
+  column-gap: 24px;
+}
+
+.linksVisible {
+  display: block;
+}
+
+.linkItem {
+  break-inside: avoid;
+  padding-right: 1.875rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.link {
+  color: #000;
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 450;
+  font-size: 0.75rem;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 991.98px) {
+  .links {
+    column-count: 2;
+    font-size: 0.75rem;
+  }
+
+  .link {
+    line-height: 16px;
+  }
+}
+
+.showMoreContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.showMoreButton {
+  width: 370px;
+  height: 56px;
+  padding: 19px 0;
+  margin-bottom: 80px;
+  border: 1px solid #4a4a4a;
+  background: transparent;
+  color: #4a4a4a;
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.showMoreButton:hover {
+  background: #4a4a4a;
+  color: #fff;
+}
+

@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 100%;
   color: #1f1f1f;
   background-color: #ffffff;
   font-family: "DM Sans", "Segoe UI", sans-serif;
@@ -10,6 +11,7 @@
   left: 0;
   right: 0;
   z-index: 1000;
+  overflow-x: hidden;
 }
 
 .topBar {
@@ -138,6 +140,8 @@
   max-height: 100%;
   height: auto;
   object-fit: contain;
+  margin: 0;
+  padding: 0;
 }
 
 .middleBarActions {
@@ -646,55 +650,148 @@
   }
 }
 
+
 @media (max-width: 768px) {
   .topBar {
-    padding: 0 16px;
+    display: none;
   }
 
+  .container {
+    max-height: 112px;
+    overflow-x: hidden;
+    overflow-y: visible;
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+
+  /* b-header styles */
   .middleBar {
-    padding: 16px;
-    gap: 12px;
+    max-height: 112px;
+    padding: 0 16px;
+    background-color: #fff;
+    border-bottom: 1px solid #dedede;
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* b-header__top styles */
+  .mobileHeaderTop {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 64px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .brand {
+    display: block;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    box-sizing: border-box;
+  }
+
+  .brand a {
+    display: inherit;
   }
 
   .brandImage {
-    width: 200px;
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 211px;
+    max-height: 64px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    object-fit: contain;
   }
 
+  /* b-header__searchButton styles (not used in center mode) */
+  .mobileSearchButton {
+    display: none;
+    padding: 6px;
+    border: none;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .mobileSearchButton svg {
+    display: block;
+  }
+
+  .searchButton {
+    display: none;
+  }
+
+  /* b-header__search styles */
   .searchForm {
-    max-width: clamp(200px, calc(100vw - 400px), 350px);
-    min-width: 200px;
-    height: 44px;
-    padding: 8px 12px;
+    margin: 0 -8px 8px -8px;
+    display: block;
+    box-sizing: border-box;
+    padding: 0;
+    border: none;
+    background: transparent;
+    height: auto;
+    gap: 0;
+    align-items: stretch;
+    width: calc(100% + 16px);
+    max-width: calc(100% + 16px);
+    overflow-x: hidden;
+  }
+
+  .searchForm input {
+    width: 100%;
+    max-width: 100%;
+    height: 40px;
+    padding: 8px 8px 8px 36px;
+    border-radius: 5px;
+    border: 1px solid #d4d4d4;
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10.7498 16.9995C7.30553 16.9995 4.5 14.1939 4.5 10.7497C4.49999 7.30548 7.30552 4.49997 10.7498 4.5C14.1941 4.50003 16.9996 7.30553 16.9996 10.7498C16.9996 12.2469 16.4683 13.6232 15.5861 14.701L19.3115 18.4265C19.5586 18.6669 19.5637 19.0622 19.3213 19.3127C19.0787 19.5629 18.6733 19.5628 18.4277 19.3102L14.7023 15.5847C13.6243 16.4676 12.2476 16.9995 10.7498 16.9995ZM15.75 10.7493C15.75 7.98055 13.5189 5.74947 10.7501 5.74947C7.9814 5.74947 5.7503 7.98055 5.7503 10.7493C5.7503 13.518 7.9814 15.7491 10.7501 15.7491C13.5189 15.7491 15.75 13.518 15.75 10.7493Z' fill='%23808080'/%3E%3C/svg%3E%0A");
+    background-color: #FBFBFB;
+    background-repeat: no-repeat;
+    background-position: 7px;
+    font-family: "DM Sans", "Segoe UI", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 24px;
+    color: #808080;
+    box-sizing: border-box;
+    outline: none;
+    overflow-x: hidden;
+  }
+
+  .searchForm input::placeholder {
+    color: #808080;
   }
 
   .middleBarActions {
-    gap: 16px;
+    display: none;
   }
 
-  .bottomBar {
-    gap: 32px;
-    padding: 12px 16px;
-    justify-content: flex-start;
-  }
-
-  .bottomLinks {
-    gap: 20px;
+  .bottomSection {
+    display: none;
   }
 }
 
 @media (max-width: 640px) {
-  .topLinks {
-    gap: 12px;
-    font-size: 0.75rem;
-  }
-
-  .topBar {
-    padding: 0 12px;
-  }
-
   .middleBar {
     padding: 12px;
-    gap: 8px;
+    gap: 12px;
   }
 
   .brandImage {
@@ -702,36 +799,9 @@
   }
 
   .searchForm {
-    max-width: clamp(180px, calc(100vw - 300px), 300px);
-    min-width: 180px;
     height: 40px;
     padding: 6px 10px;
   }
-
-  .middleBarActions {
-    gap: 12px;
-  }
-
-  .bottomBar {
-    gap: 20px;
-    padding: 12px;
-    justify-content: flex-start;
-  }
-
-  .bottomLinks {
-    gap: 16px;
-  }
 }
 
-@media (max-width: 480px) {
-  .bottomBar {
-    gap: 16px;
-    padding: 10px 8px;
-    justify-content: flex-start;
-  }
-
-  .bottomLinks {
-    gap: 12px;
-  }
-}
 

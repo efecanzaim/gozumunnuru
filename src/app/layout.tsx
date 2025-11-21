@@ -6,6 +6,10 @@ import Slider from "@/components/Slider/Slider";
 import Banner from "@/components/Banner/Banner";
 import ProductSection from "@/components/ProductSection/ProductSection";
 import { featuredProducts } from "@/components/ProductSection/productsData";
+import CampaignSection from "@/components/CampaignSection/CampaignSection";
+import CategorySlider from "@/components/CategorySlider/CategorySlider";
+import FeaturedCategories from "@/components/FeaturedCategories/FeaturedCategories";
+import Footer from "@/components/Footer/Footer";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -41,8 +45,12 @@ export default function RootLayout({
         <Header />
         <Slider />
         <Banner />
-        <ProductSection title="Gözümün Nuru Öneriyor" products={featuredProducts} />
+        <ProductSection title="Gözümün Nuru Öneriyor" products={featuredProducts} variant="home" />
+        <CampaignSection />
+        <CategorySlider />
+        <FeaturedCategories />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

@@ -1,0 +1,296 @@
+/* Beymen m-productCard CSS - Birebir kopya */
+.productCard {
+  position: relative;
+  background: #fff;
+  text-align: left;
+  padding: 10px;
+}
+
+.productCard :global(.-nodrag) {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.productCard a {
+  text-decoration: none !important;
+}
+
+.imageWrapper {
+  position: relative;
+  min-height: 200px;
+  width: 100%;
+  aspect-ratio: 435 / 606;
+  overflow: hidden;
+}
+
+.imageWrapper a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.imagePagination {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  gap: 2px;
+  padding: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.imagePaginationItem {
+  flex: 1;
+  height: 100%;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: default;
+  position: relative;
+}
+
+.imagePaginationItem::before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #d8d8d8;
+  transition: background-color 0.3s ease;
+}
+
+.imagePaginationItemActive::before {
+  background-color: #111;
+}
+
+.priceWrapper.onlyOnePrice {
+  display: flex;
+  align-items: center;
+  height: 36px;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  height: auto;
+}
+
+.discountBadge {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 36px;
+  margin-right: 8px;
+  background-color: #e90808;
+  color: #fff;
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+@media (max-width: 991.98px) {
+  .discountBadge {
+    width: 40px;
+    font-size: 0.75rem;
+  }
+}
+
+.detail {
+  position: relative;
+  overflow: hidden;
+  min-height: 123px;
+  padding: 16px;
+}
+
+.title {
+  margin-bottom: 0.3125rem;
+  color: #111;
+  font-size: 1.0625rem;
+  line-height: 16px;
+}
+
+.title,
+.desc {
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 500;
+  display: block;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.desc {
+  align-items: center;
+  margin: 8px 0 16px;
+  color: #616161;
+  font-size: 0.8125rem;
+  line-height: 14px;
+}
+
+.priceWrapper {
+  margin-right: 16px;
+}
+
+.oldPrice {
+  display: block;
+  color: #6d6d6d;
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 500;
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  text-decoration: line-through;
+}
+
+@media (max-width: 991.98px) {
+  .oldPrice {
+    font-size: 0.6875rem;
+  }
+}
+
+.newPrice {
+  display: block;
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.125rem;
+  color: #111;
+}
+
+@media (max-width: 991.98px) {
+  .newPrice {
+    font-size: 0.75rem;
+  }
+}
+
+.newPriceStriked {
+  color: #9b9b9b;
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 450;
+  text-decoration: line-through;
+}
+
+.lastPrice {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 600;
+  font-size: 1.125rem;
+  line-height: 1.125rem;
+  color: #111;
+}
+
+.lastPrice span {
+  margin-bottom: 2px;
+  color: #62944c;
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 450;
+  font-size: 0.875rem;
+  line-height: 1rem;
+}
+
+.campaign {
+  background-color: #f3f3f3;
+  padding: 4px 8px;
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  align-self: flex-start;
+  margin-left: auto;
+}
+
+.campaignDesc {
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: #62944c;
+  height: 16px;
+  margin: 2px 0 0;
+}
+
+.campaignPrice {
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.125rem;
+  color: #111;
+}
+
+/* Home variant styles - Beymen o-productWidget-home */
+:global(.productSlider.home) .productCard .imageWrapper {
+  position: relative;
+  min-height: 200px;
+}
+
+:global(.productSlider.home) .productCard .imageWrapper a {
+  display: block;
+}
+
+:global(.productSlider.home) .productCard .imageWrapper a img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+:global(.productSlider.home) .productCard .detail {
+  position: relative;
+  overflow: hidden;
+}
+
+:global(.productSlider.home) .productCard .detail a {
+  display: block;
+}
+
+:global(.productSlider.home) .productCard .title {
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 500;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+:global(.productSlider.home) .productCard .desc {
+  display: block;
+  align-items: center;
+  margin: 8px 0 16px;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+:global(.productSlider.home) .productCard .price {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+:global(.productSlider.home) .productCard .discountBadge {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 36px;
+  margin-right: 8px;
+  background-color: #ff0000;
+  color: #fff;
+}
+
+:global(.productSlider.home) .productCard .priceWrapper {
+  margin-right: 16px;
+}

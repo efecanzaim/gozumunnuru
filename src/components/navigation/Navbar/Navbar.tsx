@@ -318,16 +318,18 @@ export default function Navbar() {
       </div>
 
       <div className={styles.middleBar}>
-        <Link href="/" className={styles.brand} aria-label="gözümün nuru">
-          <Image
-            src={`${basePath}/gozumun-nuru-logo.svg`}
-            alt="gözümün nuru"
-            width={260}
-            height={60}
-            className={styles.brandImage}
-            priority
-          />
-        </Link>
+        <div className={styles.mobileHeaderTop}>
+          <Link href="/" className={styles.brand} aria-label="gözümün nuru">
+            <Image
+              src={`${basePath}/gozumun-nuru-logo.svg`}
+              alt="gözümün nuru"
+              width={211}
+              height={16}
+              className={styles.brandImage}
+              priority
+            />
+          </Link>
+        </div>
 
         <form className={styles.searchForm} role="search">
           <label htmlFor="nav-search" className={styles.srOnly}>
