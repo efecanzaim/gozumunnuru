@@ -10,6 +10,7 @@ import {
   featuredCategoryBanners,
   featuredCategoryLinks,
 } from "./featuredCategoriesData";
+import { getBasePath } from "@/utils/basePath";
 
 type FeaturedCategoriesProps = {
   title?: string;
@@ -22,6 +23,7 @@ export default function FeaturedCategories({
   banners = featuredCategoryBanners,
   links = featuredCategoryLinks,
 }: FeaturedCategoriesProps) {
+  const basePath = getBasePath();
   const [showLinks, setShowLinks] = useState(false);
 
   if (!banners.length) {
@@ -37,7 +39,7 @@ export default function FeaturedCategories({
             <div key={banner.id} className={styles.banner}>
               <Link href={banner.url} className={styles.bannerLink}>
                 <Image
-                  src={banner.image}
+                  src={banner.image.startsWith('http') ? banner.image : `${basePath}${banner.image}`}
                   alt={banner.title}
                   width={276}
                   height={374}

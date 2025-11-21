@@ -8,6 +8,7 @@ import {
   CategorySliderTab,
   categorySliderData,
 } from "./categorySliderData";
+import { getBasePath } from "@/utils/basePath";
 import "tiny-slider/dist/tiny-slider.css";
 
 type CategorySliderProps = {
@@ -17,6 +18,7 @@ type CategorySliderProps = {
 export default function CategorySlider({
   tabs = categorySliderData,
 }: CategorySliderProps) {
+  const basePath = getBasePath();
   const [activeTab, setActiveTab] = React.useState(
     tabs[0]?.id ?? ""
   );
@@ -132,7 +134,7 @@ export default function CategorySlider({
                     <div className={styles.categorySliderItemImage}>
                       <Link href={item.url}>
                         <Image
-                          src={item.image}
+                          src={`${basePath}${item.image}`}
                           alt={item.title}
                           width={387}
                           height={520}

@@ -5,6 +5,7 @@ import Link from "next/link";
 import React from "react";
 import styles from "./CampaignSection.module.css";
 import { CampaignItem, campaignsData } from "./campaignsData";
+import { getBasePath } from "@/utils/basePath";
 import "tiny-slider/dist/tiny-slider.css";
 
 type CampaignSectionProps = {
@@ -16,6 +17,7 @@ export default function CampaignSection({
   title = "Kampanyalar",
   campaigns = campaignsData,
 }: CampaignSectionProps) {
+  const basePath = getBasePath();
   const sliderRef = React.useRef<HTMLDivElement>(null);
   const sliderInstanceRef = React.useRef<any>(null);
 
@@ -87,7 +89,7 @@ export default function CampaignSection({
             <div key={campaign.id} className={styles.campaignItem}>
               <div className={styles.campaignCard}>
                 <Image
-                  src={campaign.image}
+                  src={`${basePath}${campaign.image}`}
                   alt={campaign.title}
                   width={585}
                   height={585}
