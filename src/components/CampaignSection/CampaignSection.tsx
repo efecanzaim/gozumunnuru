@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import styles from "./CampaignSection.module.css";
@@ -21,17 +20,36 @@ export default function CampaignSection({
   const sliderRef = React.useRef<HTMLDivElement>(null);
   const sliderInstanceRef = React.useRef<any>(null);
 
+
   React.useEffect(() => {
     if (typeof window === "undefined") return;
     if (!sliderRef.current || campaigns.length === 0) return;
 
-    if (sliderInstanceRef.current) {
-      sliderInstanceRef.current.destroy();
-      sliderInstanceRef.current = null;
-    }
+    let isMounted = true;
 
-      import("tiny-slider/src/tiny-slider").then(({ tns }) => {
-      if (!sliderRef.current) return;
+    const initSlider = async () => {
+      // Önceki instance'ı temizle
+      if (sliderInstanceRef.current) {
+        sliderInstanceRef.current.destroy();
+        sliderInstanceRef.current = null;
+      }
+
+      // Pagination ve controls elementlerini manuel olarak temizle
+      if (sliderRef.current) {
+        const container = sliderRef.current.closest(`.${styles.campaignContainer}`);
+        if (container) {
+          const existingNav = container.querySelector(".tns-nav");
+          const existingControls = container.querySelector(".tns-controls");
+          if (existingNav) existingNav.remove();
+          if (existingControls) existingControls.remove();
+        }
+      }
+
+      if (!isMounted || !sliderRef.current) return;
+
+      const { tns } = await import("tiny-slider/src/tiny-slider");
+      
+      if (!isMounted || !sliderRef.current) return;
 
       sliderInstanceRef.current = tns({
         container: sliderRef.current,
@@ -48,12 +66,19 @@ export default function CampaignSection({
         slideBy: "page",
         speed: 600,
         loop: true,
+        lazyload: true,
+        lazyloadSelector: ".-lazyImage",
         onInit: function (info: any) {
-          if (info.slideCount < 3) {
-            const slider = info.container?.closest(".tns-slider");
-            if (slider) {
+          const slider = info.container?.closest(".tns-slider");
+          if (slider) {
+            if (info.slideCount < 3) {
               slider.classList.add("less-than-thre");
             }
+          }
+          // İlk başta activated class'ını ekle - prev butonunun gözükmesi için
+          const container = info.container?.closest(`.${styles.campaignContainer}`);
+          if (container) {
+            container.classList.add("activated");
           }
         },
       } as any);
@@ -66,12 +91,23 @@ export default function CampaignSection({
           }
         });
       }
-    });
+    };
+
+    initSlider();
 
     return () => {
+      isMounted = false;
       if (sliderInstanceRef.current) {
         sliderInstanceRef.current.destroy();
         sliderInstanceRef.current = null;
+      }
+      // Cleanup: Pagination ve controls elementlerini temizle
+      const container = sliderRef.current?.closest(`.${styles.campaignContainer}`);
+      if (container) {
+        const existingNav = container.querySelector(".tns-nav");
+        const existingControls = container.querySelector(".tns-controls");
+        if (existingNav) existingNav.remove();
+        if (existingControls) existingControls.remove();
       }
     };
   }, [campaigns]);
@@ -86,18 +122,19 @@ export default function CampaignSection({
         <h2 className={styles.campaignTitle}>{title}</h2>
         <div ref={sliderRef} className={styles.sliderWrapper}>
           {campaigns.map((campaign) => (
-            <div key={campaign.id} className={styles.campaignItem}>
+            <div key={campaign.id} className={styles.campaignItem} data-campaign-item>
               <div className={styles.campaignCard}>
-                <Image
-                  src={`${basePath}${campaign.image}`}
-                  alt={campaign.title}
-                  width={585}
-                  height={585}
-                  priority={false}
-                />
+                <Link href={campaign.url} className={styles.campaignImageLink} title={campaign.title}>
+                  <img
+                    src="https://cdn.beymen.com/assets/desktop/img/beymen-placeholder-1125px-1650px.svg"
+                    data-src={`${basePath}${campaign.image}`}
+                    alt={campaign.title}
+                    className="-lazyImage"
+                  />
+                </Link>
                 <div className={styles.campaignDetail}>
-                  <h3 className={styles.campaignDetailTitle}>{campaign.title}</h3>
-                  <p className={styles.campaignDetailDesc}>{campaign.description}</p>
+                  <div className={styles.campaignDetailTitle}>{campaign.title}</div>
+                  <div className={styles.campaignDetailDesc}>{campaign.description}</div>
                   <Link href={campaign.url} className={styles.campaignButton}>
                     {campaign.buttonText}
                   </Link>

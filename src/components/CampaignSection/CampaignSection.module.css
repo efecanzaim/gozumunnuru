@@ -1,45 +1,12 @@
-/* o-campaignSlider - Referans koddan birebir alındı */
+/* o-campaignSlider - Adamların kodundan birebir alındı */
 
 .campaignSection {
   display: block;
   margin: 0 auto;
   width: 100%;
   position: relative;
-  --campaign-side-padding: 48px;
-  padding: 0 var(--campaign-side-padding) 80px;
+  padding-bottom: 80px;
   text-align: center;
-}
-
-@media (max-width: 1200px) {
-  .campaignSection {
-    --campaign-side-padding: 32px;
-    padding: 0 var(--campaign-side-padding) 72px;
-  }
-}
-
-@media (max-width: 992px) {
-  .campaignSection {
-    --campaign-side-padding: 24px;
-    padding: 0 var(--campaign-side-padding) 64px;
-  }
-}
-
-@media (max-width: 768px) {
-  .campaignSection {
-    --campaign-side-padding: 16px;
-    padding: 0 var(--campaign-side-padding) 56px;
-  }
-}
-
-@media (max-width: 576px) {
-  .campaignSection {
-    --campaign-side-padding: 12px;
-    padding: 0 var(--campaign-side-padding) 48px;
-  }
-}
-
-.campaignContainer.activated :global(.tns-controls [data-controls="prev"]) {
-  opacity: 1;
 }
 
 .campaignTitle {
@@ -75,38 +42,17 @@
   height: 2px;
   position: absolute;
   top: 48px;
-  left: 48px;
-  right: 48px;
+  left: 0;
+  right: 0;
   margin: 0 auto;
   max-width: 1920px;
   background-color: #eaeaea;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1366px) {
   .campaignTitle::after {
-    left: 32px;
-    right: 32px;
-  }
-}
-
-@media (max-width: 992px) {
-  .campaignTitle::after {
-    left: 24px;
-    right: 24px;
-  }
-}
-
-@media (max-width: 768px) {
-  .campaignTitle::after {
-    left: 16px;
-    right: 16px;
-  }
-}
-
-@media (max-width: 576px) {
-  .campaignTitle::after {
-    left: 12px;
-    right: 12px;
+    left: 30px;
+    right: 30px;
   }
 }
 
@@ -127,23 +73,32 @@
   justify-content: start;
 }
 
-.sliderWrapper img {
+.campaignImageLink img {
   -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
   -ms-transform: translateZ(0);
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   width: 100%;
+  display: block;
 }
 
-.sliderWrapper img:global(.-lazyImage) {
+.campaignImageLink img:global(.-lazyImage) {
   width: 425px;
   height: 425px;
 }
 
-.sliderWrapper img:global(.loaded) {
+.campaignImageLink img:global(.loaded) {
   width: 100%;
   height: auto;
+}
+
+/* Placeholder görselini gizle - sadece lazy image yüklendiğinde göster */
+.campaignImageLink img[data-src]:not(:global(.loaded)) {
+  opacity: 0;
+}
+
+.campaignImageLink img[data-src]:global(.loaded) {
+  opacity: 1;
 }
 
 .sliderWrapper:global(.less-than-thre) {
@@ -154,16 +109,26 @@
   text-align: center;
 }
 
+.campaignImageLink {
+  display: inline-block;
+}
+
 .campaignDetail {
   padding-top: 16px;
   max-width: 400px;
   margin: 0 auto;
 }
 
+@media (max-width: 991.98px) {
+  .campaignDetail {
+    max-width: 100%;
+  }
+}
+
 .campaignDetailTitle {
   font-family: TTNormsPro, sans-serif;
   font-size: 1.25rem;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 28px;
   height: 56px;
   letter-spacing: 1px;
@@ -213,9 +178,8 @@
   width: 100%;
   max-width: 344px;
   margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
+  text-align: center;
   text-decoration: none;
   text-transform: uppercase;
 }
@@ -227,6 +191,7 @@
 @media (max-width: 991.98px) {
   .campaignButton {
     font-size: 0.75rem;
+    max-width: 100%;
   }
 }
 
@@ -244,23 +209,22 @@
   }
 }
 
-/* TinySlider Global Styles */
+/* TinySlider Global Styles - Adamların kodundan birebir */
 
 .campaignSection :global(.tns-liveregion) {
   display: none;
 }
 
 .campaignSection :global(.tns-outer) {
-  overflow: visible;
+  overflow: hidden;
 }
 
 .campaignSection :global(.tns-controls) {
   position: relative;
-  overflow: visible;
 }
 
 .campaignSection :global(.tns-controls [data-controls="prev"]) {
-  opacity: 1;
+  display: flex !important;
 }
 
 .campaignSection :global(.tns-controls [data-controls="next"]),
@@ -287,12 +251,13 @@
   box-shadow: inset 0 0 0 1.5px #111, 0 0 0 0.5px #111;
 }
 
-.campaignSection :global(.tns-controls [data-controls="prev"]) {
-  top: 280px;
-  left: -28px;
+@media (min-width: 1200px) {
+  .campaignSection :global(.tns-controls [data-controls="prev"]) {
+    left: -28px;
+  }
 }
 
-.campaignSection :global(.tns-controls [data-controls="prev"]::before) {
+.campaignSection :global(.tns-controls [data-controls="prev"]:before) {
   content: "";
   width: 10px;
   height: 18px;
@@ -304,7 +269,6 @@
 }
 
 .campaignSection :global(.tns-controls [data-controls="next"]) {
-  top: 280px;
   right: -28px;
 }
 
@@ -318,7 +282,7 @@
   }
 }
 
-.campaignSection :global(.tns-controls [data-controls="next"]::before) {
+.campaignSection :global(.tns-controls [data-controls="next"]:before) {
   content: "";
   width: 10px;
   height: 18px;
@@ -342,10 +306,10 @@
   border-radius: 0;
   margin: 0 4px;
   background: #d8d8d8;
-  border: none;
-  padding: 0;
   cursor: pointer;
   outline: none;
+  border: none;
+  padding: 0;
 }
 
 .campaignSection :global(.tns-nav button.tns-nav-active) {

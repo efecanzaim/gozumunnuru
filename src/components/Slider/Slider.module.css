@@ -1,180 +1,241 @@
+/* Slider Container */
 .slider {
+  position: relative;
+  display: flex;
   width: 100%;
-  background: #fff;
-  padding: 1rem 0 2rem 0;
+  margin-bottom: 0.9375rem;
 }
 
-.sliderContainer {
-  position: relative;
-  width: fit-content;
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0;
+.swiperContainer {
+  width: calc(
+    100% + 90px
+  ); /* Container-wide padding'ini aşmak için: 45px * 2 = 90px */
+  margin-left: -45px;
+  margin-right: -45px;
+  overflow: visible;
 }
 
-.sliderWrapper {
-  position: relative;
-  width: fit-content;
-  height: auto;
-  overflow: hidden;
-  display: inline-block;
-}
-
-.slide {
-  position: absolute;
-  top: 0;
-  left: 0;
+/* Swiper wrapper genişliği - tam genişlik için */
+.slider :global(.swiper-wrapper) {
   width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.slideReference {
-  position: relative;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.slideActive {
-  opacity: 1;
-  z-index: 1;
-}
-
-.slideImage {
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  display: block;
-}
-
-.sliderButton {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%) translateX(-100%);
-  background: rgba(0, 0, 0, 0.5);
-  border: none;
-  width: 65px;
-  height: 45px;
-  border-radius: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 10;
-  transition: transform 0.3s ease, background 0.3s ease, opacity 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  color: #ffffff;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.slider:hover .sliderButton,
-.sliderContainer:hover .sliderButton {
-  transform: translateY(-50%) translateX(0);
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.sliderButton:hover {
-  background: rgba(0, 0, 0, 0.7);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.sliderButton:active {
-  transform: translateY(-50%) translateX(0) scale(0.95);
-}
-
-.sliderButtonNext {
-  left: auto;
-  right: 0;
-  transform: translateY(-50%) translateX(100%);
-}
-
-.slider:hover .sliderButtonNext,
-.sliderContainer:hover .sliderButtonNext {
-  transform: translateY(-50%) translateX(0);
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.sliderButtonNext:active {
-  transform: translateY(-50%) translateX(0) scale(0.95);
-}
-
-.sliderDots {
-  position: absolute;
-  bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 0.5rem;
-  z-index: 10;
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 1px solid #9999a5;
-  background: #fff;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
-  padding: 0;
-}
-
-.dot:hover {
-  background: rgba(255, 255, 255, 0.8);
-  border-color: #9999a5;
-  transform: scale(1.2);
-}
-
-.dotActive {
-  background: #111;
-  border-color: #9999a5;
-  transform: scale(1.2);
+.slider :global(.swiper-slide) {
+  width: 100%;
 }
 
 @media (max-width: 1366px) {
-  .sliderContainer {
-    width: fit-content;
-    max-width: 100%;
-    padding: 0;
+  .swiperContainer {
+    width: calc(
+      100% + 50px
+    ); /* Container-wide padding'ini aşmak için: 25px * 2 = 50px */
+    margin-left: -25px;
+    margin-right: -25px;
   }
 }
 
-@media (max-width: 768px) {
-  .slider {
-    padding: 1rem 0;
-  }
+/* Slide Item */
+.slideItem {
+  min-height: 200px;
+}
 
-  .sliderContainer {
-    padding: 0;
-  }
+/* Fade Effect - Adamların animasyonu ile aynı */
+.slider :global(.swiper-container-fade .swiper-slide) {
+  transition-property: opacity;
+  pointer-events: none;
+}
 
-  .sliderWrapper {
-    height: 400px;
-  }
+.slider :global(.swiper-container-fade .swiper-slide-active),
+.slider
+  :global(.swiper-container-fade .swiper-slide-active .swiper-slide-active) {
+  pointer-events: auto;
+}
 
-  .sliderButton {
-    width: 40px;
-    height: 40px;
-  }
+.slider :global(.swiper-slide) {
+  transition: opacity 750ms linear;
+}
 
-  .sliderButton {
-    left: 0.5rem;
-  }
+.slideLink {
+  display: flex;
+  width: 100%;
+}
 
-  .sliderButtonNext {
-    right: 0.5rem;
-  }
+.slideImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
 
-  .sliderDots {
-    bottom: 1rem;
+/* Pagination - Ortada, yuvarlak bullet'lar */
+.slider :global(.swiper-pagination) {
+  display: flex;
+  justify-content: center;
+  bottom: 15px;
+}
+
+.slider :global(.swiper-pagination .swiper-pagination-bullet) {
+  width: 10px;
+  height: 10px;
+  opacity: 1 !important;
+  background-color: #fff !important;
+  border: 1px solid #9999a5 !important;
+  border-radius: 50%;
+  margin: 0 4px;
+}
+
+.slider :global(.swiper-pagination .swiper-pagination-bullet-active) {
+  border-color: #fff;
+  background-color: #111 !important;
+}
+
+/* Navigation Buttons - Hover durumu */
+.slider:hover :global(.swiper-button-next),
+.slider:hover :global(.swiper-button-prev),
+.slider :global(.swiper-container):hover :global(.swiper-button-next),
+.slider :global(.swiper-container):hover :global(.swiper-button-prev) {
+  display: flex !important;
+}
+
+.slider :global(.swiper-button-prev) {
+  left: 0;
+}
+
+.slider :global(.swiper-button-next) {
+  right: 0;
+}
+
+.slider :global(.swiper-button-next:after) {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+/* Default Swiper button'larını gizle */
+.slider :global(.swiper-button-next),
+.slider :global(.swiper-button-prev) {
+  display: none !important;
+}
+
+/* Custom button stilleri - Adamların tasarımıyla aynı */
+.slider .customPrevButton,
+.slider .customNextButton {
+  display: none;
+  width: 65px;
+  height: 45px;
+  position: absolute;
+  top: 50%;
+  margin-top: -22.5px;
+  z-index: 10;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.34);
+  -webkit-animation: fadeIn 0.25s ease-out forwards;
+}
+
+.customPrevButton svg,
+.customNextButton svg {
+  width: 35px;
+  height: auto;
+  display: block;
+}
+
+.slider .customPrevButton {
+  left: 0;
+  -webkit-animation: slideInLeft 0.25s linear;
+}
+
+.slider .customNextButton {
+  right: 0;
+  -webkit-animation: slideInRight 0.25s linear;
+}
+
+/* Hover durumu */
+.slider:hover .customPrevButton,
+.slider:hover .customNextButton {
+  display: flex;
+}
+
+@media (max-width: 991.98px) {
+  .slider :global(.swiper-button-next),
+  .slider :global(.swiper-button-prev) {
+    width: 65px;
+    height: 45px;
   }
 }
 
+.slider :global(.swiper-button-prev) {
+  -webkit-animation: slideInLeft 0.25s linear;
+}
+
+.slider :global(.swiper-button-next) {
+  -webkit-animation: slideInRight 0.25s linear;
+}
+
+/* Swiper default font icon'ları kaldır */
+.slider :global(.swiper-button-prev:after),
+.slider :global(.swiper-button-next:after) {
+  content: "" !important;
+  font-family: initial !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  text-indent: -9999px !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  overflow: hidden !important;
+}
+
+/* MainSlider için SVG icon */
+.slider :global(.swiper-button-next:after),
+.slider :global(.swiper-button-prev:after) {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='36' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10.236 1l-9.019 9 9.02 9m25.277-8.783l-34.028-.2' stroke='%23FFF' stroke-width='1.458' fill='none'/%3E%3C/svg%3E") !important;
+  width: 35px !important;
+  height: 18px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+}
+
+@media (max-width: 991.98px) {
+  .slider :global(.swiper-button-next:after),
+  .slider :global(.swiper-button-prev:after) {
+    width: 35px;
+    height: 18px;
+  }
+}
+
+/* Animations */
+@-webkit-keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-65px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes slideInRight {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(65px);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+}

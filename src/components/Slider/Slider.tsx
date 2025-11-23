@@ -1,94 +1,99 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import { MoveLeft, MoveRight } from "lucide-react";
-import styles from "./Slider.module.css";
+import React, { useRef } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation, EffectFade } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
+import { MoveRight, MoveLeft } from "lucide-react";
+import Link from "next/link";
 import { getBasePath } from "@/utils/basePath";
 
+// Swiper CSS - Önce Swiper CSS'leri yüklensin
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "swiper/css/effect-fade";
+
+// Custom CSS - Sonra bizim CSS'imiz yüklensin (override için)
+import styles from "./Slider.module.css";
+
 export default function Slider() {
+  const swiperRef = useRef<SwiperType | null>(null);
   const basePath = getBasePath();
   const slides = [
-    { id: 1, src: `${basePath}/slider1.jpg`, alt: "Slider 1" },
-    { id: 2, src: `${basePath}/slider2.jpg`, alt: "Slider 2" },
-    { id: 3, src: `${basePath}/slider3.jpg`, alt: "Slider 3" },
-    { id: 4, src: `${basePath}/slider4.jpg`, alt: "Slider 4" },
+    { 
+      id: 1, 
+      src: `${basePath}/slider1.jpg`, 
+      alt: "Slider 1",
+      link: "#" 
+    },
+    { 
+      id: 2, 
+      src: `${basePath}/slider2.jpg`, 
+      alt: "Slider 2",
+      link: "#" 
+    },
+    { 
+      id: 3, 
+      src: `${basePath}/slider3.jpg`, 
+      alt: "Slider 3",
+      link: "#" 
+    },
+    { 
+      id: 4, 
+      src: `${basePath}/slider4.jpg`, 
+      alt: "Slider 4",
+      link: "#" 
+    },
   ];
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index);
-  };
-
-  const goToPrevious = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
-
-  const goToNext = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
 
   return (
-    <section className={styles.slider}>
-      <div className={styles.sliderContainer}>
-        <div className={styles.sliderWrapper}>
-          {slides.map((slide, index) => (
-            <div
-              key={slide.id}
-              className={`${styles.slide} ${
-                index === currentSlide ? styles.slideActive : ""
-              } ${index === 0 ? styles.slideReference : ""}`}
-            >
-              <Image
+    <div className={styles.slider}>
+      <Swiper
+        className={styles.swiperContainer}
+        modules={[Autoplay, Pagination, Navigation, EffectFade]}
+        effect="fade"
+        fadeEffect={{
+          crossFade: false,
+        }}
+        speed={750}
+        autoplay={{
+          delay: 5000,
+          disableOnInteraction: false,
+        }}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={{
+          nextEl: `.${styles.customNextButton}`,
+          prevEl: `.${styles.customPrevButton}`,
+        }}
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+        }}
+        loop={true}
+        spaceBetween={0}
+      >
+        {slides.map((slide) => (
+          <SwiperSlide key={slide.id} className={styles.slideItem}>
+            <Link href={slide.link} className={styles.slideLink}>
+              <img
                 src={slide.src}
                 alt={slide.alt}
-                width={1200}
-                height={600}
                 className={styles.slideImage}
-                priority={index === 0}
+                loading={slide.id === 1 ? "eager" : "lazy"}
               />
-            </div>
-          ))}
+            </Link>
+          </SwiperSlide>
+        ))}
+        <div className={styles.customPrevButton} onClick={() => swiperRef.current?.slidePrev()}>
+          <MoveLeft size={30} strokeWidth={1.458} color="#FFF" />
         </div>
-
-        <button
-          className={styles.sliderButton}
-          onClick={goToPrevious}
-          aria-label="Önceki slide"
-        >
-          <MoveLeft size={38} color="#ffffff" strokeWidth={1.3} />
-        </button>
-
-        <button
-          className={`${styles.sliderButton} ${styles.sliderButtonNext}`}
-          onClick={goToNext}
-          aria-label="Sonraki slide"
-        >
-          <MoveRight size={38} color="#ffffff" strokeWidth={1.3} />
-        </button>
-
-        <div className={styles.sliderDots}>
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              className={`${styles.dot} ${
-                index === currentSlide ? styles.dotActive : ""
-              }`}
-              onClick={() => goToSlide(index)}
-              aria-label={`Slide ${index + 1}`}
-            />
-          ))}
+        <div className={styles.customNextButton} onClick={() => swiperRef.current?.slideNext()}>
+          <MoveRight size={30} strokeWidth={1.458} color="#FFF" />
         </div>
-      </div>
-    </section>
+      </Swiper>
+    </div>
   );
 }
 

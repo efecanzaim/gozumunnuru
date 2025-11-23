@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 import styles from "./CategorySlider.module.css";
 import {
@@ -19,54 +17,110 @@ export default function CategorySlider({
   tabs = categorySliderData,
 }: CategorySliderProps) {
   const basePath = getBasePath();
+  const containerRefs = React.useRef<Record<string, HTMLDivElement | null>>({});
+  const sliderRefs = React.useRef<Record<string, HTMLDivElement | null>>({});
+  const sliderInstances = React.useRef<Record<string, any>>({});
   const [activeTab, setActiveTab] = React.useState(
     tabs[0]?.id ?? ""
   );
-  const sliderRefs = React.useRef<Record<string, HTMLDivElement | null>>({});
-  const sliderInstances = React.useRef<Record<string, any>>({});
 
   React.useEffect(() => {
-    if (!activeTab || sliderInstances.current[activeTab]) return;
+    if (!activeTab) return;
     const sliderEl = sliderRefs.current[activeTab];
     if (!sliderEl) return;
 
+    if (sliderEl.classList.contains("tns-slider")) return;
+
     let isMounted = true;
 
-    import("tiny-slider/src/tiny-slider").then(({ tns }) => {
-      if (!isMounted || !sliderRefs.current[activeTab]) return;
+    const initSlider = () => {
+      import("tiny-slider/src/tiny-slider").then(({ tns }) => {
+        if (!isMounted || !sliderRefs.current[activeTab]) return;
+
+        const sliderEl = sliderRefs.current[activeTab];
+        if (!sliderEl || sliderEl.classList.contains("tns-slider")) return;
+
+        const containerEl = containerRefs.current[activeTab];
+        if (!containerEl) return;
+
       sliderInstances.current[activeTab] = tns({
         container: sliderRefs.current[activeTab],
-        controls: true,
-        controlsText: ["", ""],
+        controls: false,
         autoplay: false,
         items: 4,
         gutter: 30,
-        mouseDrag: true,
+        mouseDrag: false,
         nav: true,
         navPosition: "bottom",
         preventScrollOnTouch: "auto",
         arrowKeys: true,
         slideBy: "page",
         speed: 600,
-        onInit: (info: any) => {
-          if (info.slideCount < 4) {
-            info.container.closest(".tns-slider")?.classList.add("less-than-four");
+        loop: false,
+        lazyload: true,
+        lazyloadSelector: ".-lazyImage",
+        onInit: (e: any) => {
+          if (e.slideCount < 4) {
+            e.container.closest(".tns-slider")?.classList.add("less-than-four");
+          }
+          const controls = containerEl.querySelector(".controls");
+          if (controls && e.slideCount >= 4) {
+            (controls as HTMLElement).style.display = "none";
+          }
+          const prevBtn = containerEl.querySelector(".controls .prev");
+          if (prevBtn) {
+            (prevBtn as HTMLElement).style.display = "none";
           }
         },
       } as any);
 
       const instance = sliderInstances.current[activeTab];
-      if (instance?.events) {
-        instance.events.on("indexChanged", (eventInfo: any) => {
-          const container = eventInfo.container?.closest(
-            `.${styles.categorySliderContainer}`
-          );
-          if (container) {
-            container.classList.add(styles.categorySliderContainerActivated);
+      const prevBtn = containerEl.querySelector(".controls .prev");
+      const nextBtn = containerEl.querySelector(".controls .next");
+
+      const handleNav = (direction: "prev" | "next") => {
+        const navButtons = containerEl.querySelectorAll('.tns-nav button:not([style*="display:none"])');
+        const activeNav = containerEl.querySelector(".tns-nav-active");
+        if (activeNav) {
+          const nextNav = direction === "prev" ? activeNav.previousElementSibling : activeNav.nextElementSibling;
+          if (nextNav && (nextNav as HTMLElement).style.display !== "none") {
+            (nextNav as HTMLElement).click();
+          } else if (navButtons.length > 0) {
+            const targetButton = direction === "prev" ? navButtons[navButtons.length - 1] : navButtons[0];
+            (targetButton as HTMLElement).click();
           }
+          const newActiveNav = containerEl.querySelector(".tns-nav-active");
+          if (newActiveNav && navButtons.length > 0) {
+            const activeIndex = parseInt(newActiveNav.getAttribute("data-nav") || "0");
+            const isLast = activeIndex === navButtons.length - 1;
+            if (prevBtn) {
+              (prevBtn as HTMLElement).style.display = activeIndex === 0 ? "none" : "flex";
+            }
+            if (nextBtn) {
+              (nextBtn as HTMLElement).style.display = isLast ? "none" : "flex";
+            }
+          }
+        }
+      };
+
+      if (prevBtn) {
+        prevBtn.addEventListener("click", () => handleNav("prev"));
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener("click", () => handleNav("next"));
+      }
+
+      if (instance?.events) {
+        instance.events.on("indexChanged", () => {
+          containerEl.classList.add("activated");
         });
       }
     });
+    };
+
+    setTimeout(() => {
+      initSlider();
+    }, 0);
 
     return () => {
       isMounted = false;
@@ -82,82 +136,99 @@ export default function CategorySlider({
     };
   }, []);
 
+  const handleNavClick = (tabId: string) => {
+    setActiveTab(tabId);
+  };
+
   if (!tabs.length) {
     return null;
   }
 
   return (
-    <section className={styles.categorySlider}>
-      <div className={styles.categorySliderContainer}>
-        <div className={styles.categorySliderNav}>
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              type="button"
-              className={`${styles.categorySliderNavItem} ${
-                tab.id === activeTab ? styles.categorySliderNavItemActive : ""
-              }`}
-              data-target-id={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
+    <div className={styles.categorySlider} data-category-slider>
+      <div className={styles.categorySliderNav}>
+        {tabs.map((tab, index) => (
+          <div
+            key={tab.id}
+            className={`${styles.categorySliderNavItem} ${
+              tab.id === activeTab ? styles.categorySliderNavItemActive : ""
+            }`}
+            data-target-id={`categorySliderTab-${index + 1}`}
+            onClick={() => handleNavClick(tab.id)}
+          >
+            {tab.label}
+          </div>
+        ))}
+      </div>
 
-        <div className={styles.categorySliderTabs}>
-          {tabs.map((tab) => (
+      <div className={styles.categorySliderTabs}>
+        {tabs.map((tab, index) => (
+          <div
+            key={tab.id}
+            id={`categorySliderTab-${index + 1}`}
+            className={`${styles.categorySliderTab} ${
+              tab.id === activeTab ? styles.categorySliderTabActive : ""
+            }`}
+          >
             <div
-              key={tab.id}
-              id={`category-tab-${tab.id}`}
-              className={`${styles.categorySliderTab} ${
-                tab.id === activeTab ? styles.categorySliderTabActive : ""
-              }`}
+              className={styles.categorySliderContainer}
+              ref={(el) => {
+                containerRefs.current[tab.id] = el;
+              }}
             >
+              <div className={styles.controls}>
+                <div className={`${styles.controlsPrev} prev`}></div>
+                <div className={`${styles.controlsNext} next`}></div>
+              </div>
               <div
                 ref={(el) => {
                   sliderRefs.current[tab.id] = el;
                 }}
-                className={styles.categorySliderWrapper}
+                className={`${styles.categorySliderWrapper}`}
               >
-                {tab.items.map((item, index) => (
+                {tab.items.map((item, itemIndex) => (
                   <div
                     key={item.id}
-                    className={`${styles.categorySliderItem} categorySliderItem`}
+                    className={`${styles.categorySliderItem} categorySliderItem swiper-slide`}
                     data-category-item
-                    data-id={item.id}
                     data-index={index + 1}
-                    data-name={item.title}
-                    data-slot={item.slot || ""}
+                    data-id={`categorySliderItem${index + 1}${itemIndex + 1}`}
                     data-link={item.url}
+                    data-slot={itemIndex + 1}
+                    data-name={item.title}
                   >
-                    <div className={styles.categorySliderItemImage}>
-                      <Link href={item.url}>
-                        <Image
-                          src={`${basePath}${item.image}`}
-                          alt={item.title}
-                          width={387}
-                          height={520}
-                          priority={false}
-                        />
-                      </Link>
-                    </div>
-                    <div className={styles.categorySliderItemContent}>
-                      <h3 className={styles.categorySliderItemTitle}>
+                    <a
+                      href={item.url}
+                      title={item.title}
+                      className={styles.categorySliderItemImage}
+                    >
+                      <img
+                        src={`https://cdn.beymen.com/assets/desktop/img/beymen-placeholder.svg?t=2`}
+                        data-src={`${basePath}${item.image}`}
+                        alt={item.title}
+                        className="swiper-lazy -lazyImage"
+                      />
+                    </a>
+                    <a
+                      href={item.url}
+                      title={item.title}
+                      className={styles.categorySliderItemContent}
+                    >
+                      <div className={styles.categorySliderItemTitle}>
                         {item.title}
-                      </h3>
-                      <p className={styles.categorySliderItemDesc}>
+                      </div>
+                      <div className={styles.categorySliderItemDescription}>
                         {item.description}
-                      </p>
-                    </div>
+                      </div>
+                    </a>
                   </div>
                 ))}
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
-    </section>
+    </div>
   );
 }
 

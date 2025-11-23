@@ -14,12 +14,20 @@ const DesktopHome = () => {
     return (
         <div className="desktop-home">
             <Navbar />
-            <Header />
-            <Slider />
-            <Banner />
-            <ProductSection title="Gözümün Nuru Öneriyor" products={featuredProducts} variant="home" />
-            <CampaignSection />
-            <CategorySlider />
+            {/* <Header /> */}
+            <div className="container -wide">
+                <Slider />
+                <Banner />
+            </div>
+            <div className="container -wide">
+                <ProductSection title="Gözümün Nuru Öneriyor" products={featuredProducts} variant="home" />
+            </div>
+            <div className="container -wide">
+                <CampaignSection />
+            </div>
+            <div className="container -wide">
+                <CategorySlider />
+            </div>
             <FeaturedCategories />
             <Footer />
         </div>

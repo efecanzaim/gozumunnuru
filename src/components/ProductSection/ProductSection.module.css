@@ -1,4 +1,3 @@
-/* Beymen o-productWidget CSS - Birebir kopya */
 .productSlider {
   display: block;
   margin: 0 auto;
@@ -45,7 +44,7 @@
   content: "";
   height: 2px;
   position: absolute;
-  top: 88px;
+  top: 89px;
   left: 45px;
   right: 45px;
   margin: 0 auto;
@@ -60,58 +59,9 @@
   }
 }
 
-.container {
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
-
-@media (min-width: 576px) {
-  .container {
-    max-width: 540px;
-  }
-}
-
-@media (min-width: 768px) {
-  .container {
-    max-width: 720px;
-  }
-}
-
-@media (min-width: 992px) {
-  .container {
-    max-width: 960px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1200px;
-  }
-}
-
-@media (min-width: 1367px) {
-  .container {
-    max-width: 1367px;
-  }
-}
-
-/* Home variant için container genişliği - container.-wide gibi */
-.productSlider.home .container {
-  width: 100%;
-  max-width: none;
-  padding: 0;
-  margin: 0;
-}
-
 .wrapper {
   display: flex;
   justify-content: center;
-  position: relative;
-  width: 100%;
-  max-width: 100%;
 }
 
 .wrapper img {
@@ -119,7 +69,6 @@
   -ms-transform: translateZ(0);
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
-  backface-visibility: hidden;
   width: 100%;
 }
 
@@ -129,8 +78,6 @@
 
 .item {
   max-width: 500px;
-  width: 387px;
-  flex-shrink: 0;
 }
 
 .item.loader,
@@ -140,10 +87,6 @@
 }
 
 @media (max-width: 991.98px) {
-  .item {
-    width: 275px;
-  }
-
   .item.loader,
   .item.loading {
     min-width: 275px;
@@ -151,28 +94,24 @@
   }
 }
 
-/* TinySlider Styles */
-.productSlider :global(.tns-liveregion) {
-  display: none;
+.productSlider.home .item {
+  max-width: 500px;
 }
 
-.productSlider :global(.tns-outer) {
-  position: relative;
-  width: 100%;
+.productSlider.home .item.loader,
+.productSlider.home .item.loading {
+  min-width: 387px !important;
+  margin-left: 1.875rem !important;
+}
+
+.productSlider :global(.tns-liveregion) {
+  display: none;
 }
 
 .productSlider :global(.tns-inner) {
   overflow: hidden;
   margin-left: 25px !important;
   margin-right: 25px !important;
-}
-
-/* Home variant için tns-inner genişliği - tam 4 ürün görünmesi için */
-.productSlider.home :global(.tns-inner) {
-  margin-left: 25px !important;
-  margin-right: 25px !important;
-  width: auto !important;
-  max-width: none !important;
 }
 
 .productSlider :global(.tns-controls) {
@@ -182,9 +121,9 @@
 .productSlider :global(.tns-controls [data-controls="next"]),
 .productSlider :global(.tns-controls [data-controls="prev"]) {
   position: absolute;
-  z-index: 10;
+  z-index: 1;
   top: 273px;
-  display: flex !important;
+  display: flex;
   justify-content: center;
   align-items: center;
   width: 56px;
@@ -210,14 +149,7 @@
 }
 
 .productSlider :global(.tns-controls [data-controls="prev"]) {
-  left: -10px;
   opacity: 0;
-}
-
-@media (max-width: 991.98px) {
-  .productSlider :global(.tns-controls [data-controls="prev"]) {
-    left: 0;
-  }
 }
 
 .productSlider :global(.tns-controls [data-controls="prev"]:before) {
@@ -233,18 +165,12 @@
 }
 
 .productSlider :global(.tns-controls [data-controls="next"]) {
-  right: -10px;
   opacity: 0;
-}
-
-@media (max-width: 991.98px) {
-  .productSlider :global(.tns-controls [data-controls="next"]) {
-    right: 0;
-  }
 }
 
 @media (min-width: 768px) {
   .productSlider :global(.tns-controls [data-controls="next"]) {
+    right: 0;
     opacity: 1;
   }
 }
@@ -283,7 +209,6 @@
 }
 
 .productSlider :global(.activated .tns-controls [data-controls="prev"]) {
-  left: -10px;
   opacity: 1;
 }
 
@@ -308,11 +233,8 @@
   }
 }
 
-/* Home variant - Beymen o-productWidget-home */
 .productSlider.home {
   background-color: #fff;
-  margin-left: 60px;
-  margin-right: 60px;
 }
 
 .productSlider.home :global(.tns-controls [data-controls="prev"]) {
@@ -324,15 +246,6 @@
   display: none;
 }
 
-/* Home variant için wrapper genişliği - tam 4 ürün görünmesi için */
-.productSlider.home .wrapper {
-  width: 100%;
-  max-width: none;
-  margin: 0;
-  overflow: visible;
-}
-
-/* Slider içindeki ürün kartları için özel stiller - Beymen o-productSlider .m-productCard */
 .productSlider :global(.productCard) {
   text-align: left;
   position: relative;

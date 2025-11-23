@@ -19,10 +19,16 @@
   justify-content: flex-end;
   align-items: center;
   height: 40px;
-  padding: 0 48px;
+  padding: 0 45px;
   background-color: transparent;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   border-bottom: 1px solid rgba(44, 27, 19, 0.08);
+}
+
+@media (max-width: 1366px) {
+  .topBar {
+    padding: 0 25px;
+  }
 }
 
 .topLinks {
@@ -65,9 +71,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 48px;
+  padding: 0 45px;
+  height: 80px;
   background-color: #ffffff;
   border-bottom: 1px solid rgba(44, 27, 19, 0.08);
+}
+
+@media (max-width: 1366px) {
+  .middleBar {
+    padding: 0 25px;
+    height: 80px;
+  }
 }
 
 .searchForm {
@@ -77,13 +91,19 @@
   flex: 1;
   width: 100%;
   max-width: 480px;
-  height: 48px;
+  height: 45px;
   min-width: 0;
   justify-content: center;
   border: 1px solid #d4d4d4;
   padding: 10px 16px;
   background-color: #ffffff;
   margin: 0;
+}
+
+@media (max-width: 1366px) {
+  .searchForm {
+    height: 48px;
+  }
 }
 
 .searchForm input {
@@ -413,12 +433,19 @@
   justify-content: center;
   align-items: center;
   gap: 88px;
-  padding: 12px 32px;
+  height: 64px;
+  padding: 0 45px;
   background-color: transparent;
   overflow-x: auto;
   overflow-y: hidden;
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+@media (max-width: 1366px) {
+  .bottomBar {
+    padding: 0 25px;
+  }
 }
 
 .bottomBar::-webkit-scrollbar {
@@ -627,11 +654,11 @@
 
 @media (max-width: 992px) {
   .topBar {
-    padding: 0 24px;
+    padding: 0 25px;
   }
 
   .middleBar {
-    padding: 16px 24px;
+    padding: 0 25px;
   }
 
   .searchForm {
@@ -641,7 +668,7 @@
 
   .bottomBar {
     gap: 48px;
-    padding: 12px 24px;
+    padding: 0 25px;
     justify-content: flex-start;
   }
 
@@ -649,7 +676,6 @@
     gap: 24px;
   }
 }
-
 
 @media (max-width: 768px) {
   .topBar {
@@ -762,7 +788,7 @@
     border-radius: 5px;
     border: 1px solid #d4d4d4;
     background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10.7498 16.9995C7.30553 16.9995 4.5 14.1939 4.5 10.7497C4.49999 7.30548 7.30552 4.49997 10.7498 4.5C14.1941 4.50003 16.9996 7.30553 16.9996 10.7498C16.9996 12.2469 16.4683 13.6232 15.5861 14.701L19.3115 18.4265C19.5586 18.6669 19.5637 19.0622 19.3213 19.3127C19.0787 19.5629 18.6733 19.5628 18.4277 19.3102L14.7023 15.5847C13.6243 16.4676 12.2476 16.9995 10.7498 16.9995ZM15.75 10.7493C15.75 7.98055 13.5189 5.74947 10.7501 5.74947C7.9814 5.74947 5.7503 7.98055 5.7503 10.7493C5.7503 13.518 7.9814 15.7491 10.7501 15.7491C13.5189 15.7491 15.75 13.518 15.75 10.7493Z' fill='%23808080'/%3E%3C/svg%3E%0A");
-    background-color: #FBFBFB;
+    background-color: #fbfbfb;
     background-repeat: no-repeat;
     background-position: 7px;
     font-family: "DM Sans", "Segoe UI", sans-serif;
@@ -804,4 +830,13 @@
   }
 }
 
+/* Desktop Home için navbar yüksekliği kadar padding-top */
+:global(.desktop-home) {
+  padding-top: 184px; /* topBar (40px) + middleBar (80px) + bottomBar (64px) */
+}
 
+@media (max-width: 768px) {
+  :global(.desktop-home) {
+    padding-top: 0; /* Mobilde navbar absolute değil */
+  }
+}

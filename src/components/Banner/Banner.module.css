@@ -7,7 +7,7 @@
 .bannerContainer {
   width: 100%;
   margin: 0 auto;
-  padding: 0 48px;
+  padding: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -88,8 +88,7 @@
   .bannerContainer {
     width: 100%;
     max-width: 100%;
-    padding-left: 24px;
-    padding-right: 24px;
+    padding: 0;
   }
 }
 
