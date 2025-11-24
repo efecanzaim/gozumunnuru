@@ -1,588 +1,198 @@
-"use client";
+import React from 'react';
+import styles from './Footer.module.css';
 
-import Link from "next/link";
-import Image from "next/image";
-import { useState } from "react";
-import { Globe, X, Truck, Mouse, SmilePlus } from "lucide-react";
-import "./Footer.css";
-import { getBasePath } from "@/utils/basePath";
-import type { ReactNode } from "react";
 
-const AppStoreBadge = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 120 32"
-    role="img"
-    aria-label="App Store'dan indir"
-  >
-    <defs>
-      <path id="appstore-badge-border" d="M.048.032h119.86V32H.048z" />
-    </defs>
-    <g fill="none" fillRule="evenodd">
-      <g>
-        <mask id="appstore-badge-mask" fill="#fff">
-          <use xlinkHref="#appstore-badge-border" />
-        </mask>
-        <path
-          fill="#A9AAA9"
-          mask="url(#appstore-badge-mask)"
-          d="M112.355 0H7.557c-.29 0-.578 0-.868.002-.242.001-.483.006-.728.01-.528.013-1.061.046-1.588.14a5.292 5.292 0 0 0-1.507.502 5.11 5.11 0 0 0-2.217 2.24 5.335 5.335 0 0 0-.495 1.523c-.095.53-.129 1.066-.142 1.601-.007.246-.008.492-.012.737V25.247c.004.248.005.489.012.737.013.536.047 1.072.142 1.602a5.32 5.32 0 0 0 .495 1.524c.241.476.555.915.935 1.29.374.383.808.7 1.282.944.483.25.976.408 1.507.505.527.095 1.06.126 1.588.14.245.006.486.01.728.01l.868.001h104.798c.286 0 .575 0 .86-.002.241 0 .489-.003.73-.008a10.395 10.395 0 0 0 1.586-.141 5.367 5.367 0 0 0 1.512-.505 4.96 4.96 0 0 0 1.281-.943c.378-.376.693-.815.937-1.291a5.31 5.31 0 0 0 .49-1.524c.098-.53.13-1.066.148-1.602.003-.248.003-.489.003-.737.007-.291.007-.58.007-.875V7.629c0-.293 0-.583-.007-.874 0-.245 0-.491-.003-.737-.019-.535-.05-1.07-.147-1.601a5.325 5.325 0 0 0-.49-1.523 5.15 5.15 0 0 0-2.22-2.24 5.36 5.36 0 0 0-1.511-.501 10.196 10.196 0 0 0-1.586-.141c-.241-.004-.489-.009-.73-.01C112.93 0 112.64 0 112.355 0"
-        />
-      </g>
-      <path
-        fill="#000"
-        d="M6.693 31.3c-.241 0-.477-.003-.716-.009a9.911 9.911 0 0 1-1.482-.13 4.618 4.618 0 0 1-1.313-.439 4.26 4.26 0 0 1-1.107-.812 4.262 4.262 0 0 1-.81-1.118 4.632 4.632 0 0 1-.43-1.326 10 10 0 0 1-.131-1.5c-.006-.168-.012-.73-.012-.73V6.756s.007-.554.012-.716c.01-.42.035-.965.13-1.498a4.61 4.61 0 0 1 .432-1.33A4.415 4.415 0 0 1 4.493.84 9.917 9.917 0 0 1 5.977.71L6.693.7h106.518l.723.01c.407.01.948.035 1.474.13.477.085.909.228 1.324.438a4.445 4.445 0 0 1 1.914 1.936c.205.41.343.843.424 1.32.092.504.12 1.023.138 1.51.002.226.002.47.002.711.006.3.006.586.006.874v16.743c0 .29 0 .574-.006.86 0 .26 0 .498-.003.744-.016.471-.045.989-.135 1.482-.083.49-.221.924-.428 1.336a4.38 4.38 0 0 1-.806 1.11 4.282 4.282 0 0 1-1.108.817 4.6 4.6 0 0 1-1.322.44 9.804 9.804 0 0 1-1.482.13c-.232.006-.475.009-.711.009l-.86.002L6.693 31.3"
-      />
-      <path
-        fill="#FFFFFE"
-        d="M19.631 16.24c-.02-2.2 1.785-3.271 1.868-3.322-1.022-1.504-2.607-1.71-3.164-1.725-1.33-.142-2.62.804-3.3.804-.69 0-1.734-.79-2.859-.767-1.447.023-2.802.87-3.545 2.183-1.533 2.678-.39 6.615 1.079 8.78.734 1.06 1.593 2.245 2.717 2.203 1.099-.046 1.51-.708 2.836-.708 1.315 0 1.7.708 2.846.682 1.18-.02 1.923-1.066 2.633-2.136.848-1.216 1.19-2.413 1.203-2.474-.028-.01-2.292-.88-2.314-3.52M17.466 9.769c.591-.747.995-1.762.884-2.793-.856.038-1.926.598-2.543 1.328-.545.643-1.032 1.698-.907 2.689.962.073 1.95-.49 2.566-1.224M28.282 25.257h.836v-4.774h-.836v4.774zm-.082-5.67c0-.256.216-.454.5-.454.283 0 .5.198.5.453s-.217.453-.5.453c-.284 0-.5-.198-.5-.453zM30.207 21.654h.679v.572h.052c.174-.4.528-.642 1.065-.642.797 0 1.235.483 1.235 1.34v2.332h-.704v-2.154c0-.579-.25-.866-.77-.866s-.852.35-.852.913v2.107h-.705v-3.602M34.879 23.453c0 .764.356 1.225.953 1.225.594 0 .96-.467.96-1.222 0-.75-.37-1.223-.96-1.223-.593 0-.953.462-.953 1.22zm-.728 0c0-1.138.58-1.86 1.481-1.86.489 0 .901.236 1.095.633h.052v-1.978h.705v5.008h-.675v-.57h-.056c-.212.395-.63.63-1.12.63-.909 0-1.482-.722-1.482-1.863zM38.662 25.256h.771v-3.602h-.77v3.602zm-.115-4.668c0-.248.213-.436.5-.436.288 0 .5.188.5.436 0 .245-.212.434-.5.434-.287 0-.5-.19-.5-.434zM40.49 21.654h.678v.552h.053c.101-.354.497-.612.964-.612.103 0 .238.01.313.03v.7a1.97 1.97 0 0 0-.393-.042c-.534 0-.91.34-.91.847v2.127h-.705v-3.602M43.353 25.256h.77v-3.602h-.77v3.602zm-.115-4.668c0-.248.212-.436.5-.436.287 0 .5.188.5.436 0 .245-.213.434-.5.434-.288 0-.5-.19-.5-.434zM45.18 21.654h.678v.572h.053c.174-.4.528-.642 1.065-.642.796 0 1.235.483 1.235 1.34v2.332h-.704v-2.154c0-.579-.25-.866-.77-.866s-.852.35-.852.913v2.107h-.705v-3.602M30.167 12.742h2.973l-1.466-4.357h-.041l-1.466 4.357zm3.363 1.24h-3.752l-.9 2.684h-1.59l3.553-9.933h1.651l3.553 9.933H34.43l-.9-2.684zM42.206 13.046c0-1.467-.75-2.43-1.897-2.43-1.125 0-1.882.984-1.882 2.43 0 1.459.757 2.436 1.882 2.436 1.146 0 1.897-.956 1.897-2.436zm1.514 0c0 2.25-1.194 3.696-2.995 3.696-1.022 0-1.834-.461-2.258-1.267h-.034v3.588h-1.472V9.424h1.426v1.205h.026c.41-.778 1.283-1.281 2.285-1.281 1.821 0 3.022 1.454 3.022 3.698zM50.104 13.046c0-1.467-.75-2.43-1.897-2.43-1.125 0-1.882.984-1.882 2.43 0 1.459.757 2.436 1.882 2.436 1.146 0 1.897-.956 1.897-2.436zm1.514 0c0 2.25-1.194 3.696-2.995 3.696-1.022 0-1.834-.461-2.258-1.267h-.034v3.588H44.86V9.424h1.425v1.205h.027c.41-.778 1.283-1.281 2.285-1.281 1.82 0 3.022 1.454 3.022 3.698zM56.837 13.9c.11.984 1.057 1.631 2.353 1.631 1.242 0 2.135-.647 2.135-1.535 0-.771-.539-1.233-1.814-1.55l-1.276-.31c-1.807-.44-2.647-1.294-2.647-2.678 0-1.714 1.48-2.892 3.582-2.892 2.08 0 3.506 1.178 3.553 2.892h-1.487c-.088-.992-.9-1.59-2.087-1.59-1.187 0-1.998.606-1.998 1.487 0 .703.518 1.115 1.787 1.432l1.084.269c2.02.482 2.858 1.3 2.858 2.754 0 1.858-1.466 3.023-3.799 3.023-2.182 0-3.657-1.137-3.752-2.934h1.508M66.06 7.71v1.714h1.364v1.177h-1.365v3.993c0 .62.274.91.874.91.15 0 .389-.022.484-.035v1.17c-.164.042-.49.069-.818.069-1.453 0-2.02-.55-2.02-1.955V10.6h-1.043V9.424h1.043V7.71h1.48M73.52 13.046c0-1.564-.709-2.486-1.903-2.486-1.193 0-1.902.93-1.902 2.486 0 1.57.709 2.485 1.902 2.485 1.194 0 1.903-.916 1.903-2.485zm-5.306 0c0-2.28 1.33-3.712 3.403-3.712 2.08 0 3.404 1.432 3.404 3.712 0 2.285-1.316 3.71-3.404 3.71-2.086 0-3.403-1.425-3.403-3.71zM76.236 9.424h1.405v1.233h.033c.226-.82.88-1.309 1.726-1.309.212 0 .389.028.505.055v1.391c-.116-.048-.375-.09-.662-.09-.947 0-1.535.648-1.535 1.666v4.296h-1.472V9.424M81.717 12.378h3.587c-.034-1.11-.736-1.839-1.76-1.839-1.016 0-1.752.744-1.827 1.839zm4.979 2.161c-.198 1.315-1.466 2.218-3.09 2.218-2.087 0-3.383-1.412-3.383-3.677 0-2.272 1.303-3.746 3.322-3.746 1.985 0 3.233 1.377 3.233 3.573v.51H81.71v.09c0 1.239.771 2.051 1.93 2.051.819 0 1.46-.392 1.658-1.019h1.398zM87.768 10.368l.804-3.635h1.432l-.975 3.635h-1.261M91.447 13.046c0 1.487.751 2.436 1.896 2.436 1.133 0 1.89-.964 1.89-2.436 0-1.46-.757-2.43-1.89-2.43-1.145 0-1.896.956-1.896 2.43zm-1.507 0c0-2.238 1.22-3.698 3-3.698 1.031 0 1.843.482 2.252 1.28h.027V6.734h1.48v9.933h-1.432v-1.23h-.027c-.423.825-1.242 1.306-2.285 1.306-1.794 0-3.015-1.459-3.015-3.696zM102.628 13.954v-.557l-1.766.11c-.88.055-1.378.44-1.378 1.06 0 .634.518 1.047 1.31 1.047 1.03 0 1.834-.716 1.834-1.66zm-4.63.654c0-1.266.96-2.031 2.665-2.134l1.965-.11v-.551c0-.806-.524-1.26-1.418-1.26-.818 0-1.391.393-1.508 1.019h-1.377c.04-1.308 1.247-2.238 2.926-2.238 1.712 0 2.844.944 2.844 2.368v4.964h-1.412v-1.19h-.034c-.416.805-1.324 1.315-2.265 1.315-1.405 0-2.387-.881-2.387-2.183zM105.596 9.424H107v1.233h.034c.43-.868 1.153-1.315 2.258-1.315 1.583 0 2.49 1.026 2.49 2.684v4.64h-1.48v-4.35c0-1.088-.498-1.694-1.534-1.694-1.058 0-1.7.757-1.7 1.873v4.171h-1.472V9.424"
-      />
-    </g>
-  </svg>
+
+const Footer = () => (
+  <footer className={styles['o-footer']}>
+    <div className={styles['o-footer__top']}>
+      <div className={styles['container']}>
+        <div className={`${styles['o-footer__top--content']} ${styles['row']} ${styles['no-gutters']}`}>
+          <div className={`${styles['o-footer__top--col']} ${styles['col-4']}`}>
+            <i className={styles['o-footer__top--icon'] + ' bwi-cargo'}>
+              {/* SVG icon for cargo */}
+            </i>
+            <div className={styles['o-footer__top--wrapper']}>
+              <span className={styles['o-footer__top--title']}>&#220;CRETSİZ KARGO</span>
+              <p className={styles['o-footer__top--text']}>2000 TL ve &#252;zeri alışverişlerinizde kargo &#252;cretsiz. The One &#252;yelerine alt limitsiz &#252;cretsiz kargo ayrıcalığı. </p>
+            </div>
+          </div>
+          <div className={`${styles['o-footer__top--col']} ${styles['col-4']}`}>
+            <i className={styles['o-footer__top--icon'] + ' bwi-cc'}>
+              {/* SVG icon for mağazadan teslim */}
+            </i>
+            <div className={styles['o-footer__top--wrapper']}>
+              <span className={styles['o-footer__top--title']}>MAĞAZADAN TESLİM</span>
+              <p className={styles['o-footer__top--text']}>Online olarak satın aldığınız ürünleri mağazalarımızdan teslim alabilirsiniz.</p>
+            </div>
+          </div>
+          <div className={`${styles['o-footer__top--col']} ${styles['col-4']}`}>
+            <i className={styles['o-footer__top--icon'] + ' bwi-refund'}>
+              {/* SVG icon for refund */}
+            </i>
+            <div className={styles['o-footer__top--wrapper']}>
+              <span className={styles['o-footer__top--title']}>KOLAY İADE</span>
+              <p className={styles['o-footer__top--text']}>Beymen.com’dan satın aldığınız ürünleri kolayca iade edebilirsiniz.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className={styles['o-footer__center']}>
+      <div className={styles['container']}>
+        <div className={`${styles['o-footer__content']} ${styles['row']}`}>
+          <div className={styles['o-footer__col']}>
+            <div className={styles['o-footer__group']}>
+              <a className={styles['o-footer__group--title']} href="/tr/tarihce-c" rel="nofollow">BEYMEN HAKKINDA</a>
+              <a className={styles['o-footer__group--link']} href="/tr/markalar-1849">Markalar</a>
+              <a className={styles['o-footer__group--link']} href="/tr/kosulsuz-musteri-mutlulugu-c" rel="nofollow">Koşulsuz Müşteri Mutluluğu</a>
+              <a className={styles['o-footer__group--link']} href="/tr/theone-c" rel="nofollow" target="_blank">The One Card</a>
+              <a className={styles['o-footer__group--link']} href="/tr/ozel-dikim-c" rel="nofollow">Özel Dikim</a>
+              <a className={styles['o-footer__group--link']} href="/tr/beymenprive-c" rel="nofollow">Beymen Privé – Stil Danışmanlığı</a>
+              <a className={styles['o-footer__group--link']} href="/tr/kurumsal-satis-c" rel="nofollow">Kurumsal Satış</a>
+              <a className={styles['o-footer__group--link']} href="https://e-sirket.mkk.com.tr/esir/dashboard.jsp#/sirketbilgileri/10896" rel="nofollow" target="_blank">Bilgi Toplumu Hizmetleri</a>
+              <a className={styles['o-footer__group--link']} href="/tr/about-beymen-c" rel="nofollow">About Beymen</a>
+              <a className={styles['o-footer__group--link']} href="/tr/beymen-promise-c" rel="nofollow">Beymen Promise</a>
+            </div>
+          </div>
+          <div className={styles['o-footer__col']}>
+            <div className={styles['o-footer__group']}>
+              <a className={styles['o-footer__group--title']} href="/tr/musteri-hizmetleri-c" rel="nofollow">MÜŞTERİ HİZMETLERİ</a>
+              <a className={styles['o-footer__group--link']} href="/tr/bize-sorun" rel="nofollow">Bize Sorun</a>
+              <a className={styles['o-footer__group--link']} href="/tr/sikca-sorulan-sorular-c" rel="nofollow">Sıkça Sorulan Sorular</a>
+              <a className={styles['o-footer__group--link']} href="/tr/beymen-islem-rehberi-c" rel="nofollow">İşlem Rehberi</a>
+              <a className={styles['o-footer__group--link']} href="/tr/ucretsiz-kargo-iade-c" rel="nofollow">Ücretsiz Kargo ve İade</a>
+              <a className={styles['o-footer__group--link']} href="/tr/magazadan-teslim-c" rel="nofollow">Mağazadan Teslim</a>
+              <a className={styles['o-footer__group--link']} href="/tr/uyelik-sozlesmesi-c" rel="nofollow">Üyelik Sözleşmesi</a>
+              <a className={styles['o-footer__group--link']} href="/tr/home/sitemap">Site Haritası</a>
+              <a className={styles['o-footer__group--link']} href="/tr/aydinlatma-metinleri-c" rel="nofollow">Kişisel Verilerin Korunması</a>
+              <a className={styles['o-footer__group--link']} href="/tr/iletisim-c" rel="nofollow">İletişim</a>
+              <a className={styles['o-footer__group--link']} href="/tr/satici-basvuru-formu" rel="nofollow">Satıcı Olmak İstiyorum</a>
+              <a className={styles['o-footer__group--link']} href="https://www.beymen.com/tr/kampanya-kosullari-c-2154" rel="nofollow" target="_blank">Kampanya Koşulları</a>
+              <a className={styles['o-footer__group--link']} href="https://www.beymen.com/tr/mesafeli-satis-sozlesmesi-c" rel="nofollow" target="_blank">Mesafeli Satış Sözleşmesi</a>
+            </div>
+          </div>
+          <div className={styles['o-footer__col']}>
+            <div className={styles['o-footer__group']}>
+              <a className={styles['o-footer__group--title']} href="/tr/customer/order" rel="nofollow">HESABIM</a>
+              <a className={styles['o-footer__group--link']} href="/tr/customer/order" rel="nofollow">Siparişlerim</a>
+              <a className={styles['o-footer__group--link']} href="/tr/customer/address" rel="nofollow">Adreslerim</a>
+              <a className={styles['o-footer__group--link']} href="/tr/customer/info" rel="nofollow">Üyelik Bilgilerim</a>
+            </div>
+            <div className={styles['o-footer__group']}>
+              <a className={styles['o-footer__group--upperCase']} href="/tr/magazalar" rel="nofollow">MAĞAZALAR</a>
+              <a className={styles['o-footer__group--upperCase']} href="https://blog.beymen.com/" target="_blank">BEYMEN BLOG</a>
+              <a className={styles['o-footer__group--upperCase']} href="/tr/lookbook-c" rel="nofollow">BEYMEN MAGAZINE</a>
+            </div>
+          </div>
+          <div className={styles['o-footer__col']}>
+            <div className={styles['o-footer__group']}>
+              <span className={styles['o-footer__group--noLinkTitle']}>ÖZEL SAYFALAR </span>
+              <a className={styles['o-footer__group--link']} href="/tr/yilbasi-hediyeleri">Yılbaşı</a>
+              <a className={styles['o-footer__group--link']} href="/tr/sevgililer-gunu-hediye-secenekleri-53731">Sevgililer Günü</a>
+              <a className={styles['o-footer__group--link']} href="/tr/yasam-hediye-anneler-gunu-hediyeleri-54528">Anneler Günü</a>
+              <a className={styles['o-footer__group--link']} href="/tr/yasam-hediye-babalar-gunu-55832">Babalar Günü</a>
+              <a className={styles['o-footer__group--link']} href="/tr/dugun-ve-nisan-elbise-modelleri-60346">Nişan ve Düğün Elbiseleri</a>
+              <a className={styles['o-footer__group--link']} href="/tr/mezuniyet-ve-balo-elbise-modelleri-49712">Mezuniyet ve Balo Elbise</a>
+              <a className={styles['o-footer__group--link']} href="https://www.beymen.com/tr/yasam-stil-onerisi-kadinlar-gunu-ozel-urunleri-94405">Dünya Kadınlar Günü</a>
+            </div>
+          </div>
+          <div className={styles['o-footer__col']}>
+            <div className={styles['o-footer__logo']}>
+              <img height="20" src="//cdn.beymen.com/assets/desktop/img/beymen-logo-dot-white.svg" title="Beymen" width="256" alt="Beymen Logo" />
+            </div>
+            <div className={styles['o-footer__social']}>
+              <div className={styles['o-footer__social--title']}>BİZİ TAKİP EDİN</div>
+              <a href="https://www.facebook.com/beymen" target="_blank" rel="nofollow" aria-label="Facebook" className="bwi-facebook">
+                <svg width="26" height="26" aria-hidden="true">
+                  <use xlinkHref="#icon-footer-facebook" />
+                </svg>
+              </a>
+              <a href="https://twitter.com/beymen" target="_blank" rel="nofollow" aria-label="Twitter" className="bwi-twitter">
+                <svg width="26" height="26" aria-hidden="true">
+                  <use xlinkHref="#icon-footer-twitter" />
+                </svg>
+              </a>
+              <a href="http://instagram.com/beymen" target="_blank" rel="nofollow" aria-label="Instagram" className="bwi-instagram">
+                <svg width="26" height="26" aria-hidden="true">
+                  <use xlinkHref="#icon-footer-instagram" />
+                </svg>
+              </a>
+              <a href="https://tr.pinterest.com/beymen/" target="_blank" rel="nofollow" aria-label="Pinterest" className="bwi-pinterest">
+                <svg width="26" height="26" aria-hidden="true">
+                  <use xlinkHref="#icon-footer-pinterest" />
+                </svg>
+              </a>
+              <a href="https://www.youtube.com/channel/ucmyuy0zgm93ujonhzn8rvmq" target="_blank" rel="nofollow" aria-label="YouTube" className="bwi-youtube">
+                <svg width="26" height="26" aria-hidden="true">
+                  <use xlinkHref="#icon-footer-youtube" />
+                </svg>
+              </a>
+              <a href="https://www.linkedin.com/company/beymen" target="_blank" rel="nofollow" aria-label="LinkedIn" className="bwi-linkedin">
+                <svg width="26" height="26" aria-hidden="true">
+                  <use xlinkHref="#icon-footer-linkedin" />
+                </svg>
+              </a>
+            </div>
+            <div className={styles['o-footer__app']}>
+              <div className={styles['o-footer__app--title']}>UYGULAMAMIZI İNDİRİN</div>
+              <a className={styles['o-footer__app--link']} href="https://itunes.apple.com/tr/app/beymen/id828339291" rel="nofollow" target="_blank">
+                <img alt="App Store'dan İndirin" src="https://cdn.beymen.com/assets/desktop/img/apple-icon.svg" />
+              </a>
+              <a className={styles['o-footer__app--link']} href="https://play.google.com/store/apps/details?id=com.mobisoft.beymen" rel="nofollow" target="_blank">
+                <img alt="Google Play'den Alın" src="https://cdn.beymen.com/assets/desktop/img/google-play-icon.svg" />
+              </a>
+              <a className={styles['o-footer__app--link']} href="https://appgallery.huawei.com/app/c110235409?shareprepath=ag&amp;locale=en_us&amp;source=appshare&amp;subsource=c110235409&amp;shareto=com.android.bluetooth&amp;sharefrom=appmarket&amp;shareıds=e46e94bd97e546fca8db89abd1020d0e_com.android.bluetooth&amp;calltype=share" rel="nofollow" target="_blank">
+                <img alt="Hemen İndirin AppGallery" src="https://cdn.beymen.com/bannerimages/huawei-app-logo_2024020914493978538.svg" />
+              </a>
+            </div>
+            <div className='footer-legal' style={{display: 'flex', alignItems: 'flex-start', flexDirection: 'column', padding: '16px 0'}}>
+              <div style={{display: 'flex', alignItems: 'center'}}>
+                <div id="ETBIS" style={{marginRight: 20}}>
+                  <div id="5A8D5DE497934CA893CA85CFEF729C65">
+                    <a href="https://etbis.eticaret.gov.tr/sitedogrulama/5a8d5de497934ca893ca85cfef729c65" target="_blank" rel="noopener noreferrer">
+                      <img src="https://cdn.beymen.com/bannerimages/etbis-qr_2025031410365912835.png" style={{width: 80, height: 88}} alt="ETBIS QR" />
+                    </a>
+                  </div>
+                </div>
+                <a aria-label="Güven Damgası" href="https://www.guvendamgasi.org.tr/firmadetay.php?Guid=b09c96e8-c9b8-11ef-9c8c-48df373f4850" target="_blank" rel="noopener noreferrer">
+                  <img alt="Güven Damgası ikonu" className="security-certificate-image" src="https://cdn.beymen.com/bannerimages/footer-trust-stamp_2025031410413824479.png" style={{width: 86}} />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className={styles['o-footer__bottom']}>
+      <div className={styles['container']}>
+        <div className={styles['o-footer__bottom--content']}>
+          <div className={styles['o-footer__copyRight']}>
+            © <span title="V-5.release-retail-product-merged.1">2025</span> Gözümün Nuru, Tüm Hakları Saklıdır
+          </div>
+          <div className={styles['o-footer__language']} data-language-panel-trigger>
+            <svg
+              width="14"
+              height="14"
+              className="icon"
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <path d="M2 12h20" />
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </svg>
+            <span>TR</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
 );
 
-const GooglePlayBadge = () => (
-  <svg
-    className="google-play-badge"
-    viewBox="0 0 108 32"
-    version="1.1"
-    xmlns="http://www.w3.org/2000/svg"
-    xmlnsXlink="http://www.w3.org/1999/xlink"
-    role="img"
-    aria-label="Google Play'den indir"
-  >
-    <defs>
-      <linearGradient
-        x1="91.4954814%"
-        y1="4.94615078%"
-        x2="-38.2370848%"
-        y2="71.8787395%"
-        id="linearGradient-1"
-      >
-        <stop stopColor="#00A0FF" offset="0%" />
-        <stop stopColor="#00A1FF" offset="1%" />
-        <stop stopColor="#00BEFF" offset="26%" />
-        <stop stopColor="#00D2FF" offset="51%" />
-        <stop stopColor="#00DFFF" offset="76%" />
-        <stop stopColor="#00E3FF" offset="100%" />
-      </linearGradient>
-      <linearGradient
-        x1="107.684729%"
-        y1="50%"
-        x2="-130.640394%"
-        y2="50%"
-        id="linearGradient-2"
-      >
-        <stop stopColor="#FFE000" offset="0%" />
-        <stop stopColor="#FFBD00" offset="41%" />
-        <stop stopColor="#FFA500" offset="78%" />
-        <stop stopColor="#FF9C00" offset="100%" />
-      </linearGradient>
-      <linearGradient
-        x1="86.2709832%"
-        y1="17.871098%"
-        x2="-50.1798561%"
-        y2="194.639567%"
-        id="linearGradient-3"
-      >
-        <stop stopColor="#FF3A44" offset="0%" />
-        <stop stopColor="#C31162" offset="100%" />
-      </linearGradient>
-      <linearGradient
-        x1="-18.82494%"
-        y1="-54.0297086%"
-        x2="42.0863309%"
-        y2="24.9280028%"
-        id="linearGradient-4"
-      >
-        <stop stopColor="#32A071" offset="0%" />
-        <stop stopColor="#2DA771" offset="7%" />
-        <stop stopColor="#15CF74" offset="48%" />
-        <stop stopColor="#06E775" offset="80%" />
-        <stop stopColor="#00F076" offset="100%" />
-      </linearGradient>
-    </defs>
-    <g id="Symbols" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-      <g id="goog" transform="translate(0.000000, 0.000000)">
-        <g id="artwork">
-          <rect id="Rectangle" fill="#000000" x="0" y="0" width="108" height="32" rx="5" />
-          <path
-            d="M104,0.64 C105.855677,0.64 107.36,2.14432324 107.36,4 L107.36,28 C107.36,29.8556768 105.855677,31.36 104,31.36 L4,31.36 C2.14432324,31.36 0.64,29.8556768 0.64,28 L0.64,4 C0.64,2.14432324 2.14432324,0.64 4,0.64 L104,0.64 Z M104,-1.77635684e-15 L4,-1.77635684e-15 C1.790861,-3.55271368e-16 0,1.790861 0,4 L0,28 C0,30.209139 1.790861,32 4,32 L104,32 C106.209139,32 108,30.209139 108,28 L108,4 C108,1.790861 106.209139,-3.55271368e-16 104,-1.77635684e-15 Z"
-            id="Shape"
-            fill="#A6A6A6"
-            fillRule="nonzero"
-          />
-          <path
-            d="M51.776,10.232 C50.1345123,10.2408253 48.8101434,11.5771085 48.8160191,13.2186093 C48.8218947,14.8601102 50.1557959,16.1868782 51.7973047,16.1839523 C53.4388135,16.1810263 54.7679763,14.8495114 54.768,13.208 C54.7789836,12.4126105 54.466757,11.6468056 53.9027721,11.0858367 C53.3387872,10.5248677 52.5713192,10.2167518 51.776,10.232 Z M51.776,15.032 C51.0346077,15.0846186 50.3365468,14.6781491 50.016364,14.0073927 C49.6961812,13.3366362 49.8191174,12.5382671 50.3262554,11.994905 C50.8333934,11.4515429 51.6213978,11.2739041 52.3126163,11.5471223 C53.0038349,11.8203404 53.4574239,12.4887442 53.456,13.232 C53.4710687,13.6909366 53.3020032,14.136845 52.9864521,14.4704276 C52.670901,14.8040102 52.2350654,14.9975686 51.776,15.008 L51.776,15.032 Z M45.264,10.232 C43.6225123,10.2408253 42.2981434,11.5771085 42.3040191,13.2186093 C42.3098947,14.8601102 43.6437959,16.1868782 45.2853047,16.1839523 C46.9268135,16.1810263 48.2559763,14.8495114 48.256,13.208 C48.2669836,12.4126105 47.954757,11.6468056 47.3907721,11.0858367 C46.8267872,10.5248677 46.0593192,10.2167518 45.264,10.232 Z M45.264,15.032 C44.5226077,15.0846186 43.8245468,14.6781491 43.504364,14.0073927 C43.1841812,13.3366362 43.3071174,12.5382671 43.8142554,11.994905 C44.3213934,11.4515429 45.1093978,11.2739041 45.8006163,11.5471223 C46.4918349,11.8203404 46.9454239,12.4887442 46.944,13.232 C46.9590687,13.6909366 46.7900032,14.136845 46.4744521,14.4704276 C46.158901,14.8040102 45.7230654,14.9975686 45.264,15.008 L45.264,15.032 Z M37.52,11.144 L37.52,12.408 L40.536,12.408 C40.5007125,13.005351 40.2572827,13.5714669 39.848,14.008 C39.2397737,14.6350582 38.3928091,14.9726798 37.52,14.936 C35.730171,14.8485872 34.3239024,13.3719623 34.3239024,11.58 C34.3239024,9.78803771 35.730171,8.31141278 37.52,8.224 C38.3660063,8.21055112 39.1829054,8.53270851 39.792,9.12 L40.688,8.232 C39.8368961,7.39322912 38.6826801,6.93442823 37.488,6.96 C35.7915741,6.88939217 34.1929025,7.75419065 33.3236488,9.21269826 C32.4543951,10.6712059 32.4543951,12.4887941 33.3236488,13.9473017 C34.1929025,15.4058094 35.7915741,16.2706078 37.488,16.2 C38.690036,16.2404798 39.8528947,15.769522 40.688,14.904 C41.4208986,14.0990159 41.8111867,13.0400724 41.776,11.952 C41.7820926,11.683846 41.7606469,11.4157748 41.712,11.152 L37.52,11.144 Z M69.2,12.128 C68.8342943,11.0244763 67.8180137,10.2670597 66.656,10.232 C65.8834532,10.2375468 65.1467068,10.5584675 64.6165105,11.1203849 C64.0863142,11.6823024 63.808697,12.4364336 63.848,13.208 C63.8305487,13.9983268 64.1351619,14.7617862 64.6918759,15.3230263 C65.2485899,15.8842664 66.0095578,16.1950514 66.8,16.184 C67.7957561,16.1878785 68.7271037,15.6921612 69.28,14.864 L68.264,14.184 C67.9499577,14.6888425 67.39449,14.9923767 66.8,14.984 C66.1799903,15.0066455 65.6090689,14.6482337 65.36,14.08 L69.36,12.44 L69.2,12.128 Z M65.144,13.12 C65.1063199,12.6795004 65.2525864,12.2430431 65.54809,11.9142006 C65.8435935,11.5853582 66.2619926,11.3934441 66.704,11.384 C67.1654982,11.3539663 67.6002204,11.6028291 67.808,12.016 L65.144,13.12 Z M61.944,16 L63.2,16 L63.2,7.256 L61.912,7.256 L61.944,16 Z M59.808,10.896 L59.76,10.896 C59.3504912,10.4498197 58.7650978,10.2068815 58.16,10.232 C56.5164006,10.232 55.184,11.5644006 55.184,13.208 C55.184,14.8515994 56.5164006,16.184 58.16,16.184 C58.7680583,16.207307 59.3547766,15.9579517 59.76,15.504 L59.808,15.504 L59.808,15.936 C59.8766936,16.3906073 59.7359263,16.851878 59.425109,17.1906688 C59.1142917,17.5294596 58.6668296,17.709359 58.208,17.68 C57.5352272,17.6751375 56.9373672,17.2499215 56.712,16.616 L55.576,17.096 C56.0135434,18.1624347 57.0553228,18.8558988 58.208,18.848 C59.744,18.848 61.04,17.952 61.04,15.752 L61.04,10.4 L59.776,10.4 L59.808,10.896 Z M58.304,15.008 C57.3542335,14.9447174 56.6161998,14.1558724 56.6161998,13.204 C56.6161998,12.2521276 57.3542335,11.4632826 58.304,11.4 C58.7601158,11.4202061 59.1883635,11.6251797 59.4901858,11.9677482 C59.7920082,12.3103166 59.9414072,12.7609719 59.904,13.216 C59.9417778,13.6741004 59.787453,14.1272934 59.4779534,14.4671361 C59.1684538,14.8069789 58.7316271,15.0028934 58.272,15.008 L58.304,15.008 Z M75.36,7.256 L72.232,7.256 L72.232,16 L73.536,16 L73.536,12.688 L75.36,12.688 C76.3655063,12.7425915 77.3188981,12.2371953 77.8380755,11.3743639 C78.3572528,10.5115325 78.3572528,9.43246749 77.8380755,8.56963612 C77.3188981,7.70680475 76.3655063,7.20140854 75.36,7.256 Z M75.36,11.472 L73.504,11.472 L73.504,8.472 L75.36,8.472 C75.9220469,8.43092654 76.4598949,8.70750386 76.7534507,9.1885535 C77.0470065,9.66960313 77.0470065,10.2743969 76.7534507,10.7554465 C76.4598949,11.2364961 75.9220469,11.5130735 75.36,11.472 Z M83.424,10.216 C82.4512603,10.1583001 81.5369323,10.6830175 81.096,11.552 L82.256,12.04 C82.4870184,11.6049146 82.9577109,11.3521938 83.448,11.4 C83.7780475,11.3665226 84.1078428,11.4658294 84.3645293,11.6759821 C84.6212158,11.8861347 84.7836688,12.1898382 84.816,12.52 L84.816,12.608 C84.3959715,12.3890855 83.9296496,12.2738766 83.456,12.272 C82.208,12.272 80.936,12.96 80.936,14.24 C80.9604923,14.7858553 81.2046422,15.2986188 81.6129468,15.6617237 C82.0212515,16.0248285 82.5590196,16.2074238 83.104,16.168 C83.7839477,16.2173402 84.4358346,15.8883218 84.8,15.312 L84.8,16 L86.056,16 L86.056,12.632 C86.072,11.08 84.92,10.216 83.424,10.216 Z M83.264,15.016 C82.84,15.016 82.24,14.8 82.24,14.272 C82.24,13.6 82.984,13.336 83.624,13.336 C84.0323783,13.3192403 84.4379717,13.4102919 84.8,13.6 C84.7056561,14.3840934 84.0533229,14.9820655 83.264,15.008 L83.264,15.016 Z M90.664,10.4 L89.168,14.192 L89.12,14.192 L87.568,10.4 L86.168,10.4 L88.496,15.696 L87.2,18.648 L88.56,18.648 L92.112,10.4 L90.664,10.4 Z M78.912,16 L80.216,16 L80.216,7.256 L78.912,7.256 L78.912,16 Z"
-            id="Shape"
-            fill="#FFFFFF"
-            fillRule="nonzero"
-          />
-          <path
-            d="M8.352,6.032 C8.08837548,6.34369559 7.95386327,6.74437027 7.976,7.152 L7.976,24.848 C7.94877918,25.2563034 8.0839148,25.6588351 8.352,25.968 L8.408,26.032 L18.32,16.12 L18.32,15.88 L8.408,5.976 L8.352,6.032 Z"
-            id="Path"
-            fill="url(#linearGradient-1)"
-          />
-          <path
-            d="M21.6,19.424 L18.32,16.12 L18.32,15.88 L21.6,12.576 L21.672,12.624 L25.6,14.848 C26.72,15.48 26.72,16.52 25.6,17.16 L21.688,19.384 L21.6,19.424 Z"
-            id="Path"
-            fill="url(#linearGradient-2)"
-          />
-          <path
-            d="M21.696,19.376 L18.32,16 L8.352,25.968 C8.81842606,26.3831767 9.51459198,26.4067185 10.008,26.024 L21.696,19.376"
-            id="Path"
-            fill="url(#linearGradient-3)"
-          />
-          <path
-            d="M21.696,12.624 L10.008,5.984 C9.51757166,5.5957772 8.81911818,5.61602223 8.352,6.032 L18.32,16 L21.696,12.624 Z"
-            id="Path"
-            fill="url(#linearGradient-4)"
-          />
-          <path
-            d="M21.6,19.304 L10.008,25.904 C9.53452337,26.2613434 8.88147663,26.2613434 8.408,25.904 L8.352,25.96 L8.408,26.024 C8.88147663,26.3813434 9.53452337,26.3813434 10.008,26.024 L21.696,19.376 L21.6,19.304 Z"
-            id="Path"
-            fill="#000000"
-            opacity="0.2"
-          />
-          <path
-            d="M8.352,25.856 C8.09503526,25.538688 7.96910554,25.1351404 8,24.728 L8,24.848 C7.97277918,25.2563034 8.1079148,25.6588351 8.376,25.968 L8.432,25.912 L8.352,25.856 Z"
-            id="Path"
-            fill="#000000"
-            opacity="0.12"
-          />
-          <path
-            d="M25.6,17.04 L21.6,19.304 L21.672,19.376 L25.6,17.152 C26.0723164,16.9522866 26.3976483,16.5103263 26.448,16 C26.3465665,16.4616802 26.0318093,16.8477032 25.6,17.04 Z"
-            id="Path"
-            fill="#000000"
-            opacity="0.12"
-          />
-          <path
-            d="M10.008,6.096 L25.6,14.96 C26.0318093,15.1522968 26.3465665,15.5383198 26.448,16 C26.3976483,15.4896737 26.0723164,15.0477134 25.6,14.848 L10.008,5.984 C8.896,5.344 7.976,5.872 7.976,7.152 L7.976,7.272 C8,5.992 8.896,5.464 10.008,6.096 Z"
-            id="Path"
-            fill="#FFFFFF"
-            opacity="0.25"
-          />
-        </g>
-        <g
-          id="Layer_3"
-          transform="translate(32.000000, 20.800000)"
-          fill="#FFFFFF"
-          stroke="#FFFFFF"
-          strokeWidth="0.2"
-        >
-          <polygon id="Path" points="1.456 2.28 0.88 2.28 0.88 0.744 1.456 0.744" />
-          <path
-            d="M2.472,5.6 L2.472,0.744 L4,0.744 C4.66584883,0.711958896 5.31502664,0.958298693 5.792,1.424 C6.68722188,2.42352012 6.68722188,3.93647988 5.792,4.936 C5.31234447,5.3958654 4.66349748,5.63628638 4,5.6 L2.472,5.6 Z M3.096,5 L4,5 C4.48555737,5.03111667 4.9609266,4.85120106 5.3042047,4.50639046 C5.64748281,4.16157987 5.82527919,3.68541394 5.792,3.2 C5.83975434,2.70598237 5.66871502,2.21583767 5.32397363,1.85878408 C4.97923224,1.50173049 4.49538869,1.31360367 4,1.344 L3.096,1.344 L3.096,5 Z"
-            fillRule="nonzero"
-          />
-          <polygon
-            id="Path"
-            points="10.136 1.344 7.92 1.344 7.92 2.888 9.92 2.888 9.92 3.472 7.92 3.472 7.92 5.016 10.136 5.016 10.136 5.6 7.296 5.6 7.296 0.744 10.136 0.744"
-          />
-          <polygon
-            id="Path"
-            points="11.032 5.6 11.032 0.744 11.792 0.744 14.192 4.536 14.192 4.536 14.192 3.592 14.192 0.744 14.816 0.744 14.816 5.6 14.168 5.6 11.688 1.6 11.688 1.6 11.688 2.544 11.688 5.6"
-          />
-          <path
-            d="M16.856,5.6 L18.688,0.728 L19.4,0.728 L21.232,5.6 L20.536,5.6 L20.072,4.28 L18.024,4.28 L17.544,5.6 L16.856,5.6 Z M18.232,3.696 L19.832,3.696 L19.032,1.496 L18.232,3.696 Z"
-            fillRule="nonzero"
-          />
-          <polygon
-            id="Path"
-            points="21.864 5.6 21.864 0.744 22.496 0.744 22.496 5.016 24.6 5.016 24.6 5.6"
-          />
-          <polygon id="Path" points="25.28 5.6 25.28 0.744 25.904 0.744 25.904 5.6" />
-          <polygon
-            id="Path"
-            points="27.024 5.6 27.024 0.744 27.824 0.744 30.224 4.536 30.224 4.536 30.224 3.592 30.224 0.744 30.848 0.744 30.848 5.6 30.2 5.6 27.72 1.6 27.72 1.6 27.72 2.544 27.72 5.6"
-          />
-        </g>
-      </g>
-    </g>
-  </svg>
-);
-
-const footerIconSymbols: Array<{
-  id: string;
-  viewBox: string;
-  content: ReactNode;
-}> = [
-  {
-    id: "facebook",
-    viewBox: "0 0 16 16",
-    content: (
-      <path
-        fill="currentColor"
-        d="M5.555 9.326v6.514h3.553V9.326h2.649l.551-2.995h-3.2V5.272c0-1.583.622-2.19 2.227-2.19.499 0 .9.012 1.133.037V.402C12.029.283 10.957.16 10.338.16c-3.274 0-4.784 1.547-4.784 4.882v1.289H3.533v2.995h2.022Z"
-      />
-    ),
-  },
-  {
-    id: "twitter",
-    viewBox: "0 0 16 16",
-    content: (
-      <path
-        fill="currentColor"
-        d="M12.6.75h2.454l-5.36 6.142L16 15.25H11.063L7.196 10.18 2.771 15.25H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865Z"
-      />
-    ),
-  },
-  {
-    id: "instagram",
-    viewBox: "0 0 16 16",
-    content: (
-        <path
-          fill="currentColor"
-          d="M8.002 3.981c-2.225 0-4.02 1.795-4.02 4.02s1.795 4.02 4.02 4.02S12.021 10.225 12.021 8s-1.795-4.02-4.019-4.02Zm0 6.632c-1.438 0-2.613-1.172-2.613-2.613S6.564 5.387 8.002 5.387 10.615 6.559 10.615 8s-1.175 2.613-2.613 2.613Zm5.121-6.797c0 .522-.42.938-.938.938-.52 0-.937-.42-.937-.938s.42-.938.937-.938c.52 0 .938.42.938.938ZM15.785 4.766c-.06-1.256-.346-2.368-1.266-3.285-.917-.916-2.03-1.203-3.285-1.266-1.294-.073-5.174-.073-6.468 0-1.252.06-2.365.346-3.285 1.263S.278 3.509.215 4.765c-.073 1.294-.073 5.173 0 6.468.06 1.255.346 2.368 1.266 3.285.92.916 2.03 1.203 3.285 1.266 1.294.073 5.174.073 6.468 0 1.256-.06 2.368-.346 3.285-1.266.916-.916 1.203-2.029 1.266-3.285.073-1.294.073-5.17 0-6.464Zm-1.672 7.853a2.44 2.44 0 0 1-1.49 1.49c-1.032.41-3.48.315-4.62.315s-3.592.091-4.62-.315a2.44 2.44 0 0 1-1.49-1.49c-.409-1.032-.315-3.481-.315-4.621s-.09-3.593.315-4.62a2.44 2.44 0 0 1 1.49-1.49c1.032-.41 3.48-.315 4.62-.315s3.593-.091 4.621.315a2.44 2.44 0 0 1 1.49 1.49c.41 1.032.315 3.481.315 4.62s.095 3.593-.315 4.621Z"
-        />
-    ),
-  },
-  {
-    id: "youtube",
-    viewBox: "0 0 16 16",
-    content: (
-        <path
-          fill="currentColor"
-          d="M15.512 4.213c-.18-.68-.712-1.214-1.386-1.395C12.903 2.488 8 2.488 8 2.488s-4.903 0-6.126.33c-.675.182-1.206.716-1.386 1.395C.16 5.443.16 8.011.16 8.011s0 2.568.328 3.799c.18.679.712 1.192 1.386 1.373 1.223.33 6.126.33 6.126.33s4.903 0 6.126-.33c.675-.181 1.206-.694 1.386-1.373.328-1.231.328-3.799.328-3.799s0-2.568-.328-3.799ZM6.396 10.343V5.68l4.098 2.332-4.098 2.331Z"
-        />
-    ),
-  },
-];
-
-const topItems = [
-  {
-    id: 1,
-    icon: "truck",
-    title: "Ücretsiz Kargo",
-    description: "Belirli tutar üzeri siparişlerde ücretsiz teslimat.",
-  },
-  {
-    id: 2,
-    icon: "mouse",
-    title: "Orijinal Ürün",
-    description: "Sertifikalı altın ve pırlanta koleksiyonları.",
-  },
-  {
-    id: 3,
-    icon: "smile-plus",
-    title: "Taksit İmkanı",
-    description: "Anlaşmalı kartlara 12 aya varan taksit.",
-  },
-];
-
-const footerColumns = [
-  {
-    id: "corporate",
-    title: "Kurumsal",
-    links: [
-      { label: "Hakkımızda", url: "#" },
-      { label: "Mağazalarımız", url: "#" },
-      { label: "Basın Bültenleri", url: "#" },
-      { label: "Kariyer", url: "#" },
-    ],
-  },
-  {
-    id: "support",
-    title: "Müşteri Hizmetleri",
-    links: [
-      { label: "Sipariş Takibi", url: "#" },
-      { label: "İade & Değişim", url: "#" },
-      { label: "Teslimat Bilgileri", url: "#" },
-      { label: "Canlı Destek", url: "#" },
-    ],
-  },
-  {
-    id: "categories",
-    title: "Popüler Kategoriler",
-    links: [
-      { label: "Pırlanta Yüzük", url: "#" },
-      { label: "Altın Kolye", url: "#" },
-      { label: "Bilezik", url: "#" },
-      { label: "Erkek Koleksiyonu", url: "#" },
-    ],
-  },
-  {
-    id: "services",
-    title: "Servisler",
-    links: [
-      { label: "Özel Tasarım", url: "#" },
-      { label: "Bakım & Onarım", url: "#" },
-      { label: "Hediye Paketi", url: "#" },
-      { label: "Atölye Randevusu", url: "#" },
-    ],
-  },
-];
-
-const socialLinks = [
-  { id: "facebook", label: "Facebook", url: "#" },
-  { id: "twitter", label: "Twitter", url: "#" },
-  { id: "instagram", label: "Instagram", url: "#" },
-  { id: "youtube", label: "YouTube", url: "#" },
-];
-
-const appLinks = [
-  { id: "appstore", label: "App Store'dan indir", url: "#", badge: "appstore" },
-  {
-    id: "googleplay",
-    label: "Google Play'den indir",
-    url: "#",
-    badge: "googleplay",
-  },
-];
-
-type LanguageOption = {
-  code: string;
-  label: string;
-  labelUppercase: string;
-  title: string;
-};
-
-const languageOptions: LanguageOption[] = [
-  { code: "tr", label: "Türkçe", labelUppercase: "TÜRKÇE", title: "Türkçe (Turkish)" },
-  { code: "en", label: "English", labelUppercase: "ENGLISH", title: "English (İngilizce)" },
-  { code: "ru", label: "Русский", labelUppercase: "РУССКИЙ", title: "Rusça (Russian)" },
-];
-
-const translations: Record<string, Record<string, string>> = {
-  tr: {
-    languageSelection: "Dil Seçimi",
-    language: "Dil",
-    apply: "Uygula",
-    close: "Kapat",
-  },
-  en: {
-    languageSelection: "Language Selection",
-    language: "Language",
-    apply: "Apply",
-    close: "Close",
-  },
-  ru: {
-    languageSelection: "Выбор языка",
-    language: "Язык",
-    apply: "Применить",
-    close: "Закрыть",
-  },
-};
-
-export default function Footer() {
-  const basePath = getBasePath();
-  const [selectedLanguage, setSelectedLanguage] = useState(languageOptions[0]);
-  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
-  const t = translations[selectedLanguage.code] || translations.tr;
-
-  return (
-    <>
-      <svg
-        style={{ display: "none" }}
-        aria-hidden="true"
-        focusable="false"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/1999/xlink"
-      >
-        <defs>
-          {footerIconSymbols.map(({ id, viewBox, content }) => (
-            <symbol key={id} id={`icon-footer-${id}`} viewBox={viewBox}>
-              {content}
-            </symbol>
-          ))}
-        </defs>
-      </svg>
-
-      <footer className="o-footer">
-      <div className="o-footer__top">
-        <div className="container">
-          <div className="o-footer__top--content">
-            {topItems.map((item) => (
-              <div key={item.id} className="o-footer__top--col">
-                <div className="o-footer__top--icon" aria-hidden="true">
-                  {item.icon === "truck" && <Truck size={24} strokeWidth={1.5} />}
-                  {item.icon === "mouse" && <Mouse size={24} strokeWidth={1.5} />}
-                  {item.icon === "smile-plus" && <SmilePlus size={24} strokeWidth={1.5} />}
-                </div>
-                <div className="o-footer__top--wrapper">
-                  <div className="o-footer__top--title">{item.title}</div>
-                  <div className="o-footer__top--text">{item.description}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div className="o-footer__center">
-        <div className="container">
-          <div className="o-footer__content">
-            {footerColumns.map((column) => (
-              <div key={column.id} className="o-footer__col">
-                <div className="o-footer__group">
-                  <div className="o-footer__group--title">{column.title}</div>
-                  {column.links.map((link) => (
-                    <Link
-                      key={link.label}
-                      href={link.url}
-                      className="o-footer__group--link"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ))}
-
-            <div className="o-footer__col o-footer__col--brand">
-              <div className="o-footer__logo">
-                <Link href="/">
-                  <Image
-                    src={`${basePath}/gozumun-nuru-logo.svg`}
-                    alt="Gözümün Nuru"
-                    width={180}
-                    height={48}
-                    className="o-footer__logoImg"
-                    priority
-                  />
-                </Link>
-              </div>
-              <div className="o-footer__social">
-                <div className="o-footer__social--title">Bizi Takip Edin</div>
-                {socialLinks.map(({ id, url, label }) => (
-                  <Link
-                    key={id}
-                    href={url}
-                    className={`bwi-${id}`}
-                    aria-label={label}
-                  >
-                    <svg
-                      className={`icon icon-footer-${id}`}
-                      aria-hidden="true"
-                      focusable="false"
-                    >
-                      <use xlinkHref={`#icon-footer-${id}`} />
-                    </svg>
-                  </Link>
-                ))}
-              </div>
-              <div className="o-footer__app">
-                <div className="o-footer__app--title">Uygulamamızı İndirin</div>
-                <div className="o-footer__appBadges">
-                  {appLinks.map((link) => (
-                    <Link
-                      key={link.id}
-                      href={link.url}
-                      className={`o-footer__appLink${
-                        link.badge ? " o-footer__appLink--badge" : ""
-                      }`}
-                      aria-label={link.label}
-                    >
-                      {link.badge === "appstore" ? (
-                        <AppStoreBadge />
-                      ) : link.badge === "googleplay" ? (
-                        <GooglePlayBadge />
-                      ) : (
-                        <span>{link.label}</span>
-                      )}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="o-footer__bottom">
-        <div className="container">
-          <div className="o-footer__bottom--content">
-            <div className="o-footer__copyRight">
-              © {new Date().getFullYear()} Gözümün Nuru. Tüm hakları saklıdır.
-            </div>
-            <div className="o-footer__languageWrapper">
-              <button
-                type="button"
-                className="o-footer__languageButton"
-                onClick={() => setIsLanguageDropdownOpen(!isLanguageDropdownOpen)}
-                aria-expanded={isLanguageDropdownOpen}
-                aria-haspopup="true"
-                aria-label="Dil seçimi"
-              >
-                <Globe
-                  className="o-footer__languageIcon"
-                  aria-hidden="true"
-                  size={14}
-                />
-                <span className="o-footer__languageText">
-                  {selectedLanguage.code.toUpperCase()}
-                </span>
-              </button>
-              <>
-                {isLanguageDropdownOpen && (
-                  <div
-                    className="o-footer__languageOverlay"
-                    onClick={() => setIsLanguageDropdownOpen(false)}
-                  />
-                )}
-                <div
-                  className={`o-footer__languageDropdown ${
-                    isLanguageDropdownOpen ? "o-footer__languageDropdown--open" : ""
-                  }`}
-                  role="dialog"
-                  aria-hidden={!isLanguageDropdownOpen}
-                  aria-labelledby="footer-language-dialog-title"
-                >
-                  <div className="o-footer__languageDropdownHeader">
-                    <h2 id="footer-language-dialog-title" className="o-footer__languageDropdownTitle">
-                      {t.languageSelection}
-                    </h2>
-                    <button
-                      type="button"
-                      className="o-footer__languageDropdownClose"
-                      onClick={() => setIsLanguageDropdownOpen(false)}
-                      aria-label={t.close}
-                    >
-                      <X size={24} strokeWidth={2} />
-                    </button>
-                  </div>
-                  <div className="o-footer__languageDropdownContent">
-                    <p className="o-footer__languageDropdownSectionTitle">{t.language}</p>
-                    <div className="o-footer__languageDropdownList">
-                      {languageOptions.map((option) => (
-                        <button
-                          key={option.code}
-                          type="button"
-                          className={`o-footer__languageDropdownItem ${
-                            option.code === selectedLanguage.code
-                              ? "o-footer__languageDropdownItem--active"
-                              : ""
-                          }`}
-                          onClick={() => setSelectedLanguage(option)}
-                          title={option.title}
-                        >
-                          <span className="o-footer__languageRadioButton">
-                            {option.code === selectedLanguage.code && (
-                              <span className="o-footer__languageRadioButtonInner" />
-                            )}
-                          </span>
-                          <span>{option.label}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="o-footer__languageDropdownFooter">
-                    <button
-                      type="button"
-                      className="o-footer__languageDropdownApply"
-                      onClick={() => setIsLanguageDropdownOpen(false)}
-                    >
-                      {t.apply}
-                    </button>
-                  </div>
-                </div>
-              </>
-            </div>
-          </div>
-        </div>
-      </div>
-      </footer>
-    </>
-  );
-}
-
+export default Footer;

@@ -30,45 +30,84 @@ export default function FeaturedCategories({
     return null;
   }
 
+  const linksClassName = [
+    "o-featuredCategoriesLinks",
+    styles.links,
+    showLinks ? "-show" : "",
+    showLinks ? styles.linksVisible : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <section className={styles.featuredCategories}>
-      <div className={styles.inner}>
-        <h2 className={styles.title}>{title}</h2>
-        <div className={styles.banners}>
+    <div className="container -wide">
+      <section
+        className={`o-featuredCategories ${styles.featuredCategories}`}
+        aria-labelledby="featured-categories-title"
+      >
+        <h2
+          id="featured-categories-title"
+          className={`o-featuredCategories__title ${styles.title}`}
+        >
+          {title}
+        </h2>
+        <div
+          className={`o-featuredCategories__banners ${styles.banners}`}
+        >
           {banners.map((banner) => (
-            <div key={banner.id} className={styles.banner}>
-              <Link href={banner.url} className={styles.bannerLink}>
+            <div
+              key={banner.id}
+              className={`o-featuredCategoriesBanner ${styles.banner}`}
+            >
+              <Link
+                href={banner.url}
+                className={`o-featuredCategoriesBanner__link ${styles.bannerLink}`}
+              >
                 <Image
-                  src={banner.image.startsWith('http') ? banner.image : `${basePath}${banner.image}`}
+                  src={
+                    banner.image.startsWith("http")
+                      ? banner.image
+                      : `${basePath}${banner.image}`
+                  }
                   alt={banner.title}
                   width={276}
                   height={374}
-                  className={styles.bannerImage}
+                  className={`o-featuredCategoriesBanner__image ${styles.bannerImage}`}
                 />
-                <span className={styles.bannerTitle}>{banner.title}</span>
+                <span
+                  className={`o-featuredCategoriesBanner__title ${styles.bannerTitle}`}
+                >
+                  {banner.title}
+                </span>
               </Link>
             </div>
           ))}
         </div>
         {links.length > 0 ? (
           <>
-            <div
-              className={`${styles.links} ${
-                showLinks ? styles.linksVisible : ""
-              }`}
-            >
-              {links.map((link) => (
-                <div key={link.id} className={styles.linkItem}>
-                  <Link href={link.url} className={styles.link}>
-                    {link.label}
-                  </Link>
-                </div>
-              ))}
+            <div className="o-featuredCategories__links">
+              <ul className={linksClassName}>
+                {links.map((link) => (
+                  <li
+                    key={link.id}
+                    className={`o-featuredCategoriesLinks__item ${styles.linkItem}`}
+                  >
+                    <Link
+                      href={link.url}
+                      className={`o-featuredCategoriesLinks__link ${styles.link}`}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className={styles.showMoreContent}>
+            <div
+              className={`o-ShowMoreContent ${styles.showMoreContent}`}
+            >
               <button
                 type="button"
-                className={styles.showMoreButton}
+                className={`o-ShowMoreContent__btn ${styles.showMoreButton}`}
                 onClick={() => setShowLinks((prev) => !prev)}
                 aria-expanded={showLinks}
               >
@@ -77,8 +116,8 @@ export default function FeaturedCategories({
             </div>
           </>
         ) : null}
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }
 

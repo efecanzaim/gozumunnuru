@@ -4,16 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { FocusEvent, TransitionEvent } from "react";
-import { Globe, Search, Instagram, X, Check, User, Heart, ShoppingCart } from "lucide-react";
+import { Search, Instagram, User, Heart, ShoppingCart } from "lucide-react";
 import styles from "./Navbar.module.css";
 import { getBasePath } from "@/utils/basePath";
-
-type LanguageOption = {
-  code: string;
-  label: string;
-  labelUppercase: string;
-  title: string;
-};
+import { translations } from "../language/language-config";
+import { useLanguageContext } from "../language/language-context";
+import { LanguageSwitcher } from "../language/LanguageSwitcher";
 
 type PanelLink = {
   href: string;
@@ -35,51 +31,6 @@ const panelCtaCopy: Record<string, string> = {
   collection: "Koleksiyonları keşfet",
   bespoke: "Özel tasarımları keşfet",
   gift: "Hediye önerilerini keşfet",
-};
-
-const languageOptions: LanguageOption[] = [
-  { code: "tr", label: "Türkçe", labelUppercase: "TÜRKÇE", title: "Türkçe (Turkish)" },
-  { code: "en", label: "English", labelUppercase: "ENGLISH", title: "English (İngilizce)" },
-  { code: "ru", label: "Русский", labelUppercase: "РУССКИЙ", title: "Rusça (Russian)" },
-];
-
-const translations: Record<string, Record<string, string>> = {
-  tr: {
-    about: "Hakkımızda",
-    blog: "Blog",
-    contact: "İletişim",
-    instagram: "Instagram",
-    languageSelection: "Dil Seçimi",
-    language: "Dil",
-    apply: "Uygula",
-    close: "Kapat",
-    search: "Ürün Arayın",
-    searchLabel: "Arama (Search)",
-  },
-  en: {
-    about: "About",
-    blog: "Blog",
-    contact: "Contact",
-    instagram: "Instagram",
-    languageSelection: "Language Selection",
-    language: "Language",
-    apply: "Apply",
-    close: "Close",
-    search: "Search Products",
-    searchLabel: "Search",
-  },
-  ru: {
-    about: "О нас",
-    blog: "Блог",
-    contact: "Контакты",
-    instagram: "Instagram",
-    languageSelection: "Выбор языка",
-    language: "Язык",
-    apply: "Применить",
-    close: "Закрыть",
-    search: "Поиск продуктов",
-    searchLabel: "Поиск",
-  },
 };
 
 const topLinksConfig = [
@@ -123,8 +74,7 @@ const giftLinks: PanelLink[] = [
 
 export default function Navbar() {
   const basePath = getBasePath();
-  const [selectedLanguage, setSelectedLanguage] = useState(languageOptions[0]);
-  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
+  const { selectedLanguage } = useLanguageContext();
   const [openPanel, setOpenPanel] = useState<string | null>(null);
   const [panelContent, setPanelContent] = useState<PanelLink[]>([]);
   const [panelContentId, setPanelContentId] = useState<string | null>(null);
@@ -232,88 +182,7 @@ export default function Navbar() {
               </Link>
             );
           })}
-          <div className={styles.languageSelectWrapper}>
-            <button
-              type="button"
-              className={styles.languageSelectButton}
-              onClick={() => setIsLanguageDropdownOpen(!isLanguageDropdownOpen)}
-              aria-expanded={isLanguageDropdownOpen}
-              aria-haspopup="true"
-              aria-label="Dil seçimi"
-            >
-              <Globe
-                className={styles.languageSelectIcon}
-                aria-hidden="true"
-                size={14}
-              />
-              <span className={styles.languageSelectText}>
-                {selectedLanguage.code.toUpperCase()}
-              </span>
-            </button>
-            <>
-              {isLanguageDropdownOpen && (
-                <div
-                  className={styles.languageOverlay}
-                />
-              )}
-              <div
-                className={`${styles.languageDropdown} ${
-                  isLanguageDropdownOpen ? styles.languageDropdownOpen : ""
-                }`}
-                role="dialog"
-                aria-hidden={!isLanguageDropdownOpen}
-                aria-labelledby="language-dialog-title"
-              >
-                  <div className={styles.languageDropdownHeader}>
-                    <h2 id="language-dialog-title" className={styles.languageDropdownTitle}>
-                      {t.languageSelection}
-                    </h2>
-                    <button
-                      type="button"
-                      className={styles.languageDropdownClose}
-                      onClick={() => setIsLanguageDropdownOpen(false)}
-                      aria-label={t.close}
-                    >
-                      <X size={24} strokeWidth={2} />
-                    </button>
-                  </div>
-                  <div className={styles.languageDropdownContent}>
-                    <p className={styles.languageDropdownSectionTitle}>{t.language}</p>
-                    <div className={styles.languageDropdownList}>
-                      {languageOptions.map((option) => (
-                        <button
-                          key={option.code}
-                          type="button"
-                          className={`${styles.languageDropdownItem} ${
-                            option.code === selectedLanguage.code
-                              ? styles.languageDropdownItemActive
-                              : ""
-                          }`}
-                          onClick={() => setSelectedLanguage(option)}
-                          title={option.title}
-                        >
-                          <span className={styles.languageRadioButton}>
-                            {option.code === selectedLanguage.code && (
-                              <span className={styles.languageRadioButtonInner} />
-                            )}
-                          </span>
-                          <span>{option.label}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                  <div className={styles.languageDropdownFooter}>
-                    <button
-                      type="button"
-                      className={styles.languageDropdownApply}
-                      onClick={() => setIsLanguageDropdownOpen(false)}
-                    >
-                      {t.apply}
-                    </button>
-                  </div>
-              </div>
-            </>
-          </div>
+          <LanguageSwitcher variant="navbar" className={styles.languageSelectWrapper} />
         </nav>
       </div>
 

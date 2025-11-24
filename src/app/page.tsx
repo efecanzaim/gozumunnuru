@@ -11,7 +11,7 @@ export default function HomePage() {
   useEffect(() => {
     const checkDeviceType = () => {
       const userAgent = typeof window.navigator === "undefined" ? "" : navigator.userAgent;
-      const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent) || window.innerWidth < 768;
+      const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
       setIsMobile(mobile);
       setIsLoading(false);
     };

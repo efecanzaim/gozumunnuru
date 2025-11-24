@@ -1,0 +1,246 @@
+.wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: text-decoration-color 0.2s ease;
+  font-size: 0.85rem;
+  color: inherit;
+  width: fit-content;
+  line-height: 40px;
+  height: 40px;
+}
+
+.trigger:hover,
+.trigger:focus-visible {
+  text-decoration: underline;
+  text-decoration-color: #c08a55;
+  text-underline-offset: 4px;
+  outline: none;
+}
+
+.triggerFooter {
+  color: var(--footer-text-color, #ffffff);
+  font-weight: 500;
+}
+
+.triggerFooter:hover,
+.triggerFooter:focus-visible {
+  text-decoration-color: rgba(255, 255, 255, 0.9);
+}
+
+.icon {
+  color: inherit;
+  flex-shrink: 0;
+}
+
+.text {
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.panel {
+  position: fixed;
+  top: 0;
+  right: -635px;
+  width: 635px;
+  height: 100vh;
+  background-color: #f9f9f9;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+.panelOpen {
+  right: 0;
+  pointer-events: auto;
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 24px;
+  background-color: #ffffff;
+  border-bottom: 1px solid rgba(44, 27, 19, 0.08);
+}
+
+.panelTitle {
+  flex: 1;
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f1f1f;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+}
+
+.closeButton {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #000000;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+  font-weight: bold;
+}
+
+.closeButton:hover,
+.closeButton:focus-visible {
+  color: #111;
+  outline: none;
+}
+
+.panelBody {
+  padding: 24px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.panelSectionTitle {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  color: #111;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.optionList {
+  display: flex;
+  flex-direction: column;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px 0;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  color: #000000;
+  transition: background-color 0.15s ease;
+  border-radius: 4px;
+}
+
+.option span {
+  font-size: 14px;
+  color: #111;
+}
+
+.option:focus-visible {
+  outline: 2px solid #c08a55;
+  outline-offset: 2px;
+}
+
+.optionActive {
+  font-weight: 500;
+}
+
+.radio {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #3d3d3d;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 0.15s ease;
+}
+
+.optionActive .radio {
+  border-color: #111111;
+}
+
+.radioInner {
+  width: 8px;
+  height: 8px;
+  background-color: #111111;
+  border-radius: 50%;
+}
+
+.panelFooter {
+  margin-top: 16px;
+  padding: 16px 24px 24px;
+  background-color: #ffffff;
+}
+
+.applyButton {
+  width: 100%;
+  padding: 14px 24px;
+  background-color: #111111;
+  color: #ffffff;
+  border: none;
+  border-radius: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.applyButton:hover,
+.applyButton:focus-visible {
+  background-color: #000000;
+  outline: none;
+}
+
+.footerWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 8px 16px;
+  border-radius: 999px;
+  line-height: 1;
+}
+
+.footerLabel {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+}
+
+
