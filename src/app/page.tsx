@@ -1,37 +1,47 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import MobileHome from "@/components/mobile/Home/MobileHome";
-import DesktopHome from "@/components/desktop/Home/DesktopHome";
+import { useEffect, useState } from "react";
+import MobileHome from "@/main/mobile/Home/MobileHome";
+import DesktopHome from "@/main/desktop/pages/home/DesktopHome";
+
+declare global {
+  interface Navigator {
+    userAgentData?: {
+      mobile?: boolean;
+    };
+  }
+}
+
+const PHONE_USER_AGENT_REGEX =
+  /(Android.*Mobile|iPhone|iPod|IEMobile|Windows Phone|BlackBerry|Opera Mini)/i;
+
+const isPhoneUserAgent = (userAgent: string) => {
+  if (!userAgent) {
+    return false;
+  }
+
+  return PHONE_USER_AGENT_REGEX.test(userAgent);
+};
+
+const detectMobileFromNavigator = () => {
+  if (typeof navigator === "undefined") {
+    return false;
+  }
+
+  if (typeof navigator.userAgentData?.mobile === "boolean") {
+    return navigator.userAgentData.mobile;
+  }
+
+  return isPhoneUserAgent(navigator.userAgent ?? "");
+};
 
 export default function HomePage() {
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
 
   useEffect(() => {
-    const checkDeviceType = () => {
-      const userAgent = typeof window.navigator === "undefined" ? "" : navigator.userAgent;
-      const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
-      setIsMobile(mobile);
-      setIsLoading(false);
-    };
-
-    checkDeviceType();
-    window.addEventListener('resize', checkDeviceType);
-
-    return () => {
-      window.removeEventListener('resize', checkDeviceType);
-    };
+    setIsMobileDevice(detectMobileFromNavigator());
   }, []);
 
-  if (isLoading) {
-    return null; // Or a loading spinner
-  }
-
-  if (isMobile) {
-    return <MobileHome />;
-  }
-
-  return <DesktopHome />;
+  return isMobileDevice ? <MobileHome /> : <DesktopHome />;
 }
 
