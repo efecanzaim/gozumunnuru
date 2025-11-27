@@ -36,11 +36,21 @@ const detectMobileFromNavigator = () => {
 };
 
 export default function HomePage() {
-  const [isMobileDevice, setIsMobileDevice] = useState(false);
+  const [isMobileDevice, setIsMobileDevice] = useState<boolean | null>(null);
 
   useEffect(() => {
     setIsMobileDevice(detectMobileFromNavigator());
   }, []);
+
+  // İlk render'da client-side detection yap
+  if (isMobileDevice === null) {
+    if (typeof window !== "undefined") {
+      const initialMobile = detectMobileFromNavigator();
+      return initialMobile ? <MobileHome /> : <DesktopHome />;
+    }
+    // SSR için varsayılan olarak desktop göster (hydration sonrası düzelecek)
+    return <DesktopHome />;
+  }
 
   return isMobileDevice ? <MobileHome /> : <DesktopHome />;
 }
