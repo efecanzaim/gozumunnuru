@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { getBasePath } from '@/utils/basePath';
 import './../mobile.css';
 
 interface MobileHeaderProps {
@@ -9,6 +10,7 @@ interface MobileHeaderProps {
 
 const MobileHeader: React.FC<MobileHeaderProps> = ({ pageType = 'homePage' }) => {
     const [isScrolled, setIsScrolled] = useState(false);
+    const basePath = getBasePath();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -31,7 +33,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({ pageType = 'homePage' }) =>
             <div className="b-header__top">
                 <a href="/" title="Gözümün Nuru">
                     <img
-                        src="/gozumun-nuru-logo.svg"
+                        src={`${basePath}/gozumun-nuru-logo.svg`}
                         alt="Gözümün Nuru"
                         className="b-header__logo"
                     />

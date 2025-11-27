@@ -1,7 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
+import { getBasePath } from '@/utils/basePath';
 
 const MobileFooter = () => {
+    const basePath = getBasePath();
+    
     return (
         <footer className="o-footer" id="footer">
             <div className="o-footer__logo">
@@ -9,7 +12,7 @@ const MobileFooter = () => {
                     alt="Gözümün Nuru"
                     className="lazyload"
                     height="16"
-                    src="/gozumun-nuru-logo.svg"
+                    src={`${basePath}/gozumun-nuru-logo.svg`}
                     width="205"
                 />
             </div>

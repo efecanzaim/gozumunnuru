@@ -4,6 +4,7 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, EffectFade } from 'swiper/modules';
 import Link from 'next/link';
+import { getBasePath } from '@/utils/basePath';
 
 // Swiper styles - ÖNCE Swiper CSS'leri yüklensin
 import 'swiper/css';
@@ -13,28 +14,30 @@ import 'swiper/css/effect-fade';
 // Custom pagination styles - SONRA bizim CSS'imiz yüklensin (override için)
 import '../mobile.css';
 
-const sliderItems = [
-    {
-        id: 1,
-        imageUrl: "/gorseller/mobileslider1.jpg",
-        link: "/koleksiyon/kolyeler",
-        alt: "Koleksiyon Kolye"
-    },
-    {
-        id: 2,
-        imageUrl: "/gorseller/mobileslider2.jpg",
-        link: "/koleksiyon/yuzukler",
-        alt: "Koleksiyon Yüzük"
-    },
-    {
-        id: 3,
-        imageUrl: "/gorseller/mobileslider3.jpg",
-        link: "/koleksiyon/kupe",
-        alt: "Koleksiyon Küpe"
-    },
-];
-
 const MobileSlider = () => {
+    const basePath = getBasePath();
+    
+    const sliderItems = [
+        {
+            id: 1,
+            imageUrl: `${basePath}/gorseller/mobileslider1.jpg`,
+            link: "/koleksiyon/kolyeler",
+            alt: "Koleksiyon Kolye"
+        },
+        {
+            id: 2,
+            imageUrl: `${basePath}/gorseller/mobileslider2.jpg`,
+            link: "/koleksiyon/yuzukler",
+            alt: "Koleksiyon Yüzük"
+        },
+        {
+            id: 3,
+            imageUrl: `${basePath}/gorseller/mobileslider3.jpg`,
+            link: "/koleksiyon/kupe",
+            alt: "Koleksiyon Küpe"
+        },
+    ];
+
     return (
         <div className="o-fullSlider">
             <Swiper

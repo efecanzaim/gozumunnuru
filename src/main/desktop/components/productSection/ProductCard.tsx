@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import styles from "./ProductCard.module.css";
+import { getBasePath } from "@/utils/basePath";
 
 export type ProductPromotion = {
   campaignTitle: string;
@@ -50,6 +51,7 @@ type ProductCardProps = {
 export default function ProductCard({ product }: ProductCardProps) {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isHoveringImage, setIsHoveringImage] = useState(false);
+  const basePath = getBasePath();
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("tr-TR", {
@@ -59,17 +61,29 @@ export default function ProductCard({ product }: ProductCardProps) {
     }).format(price);
   };
 
+  // URL'nin tam URL olup olmadığını kontrol et (http:// veya https:// ile başlıyorsa)
+  const addBasePath = (url: string) => {
+    if (!url) return url;
+    if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("//")) {
+      return url;
+    }
+    return `${basePath}${url.startsWith("/") ? "" : "/"}${url}`;
+  };
+
   // Beymen yapısına göre değerleri belirle
   const brandName = product.brandName || product.brand;
   const displayName = product.displayName || product.name;
   const imageList = useMemo(() => {
     if (product.images && product.images.length > 0) {
-      return product.images.slice(0, 4);
+      return product.images.slice(0, 4).map(img => addBasePath(img));
     }
-    return product.image ? [product.image] : [];
-  }, [product.image, product.images]);
+    return product.image ? [addBasePath(product.image)] : [];
+  }, [product.image, product.images, basePath]);
 
-  const mainImage = imageList[activeImageIndex] || product.image || product.images?.[0] || "/placeholder.png";
+  const mainImage = imageList[activeImageIndex] || 
+    (product.image ? addBasePath(product.image) : null) || 
+    (product.images?.[0] ? addBasePath(product.images[0]) : null) || 
+    `${basePath}/placeholder.png`;
   const hasDiscount = product.hasDiscount !== undefined 
     ? product.hasDiscount 
     : product.discountedPrice !== undefined || product.secondPrice !== undefined;

@@ -6,6 +6,7 @@ import { Scrollbar } from 'swiper/modules';
 import Link from 'next/link';
 import { Product } from '@/main/desktop/components/productSection/ProductCard';
 import { featuredProducts } from '@/main/desktop/components/productSection/productsData';
+import { getBasePath } from '@/utils/basePath';
 
 // Swiper styles
 import 'swiper/css';
@@ -27,11 +28,21 @@ const formatPrice = (price: number): string => {
 };
 
 const MobileProductSlider: React.FC<MobileProductSliderProps> = ({
-    title = "BEYMEN ÖNERİYOR",
+    title = "GÖZÜMÜN NURU ÖNERİYOR",
     products = featuredProducts,
     sliderType = "RecommendByIdHome"
 }) => {
     const swiperRef = useRef<any>(null);
+    const basePath = getBasePath();
+
+    // URL'nin tam URL olup olmadığını kontrol et (http:// veya https:// ile başlıyorsa)
+    const addBasePath = (url: string) => {
+        if (!url) return url;
+        if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("//")) {
+            return url;
+        }
+        return `${basePath}${url.startsWith("/") ? "" : "/"}${url}`;
+    };
 
     return (
         <div className={`o-productList -redesign ${sliderType === "RecommendByIdHome" ? "o-productWidget-home" : ""}`} id={`slider${sliderType}`}>
@@ -57,19 +68,23 @@ const MobileProductSlider: React.FC<MobileProductSliderProps> = ({
                         draggable: true,
                     }}
                 >
-                    {products.map((product, index) => (
-                        <SwiperSlide key={product.id} className="o-productCard -scrollCard swiper-slide" data-index={index}>
-                            <Link href={product.productUrl} className="o-productCard__link">
-                                <div className="o-productCard__imageWrapper">
-                                    <figure className="o-productCard__figure">
-                                        <img
-                                            src={product.image || product.images[0] || "/gorseller/product1.avif"}
-                                            alt={product.displayName || product.name}
-                                            className="o-productCard__figure--img -lazyImage"
-                                            loading="lazy"
-                                        />
-                                    </figure>
-                                </div>
+                    {products.map((product, index) => {
+                        const productImage = product.image || (product.images && product.images[0]) || "/gorseller/product1.avif";
+                        const imageUrl = addBasePath(productImage);
+                        
+                        return (
+                            <SwiperSlide key={product.id} className="o-productCard -scrollCard swiper-slide" data-index={index}>
+                                <Link href={product.productUrl} className="o-productCard__link">
+                                    <div className="o-productCard__imageWrapper">
+                                        <figure className="o-productCard__figure">
+                                            <img
+                                                src={imageUrl}
+                                                alt={product.displayName || product.name}
+                                                className="o-productCard__figure--img -lazyImage"
+                                                loading="lazy"
+                                            />
+                                        </figure>
+                                    </div>
                                 <div className="o-productCard__content">
                                     <h2 className="o-productCard__content--name">
                                         {product.brandName || product.brand}
@@ -116,7 +131,8 @@ const MobileProductSlider: React.FC<MobileProductSliderProps> = ({
                                 </div>
                             </Link>
                         </SwiperSlide>
-                    ))}
+                        );
+                    })}
                 </Swiper>
                 <div className="swiper-scrollbar"></div>
             </div>
