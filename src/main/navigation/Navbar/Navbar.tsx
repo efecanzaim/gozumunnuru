@@ -47,6 +47,7 @@ const jewelryLinks: PanelLink[] = [
   { href: "/mucevher/ozel-uretim-pirlanta", label: "Özel Üretim Pırlanta" },
   { href: "/mucevher/klasik-altin", label: "Klasik Altın" },
   { href: "/mucevher/ozgun-tasarim", label: "Özgün Tasarım" },
+  { href: "/mucevher/preloved", label: "Preloved" },
 ];
 
 const collectionLinks: PanelLink[] = [
@@ -70,6 +71,7 @@ const giftLinks: PanelLink[] = [
   { href: "/hediye/yeni-dogan", label: "Yeni Doğan" },
   { href: "/hediye/erkek-hediye", label: "Erkek Hediye" },
   { href: "/hediye/mini-butceli", label: "Mini Bütçeli" },
+  { href: "/hediye/aksesuar", label: "Aksesuar" },
 ];
 
 export default function Navbar() {

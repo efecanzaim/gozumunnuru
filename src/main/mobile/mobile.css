@@ -65,6 +65,8 @@
     --secondaryFont: var(--secondaryFontRegular);
     --headerHeight: 64px;
     --headerPadding: 0 16px;
+    --topScrollBackground: var(--black);
+    --footerPadding: 1.5rem 0.9375rem 0.9375rem 0.9375rem;
 }
 
 .mobile-home {
@@ -72,7 +74,11 @@
     background-color: var(--white);
     color: var(--black);
     padding-top: 112px;
-    padding-bottom: 140px;
+    padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+}
+
+.mobile-home .o-footer {
+    margin-bottom: 0;
 }
 
 /* B-Header Styles (Centered Layout) */
@@ -234,19 +240,42 @@
 
 /* Slider Styles - Beymen Style */
 .o-fullSlider {
-    width: 100%;
     position: relative;
+    display: flex;
+    margin-bottom: 0.9375rem;
+}
+
+.mobile-home .o-fullSlider {
     margin-bottom: 0;
 }
 
-.swiper-container {
+.mobile-home .o-fullSlider__item {
+    min-height: unset;
+}
+
+.mobile-home .o-fullSlider__item--img {
+    display: block;
+}
+
+.swiper-container,
+.swiper {
     width: 100%;
-    height: 100%;
+}
+
+.swiper-horizontal>.swiper-scrollbar,
+.swiper-scrollbar.swiper-scrollbar-horizontal {
+    left: 16px;
+    right: 16px;
+    bottom: 0;
+    z-index: 50;
+    height: 2px;
+    width: calc(100% - 32px);
+    border-radius: 10px;
+    background: linear-gradient(0deg, transparent 50%, #CACACA 50%);
 }
 
 .o-fullSlider__item {
-    width: 100%;
-    position: relative;
+    min-height: 200px;
 }
 
 .o-fullSlider__item--link {
@@ -257,7 +286,23 @@
 .o-fullSlider__item--img {
     width: 100%;
     height: auto;
-    display: block;
+}
+
+.o-fullSlider__item--img.swiper-lazy {
+    opacity: 0;
+}
+
+.o-fullSlider__item--img.swiper-lazy-loaded {
+    opacity: 1;
+}
+
+.swiper-container img,
+.swiper img {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -ms-transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 /* Swiper Pagination - swipper-adamlar.css'ten alındı */
@@ -294,14 +339,24 @@
     opacity: 1;
 }
 
+.swiper-lazy-preloader {
+    display: none;
+}
+
+.o-fullSlider .swiper-lazy-preloader {
+    display: none;
+}
+
 /* o-mpSliderWrapper - adamlar_home.css'ten alındı */
 .o-mpSliderWrapper {
     background: rgba(40,54,24,0.07);
     padding: 0 0 24px 0;
+    overflow: hidden;
 }
 
 .o-mpSliderWrapper .swiper-horizontal>.swiper-scrollbar,
-.o-mpSliderWrapper .swiper-scrollbar.swiper-scrollbar-horizontal {
+.o-mpSliderWrapper .swiper-scrollbar.swiper-scrollbar-horizontal,
+.o-mpSliderWrapper .swiper .swiper-scrollbar {
     position: absolute;
     left: 16px;
     right: 16px;
@@ -326,20 +381,138 @@
     height: 100%;
 }
 
-.o-mpSliderItems {
+.o-mpSliderItems,
+.o-mpSliderWrapper > .swiper {
     padding: 32px 16px 24px 16px;
     position: relative;
 }
 
-.o-mpSliderItem {
-    width: 344px;
-    flex-shrink: 0;
+/* CategorySlider - adamlar_home.css'ten alındı */
+.categorySlider {
+    display: block;
+    margin: 0 auto;
+    padding: 40px 0 20px 16px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.categorySlider:not(:has(+.o-bannerItem,+.o-bannerVideo)) {
+    padding-top: 60px;
+    padding-bottom: 0px;
+}
+
+.categorySlider__container {
+    position: relative;
+    width: 100%;
+}
+
+.categorySlider__wrapper img,
+.categorySlider .swiper-wrapper img {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -ms-transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    width: 100%;
+    display: block;
+}
+
+.categorySliderNav {
+    margin-bottom: 16px;
+    display: flex;
+    white-space: nowrap;
+    text-transform: uppercase;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+}
+
+.categorySliderNav__item {
+    margin: 0 8px;
+    padding: 8px 8px 7px 8px;
+    font-family: var(--tertiaryFont);
+    font-weight: 500;
+    font-size: 16px;
+    color: #111;
+    letter-spacing: 0.5px;
+    border-bottom: 1.5px solid rgba(0,0,0,0);
+    cursor: pointer;
+}
+
+.categorySliderNav__item.-active {
+    border-color: #111;
+}
+
+.categorySliderNav__item:first-child {
+    margin-left: 0;
+}
+
+.categorySliderNav__item:last-child {
+    margin-right: 0;
+}
+
+.categorySliderTabs {
+    overflow: hidden;
+}
+
+.categorySliderTab {
+    display: block;
+    height: 0;
+    opacity: 0;
+    transition: all .25s linear;
+}
+
+.categorySliderTab.-active {
+    height: auto;
+    opacity: 1;
+}
+
+.categorySliderItem,
+.categorySlider .swiper-slide {
+    width: 80%;
+}
+
+.categorySliderItem__content {
+    padding: 8px 8px 0 0;
+    text-align: left;
+    display: inline-block;
+    width: 100%;
+}
+
+.categorySliderItem__image {
+    display: block;
+}
+
+.categorySliderItem__title {
+    font-family: var(--tertiaryFont);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: normal;
+    color: #2D2D2D;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.categorySliderItem__description {
+    font-family: var(--tertiaryFont);
+    font-weight: 400;
+    font-size: 13px;
+    line-height: normal;
+    color: #616161;
+    letter-spacing: 0.3px;
 }
 
 /* Banner Styles */
 .o-bannerItem {
     margin-bottom: 32px;
     text-align: center;
+}
+
+/* Gizli reklam banner - boşluk bırakıyor ama görünmüyor */
+.o-bannerItem--hidden {
+    visibility: hidden;
+    margin-bottom: 0;
+    margin-top: 16px;
+    min-height: 0;
 }
 
 .o-bannerItemMP {
@@ -476,78 +649,883 @@ body.scrollDown .navigation {
 }
 
 /* Footer Styles */
+/* Footer Styles - adamlar_home.css'ten alındı */
 .o-footer {
-    background-color: #000;
-    color: #fff;
-    padding: 40px 20px 20px;
-    margin-top: 40px;
+    padding: var(--footerPadding);
+    background: var(--black);
+    color: var(--white);
+    margin-bottom: 0;
 }
 
 .o-footer__logo {
-    text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 24px;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    height: 16px;
+}
+
+.o-footer__logo img {
+    height: 50px !important;
+    width: auto !important;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
+.o-footer__seperator {
+    height: 1px;
+    background: #3a3a3a;
+    margin: 0 -15px 24px -15px;
 }
 
 .o-footer__menu {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-bottom: 30px;
+    flex-direction: row;
+    margin-bottom: 24px;
 }
 
 .o-footer__menu.--col {
-    width: 48%;
+    display: flex;
+    flex-direction: column;
+    width: calc(50% - 15px);
+    margin-bottom: 0;
+}
+
+.o-footer__menu.--col:first-child {
+    margin-right: 0.625rem;
+}
+
+.o-footer__menu--link {
+    display: block;
+    padding: 4px 0;
+    color: var(--white);
+    font-family: var(--tertiaryFont);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    text-decoration: none;
+}
+
+.o-footer__menu--link:hover,
+.o-footer__menu--link:active,
+.o-footer__menu--link:visited {
+    color: var(--white);
+}
+
+.o-footer__menu--link.--first {
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 8px;
+}
+
+.o-footer__menu--link.--mt {
+    margin-top: 20px;
+}
+
+.o-footer__menu--link.--pt {
+    padding-top: 0;
+}
+
+.o-footer__menu--link.--bold {
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.o-footer__menu--link.d-block {
+    display: block;
+}
+
+.o-footer__bottom {
+    margin-bottom: 1.25rem;
+}
+
+.o-footer__bottom.--hidden {
+    display: none;
+}
+
+.o-footer__bottom[data-language-panel-trigger] {
+    margin-bottom: 24px;
+}
+
+.o-footer__appLink {
+    width: calc(50% - 8px);
+    font-size: 0.75rem;
+}
+
+.o-footer__appLink__bottom {
+    width: calc(50% - 8px);
+    font-size: 0.75rem;
+    margin-left: -12px;
+}
+
+.o-footer__social {
+    font-size: 32px;
+    display: flex;
+    gap: 8px;
+}
+
+.o-footer__social a[class*="bmi"] {
+    color: var(--white);
+}
+
+.o-footer__bottomTitle {
+    font-family: var(--tertiaryFont);
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    margin-bottom: 16px;
+}
+
+.o-footer__copyright {
+    font-family: var(--tertiaryFont);
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 18px;
+    margin-bottom: 0;
+}
+
+.o-footer__lang {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    text-transform: uppercase;
+}
+
+.o-footer__lang span {
+    font-size: 13px;
+    font-family: var(--tertiaryFont);
+    font-weight: 500;
+}
+
+/* CampaignSlider - adamlar_home.css'ten alındı */
+.campaignSlider {
+    display: block;
+    margin: 0 auto;
+    padding: 60px 0 0 16px;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.campaignSlider__container {
+    position: relative;
+    width: 100%;
+}
+
+.campaignSlider__title {
+    margin: 0 auto 24px auto;
+    font-family: var(--tertiaryFont);
+    font-weight: 500;
+    font-size: 17px;
+    color: #111;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    line-height: 20px;
+}
+
+.campaignSlider__title:before {
+    content: "";
+    position: relative;
+    top: 28px;
+    left: -16px;
+    right: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #111111;
+    display: block;
+    z-index: 1;
+    padding: 0 16px;
+    box-sizing: content-box;
+}
+
+.campaignSlider__title:after {
+    content: '';
+    height: 2px;
+    position: absolute;
+    top: 88px;
+    left: 16px;
+    right: 16px;
+    margin: 0 auto;
+    max-width: 1920px;
+    background-color: #eaeaea;
+}
+
+.campaignSlider__wrapper img {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -ms-transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    width: 100%;
+}
+
+.campaignSliderItem {
+    width: 80%;
+}
+
+.campaignSliderItem__content {
+    padding: 15px 30px 0;
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.campaignSliderItem__image {
+    display: inline-block;
+}
+
+.campaignSliderItem__title {
+    font-family: var(--tertiaryFont);
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #111;
+    text-align: center;
+    font-size: 15px;
+    line-height: 18px;
+    letter-spacing: 0.5px;
+}
+
+.campaignSliderItem__description {
+    font-family: var(--tertiaryFont);
+    font-weight: 400;
+    color: #111;
+    font-size: 13px;
+    line-height: 20px;
+    letter-spacing: 0.2px;
+    text-align: center;
+    min-height: 40px;
+    word-wrap: break-word;
+}
+
+.campaignSliderItem__ctaButton {
+    font-family: var(--tertiaryFont);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 1px;
+    color: #fff;
+    background-color: #111;
+    display: flex;
+    height: 40px;
+    padding: 13px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+.campaignSlider .swiper-container-horizontal>.swiper-scrollbar,
+.campaignSlider .swiper-scrollbar.swiper-scrollbar-horizontal {
+    position: relative;
+    height: 1px;
+    width: calc(100% - 32px);
+    background: #D1D1D1;
+}
+
+.campaignSlider .swiper-container-horizontal>.swiper-scrollbar .swiper-scrollbar-drag,
+.campaignSlider .swiper-scrollbar .swiper-scrollbar-drag {
+    height: 2px;
+    background: #111;
+}
+
+/* ProductSlider - adamlar_home.css'ten alındı */
+.o-productList {
+    margin-top: 1.25rem;
+    padding: 0.9375rem 0;
+    background-color: var(--lightBg);
+    box-shadow: 0 1px 0 0 rgba(0,0,0,0.2);
+}
+
+.o-productList__header {
+    display: flex;
+}
+
+.o-productList__header--title {
+    font-size: 22px;
+    line-height: normal;
+    font-weight: 600;
+    color: #111;
+    padding-left: 5px;
+    margin: 10px 10px 10px 0;
+}
+
+.o-productList__listContent {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 10px;
+    margin: 0;
+}
+
+.o-productList__listContent .o-productCard {
+    position: relative;
+    margin: 0;
+    padding: 5px;
+    width: 65%;
+    background: var(--white);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.2);
+}
+
+.o-productList__listContent .o-productCard__link {
+    width: 100%;
+    display: block;
+}
+
+.o-productList__listContent .o-productCard__content {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding: 8px;
+    height: 135px;
+}
+
+.o-productList__listContent .o-productCard__content .m-productPrice {
+    min-height: 30px;
+    flex-wrap: wrap;
+    height: auto;
+    display: flex;
+    align-items: center;
+}
+
+/* Genel fiyat stilleri - adamlar_home.css'ten alındı */
+.m-productPrice {
+    display: flex;
+    align-items: center;
+}
+
+.m-productPrice__content {
     display: flex;
     flex-direction: column;
 }
 
-.o-footer__menu--link {
-    color: #fff;
-    text-decoration: none;
-    font-family: var(--secondaryFont);
-    font-size: 13px;
-    margin-bottom: 10px;
-    display: block;
-    opacity: 0.8;
+/* Genel discount stili - adamlar_home.css'ten alındı */
+.-discount,
+.a-productPrice__discount.-discount {
+    background: var(--red);
+    color: var(--white);
+    font-family: var(--tertiaryFont);
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    padding: 0.3125rem;
+    text-align: center;
+    margin-right: 0.625rem;
 }
 
-.o-footer__menu--link.--bold {
-    font-weight: 700;
-    opacity: 1;
+.-oldPrice {
+    color: var(--disabledText);
+    text-decoration: line-through;
+    font-family: var(--tertiaryFont);
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 15px;
+}
+
+.-salePrice {
+    color: var(--black);
+    font-family: var(--tertiaryFont);
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 15px;
+}
+
+.-lastPrice {
+    font-family: var(--tertiaryFont);
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 15px;
+    color: var(--dark);
+}
+
+.o-productList__listContent .o-productCard__content .m-productPrice .-discount {
+    display: flex;
+    justify-content: center;
+    width: 40px;
+    height: 30px;
+    padding: 5px 3px;
+    margin-right: 4px;
+    font-family: var(--tertiaryFont);
+    font-weight: 450;
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.o-productList__listContent .o-productCard__content .m-productPrice__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.o-productList__listContent .o-productCard__content .m-productPrice__content .-oldPrice {
+    display: flex;
+    align-items: center;
+    height: 16px;
+    font-size: 11px;
+    line-height: 16px;
+}
+
+.o-productList__listContent .o-productCard__content .m-productPrice__content .-salePrice {
+    font-size: 14px;
+    line-height: 16px;
+    color: var(--dark);
+}
+
+.o-productList__listContent .o-productCard__content .m-productPrice__content .-salePrice.-dsc {
+    font-size: 13px;
+    line-height: 15px;
+    font-family: var(--tertiaryFont);
+    font-weight: 400;
+    text-decoration: line-through;
+    color: var(--disabledText);
+}
+
+.o-productList__listContent .o-productCard__content .m-productPrice .-discountText {
+    font-size: 12px;
+    line-height: 15px;
+    font-family: var(--tertiaryFont) !important;
+    font-weight: 450;
+    color: var(--grassGreen);
+}
+
+.o-productList__listContent .o-productCard__content .m-productPrice .m-productPrice__lastPrice {
+    margin-top: 4px;
+    flex: 0 0 100%;
+}
+
+.o-productList__listContent .o-productCard__content .m-productPrice .m-productPrice__lastPrice .-lastPrice {
+    font-family: var(--tertiaryFont);
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 15px;
+    color: var(--dark);
+}
+
+.o-productList__listContent .o-productCard__content--name {
+    display: block;
+    overflow: hidden;
+    font-family: var(--tertiaryFont);
+    font-weight: 450;
+    font-size: 14px;
+    line-height: 18px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--black1);
+    margin-bottom: 2px;
+}
+
+.o-productList__listContent .o-productCard__content--desc {
+    display: block;
+    display: -webkit-box;
+    overflow: hidden;
+    width: 100%;
+    height: 30px;
+    margin-bottom: 10px;
+    color: var(--breadcrumb);
+    font-family: var(--tertiaryFont);
+    font-weight: 450;
+    font-size: 12px;
+    line-height: 14px;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.o-productList__listContent .o-productCard__figure {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+}
+
+.o-productList__listContent .o-productCard__figure--img {
+    max-height: 280px;
+    min-height: 257px;
+    width: 100%;
+}
+
+.o-productList__listContent .o-productCard__imageWrapper {
+    position: relative;
+}
+
+.o-productList__listContent .o-productCard.-scrollCard .m-price__campaignContent {
+    width: 100%;
+}
+
+.o-productList__listContent .o-productCard.-scrollCard .m-price__campaign {
+    text-align: right;
+    background-color: var(--softText2);
+    width: fit-content;
+    margin-top: 0;
+    margin-left: unset;
+    display: flex;
+    flex-direction: row;
+    padding: 4px 8px;
+}
+
+.o-productList__listContent .o-productCard.-scrollCard .m-price__campaignDesc {
+    font-family: var(--tertiaryFont);
+    font-weight: 500;
+    color: var(--grassGreen);
+    font-size: 10px;
+    line-height: 14px;
+    margin: 0 5px 0 0;
+}
+
+.o-productList__listContent .o-productCard.-scrollCard .m-price__campaignPrice {
+    font-family: var(--tertiaryFont);
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 15px;
+    color: var(--dark);
+    height: 16px;
+}
+
+/* ProductList -redesign (RecommendByIdHome için) */
+.o-productList.-redesign {
+    margin-top: 60px;
+    position: relative;
+    background: #fff;
+    box-shadow: none;
+    overflow: hidden;
+    padding: 0;
+}
+
+.o-productList.-redesign .o-productList__header {
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.o-productList.-redesign .o-productList__header--title {
+    margin: 0 auto 24px auto;
+    font-family: var(--tertiaryFont);
+    font-weight: 500;
+    font-size: 17px;
+    color: #111;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    line-height: 20px;
+    text-transform: uppercase;
+}
+
+.o-productList.-redesign .o-productList__header--title:before {
+    content: "";
+    position: relative;
+    top: 28px;
+    left: -16px;
+    right: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #111111;
+    display: block;
+    z-index: 1;
+    padding: 0 16px;
+    box-sizing: content-box;
+}
+
+.o-productList.-redesign .o-productList__header--title:after {
+    content: '';
+    height: 2px;
+    position: absolute;
+    top: 28px;
+    left: 16px;
+    right: 16px;
+    margin: 0 auto;
+    max-width: 1920px;
+    background-color: #eaeaea;
+}
+
+.o-productList.-redesign .o-productList__listContent {
+    display: block;
+    flex-wrap: unset;
+    margin: 0 auto;
+    padding: 0 16px 0 16px;
+}
+
+.o-productList.-redesign .o-productList__listContent .o-productCard {
+    padding: unset;
+    width: unset;
+}
+
+.o-productList.-redesign .o-productList__listContent .o-productCard__figure {
+    align-items: unset;
+    justify-content: unset;
+    width: unset;
+    text-align: unset;
+}
+
+.o-productList.-redesign .o-productList__listContent .o-productCard__figure--img {
+    max-height: unset;
+    min-height: unset;
+    width: 100%;
+}
+
+.o-productList.-redesign .o-productList__listContent .o-productCard__content {
+    height: auto;
+}
+
+.o-productList.-redesign .o-productList__listContent .o-productCard__content .m-productPrice__content .-oldPrice {
+    font-family: var(--tertiaryFont);
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 15px;
+    color: #6d6d6d;
+}
+
+.o-productList.-redesign .o-productList__listContent .o-productCard__content .m-productPrice__content .-salePrice {
+    font-family: var(--tertiaryFont);
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 15px;
+    color: #111111;
+}
+
+.o-productList.-redesign .o-productList__listContent .o-productCard__content .m-productPrice__content .-salePrice.-dsc {
+    font-family: var(--tertiaryFont);
+    font-weight: 450;
+    font-size: 12px;
+    line-height: 15px;
+    color: var(--disabledText);
+    text-decoration: line-through;
+}
+
+.o-productList.-redesign .o-productList__listContent .o-productCard__content .m-productPrice .-discount {
+    width: 35px;
+    height: 26px;
+    font-family: var(--tertiaryFont);
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    white-space: nowrap;
+}
+
+.o-productList.-redesign .o-productList__listContent .o-productCard__content--name {
+    font-family: var(--tertiaryFont);
+    font-weight: 500;
+    font-size: 13px;
+    color: #111111;
+}
+
+.o-productList.-redesign .o-productList__listContent .o-productCard__content--desc {
+    font-family: var(--tertiaryFont);
+    font-weight: 450;
+    font-size: 12px;
+    line-height: 14px;
+    height: 28px;
+    margin-bottom: 8px;
+}
+
+.o-productList.-redesign .o-productCard {
+    box-shadow: unset;
+}
+
+.o-productList.-redesign .swiper-wrapper {
+    margin-bottom: 16px;
+}
+
+.o-productList.-redesign .swiper-container-horizontal>.swiper-scrollbar,
+.o-productList.-redesign .swiper-scrollbar.swiper-scrollbar-horizontal {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 0;
+    z-index: 50;
+    height: 2px;
+    width: calc(100% - 32px);
+    border-radius: 10px;
+    background: linear-gradient(0deg, transparent 50%, #CACACA 50%);
+}
+
+.o-productList.-redesign .swiper-scrollbar-drag {
+    border-radius: 5px;
+    background: #111;
+    top: -0.5px;
+}
+
+.o-productWidget-home.o-productList__header {
+    padding-left: 0;
+}
+
+.o-productList__listContent .swiper-scrollbar {
+    position: relative;
+    height: 1px;
+    width: calc(100% - 32px);
+    background: #D1D1D1;
+    margin-top: 10px;
+}
+
+.o-productList__listContent .swiper-scrollbar .swiper-scrollbar-drag {
+    height: 2px;
+    background: #111;
+}
+
+/* TopScroll / BackToTop Button - adamlar_home.css'ten alındı */
+.topScroll {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    padding: 0.9375rem;
+    margin: 0.9375rem auto;
+    background: var(--topScrollBackground);
+    color: var(--white);
+    font-size: 1rem;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    font-family: var(--tertiaryFont);
+    border-radius: 0;
+}
+
+.topScroll::before {
+    margin-right: 0.9375rem;
+}
+
+.topScroll .icon {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.topScroll.bmi-backTo-top {
+    position: static;
+    margin: 0.9375rem auto;
+}
+
+/* Footer Styles - adamlar_home.css'ten alındı */
+.o-footer {
+    padding: var(--footerPadding);
+    background: var(--black);
+    color: var(--white);
+    margin-bottom: 0;
+}
+
+.o-footer__logo {
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    overflow: visible;
+}
+
+.o-footer__seperator {
+    height: 1px;
+    background: #3a3a3a;
+    margin: 0 -15px 24px -15px;
+}
+
+.o-footer__menu {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 24px;
+}
+
+.o-footer__menu.--col {
+    display: flex;
+    flex-direction: column;
+    width: calc(50% - 15px);
+    margin-bottom: 0;
+}
+
+.o-footer__menu.--col:first-child {
+    margin-right: 0.625rem;
+}
+
+.o-footer__menu--link {
+    display: block;
+    padding: 4px 0;
+    color: var(--white);
+    font-family: var(--tertiaryFont);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    text-decoration: none;
+}
+
+.o-footer__menu--link:hover,
+.o-footer__menu--link:active,
+.o-footer__menu--link:visited {
+    color: var(--white);
 }
 
 .o-footer__menu--link.--first {
-    margin-bottom: 15px;
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 8px;
 }
 
-.o-footer__menu--link.mt20 {
+.o-footer__menu--link.--mt {
     margin-top: 20px;
+}
+
+.o-footer__menu--link.--pt {
+    padding-top: 0;
+}
+
+.o-footer__menu--link.--bold {
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.o-footer__menu--link.d-block {
+    display: block;
 }
 
 .o-footer__bottom {
-    text-align: center;
-    margin-bottom: 20px;
-    border-top: 1px solid #333;
-    padding-top: 20px;
+    margin-bottom: 1.25rem;
 }
 
-.o-footer__bottomTitle {
-    font-family: var(--primaryFont);
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 15px;
+.o-footer__bottom.--hidden {
+    display: none;
+}
+
+.o-footer__bottom[data-language-panel-trigger] {
+    margin-bottom: 24px;
+}
+
+.o-footer__appLink {
+    width: calc(50% - 8px);
+    font-size: 0.75rem;
+}
+
+.o-footer__appLink__bottom {
+    width: calc(50% - 8px);
+    font-size: 0.75rem;
+    margin-left: -12px;
 }
 
 .o-footer__social {
+    font-size: 32px;
     display: flex;
-    justify-content: center;
-    gap: 15px;
+    gap: 8px;
+}
+
+.o-footer__social a[class*="bmi"] {
+    color: var(--white);
+}
+
+.o-footer__bottomTitle {
+    font-family: var(--tertiaryFont);
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    margin-bottom: 16px;
 }
 
 .o-footer__copyright {
-    text-align: center;
-    font-size: 11px;
-    color: #666;
-    margin-top: 20px;
-    font-family: var(--secondaryFont);
+    font-family: var(--tertiaryFont);
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 18px;
+    margin-bottom: 0;
+}
+
+.o-footer__lang {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    text-transform: uppercase;
+}
+
+.o-footer__lang span {
+    font-size: 13px;
+    font-family: var(--tertiaryFont);
+    font-weight: 500;
 }

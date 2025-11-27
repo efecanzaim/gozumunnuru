@@ -33,37 +33,33 @@ const mpSliderItems = [
 const MobileMpSlider = () => {
     return (
         <div className="o-mpSliderWrapper">
-            <div className="o-mpSliderItems">
-                <Swiper
-                    modules={[Scrollbar]}
-                    spaceBetween={16}
-                    slidesPerView={1.1}
-                    speed={600}
-                    loop={false}
-                    centeredSlides={false}
-                    watchSlidesProgress
-                    className="swiper-container"
-                    wrapperClass="o-mpSliderItemsWrapper swiper-wrapper"
-                    scrollbar={{
-                        el: '.o-mpSliderItems .swiper-scrollbar',
-                        draggable: true,
-                    }}
-                >
-                    {mpSliderItems.map((item) => (
-                        <SwiperSlide key={item.id} className="o-mpSliderItem swiper-slide">
-                            <Link href={item.link}>
-                                <img
-                                    src={item.imageUrl}
-                                    alt={item.alt}
-                                    loading="lazy"
-                                />
-                            </Link>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-                <div className="swiper-pagination swiper-pagination-bullets"></div>
-                <div className="swiper-scrollbar"></div>
-            </div>
+            <Swiper
+                modules={[Scrollbar]}
+                spaceBetween={16}
+                slidesPerView={1.1}
+                speed={600}
+                loop={false}
+                centeredSlides={false}
+                watchSlidesProgress
+                className="o-mpSliderItems"
+                wrapperClass="o-mpSliderItemsWrapper"
+                scrollbar={{
+                    draggable: true,
+                }}
+            >
+                {mpSliderItems.map((item) => (
+                    <SwiperSlide key={item.id} className="o-mpSliderItem">
+                        <Link href={item.link}>
+                            <img
+                                src={item.imageUrl}
+                                alt={item.alt}
+                                className="swiper-lazy"
+                                loading="lazy"
+                            />
+                        </Link>
+                    </SwiperSlide>
+                ))}
+            </Swiper>
         </div>
     );
 };
