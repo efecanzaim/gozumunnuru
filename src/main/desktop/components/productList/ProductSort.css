@@ -1,0 +1,189 @@
+/* ============================================
+   Product Sort / Listbox Styles (Beymen Style)
+   ============================================ */
+
+/* Base Listbox */
+.listbox {
+    position: relative;
+}
+
+.listbox.-lbSort .listbox__selected {
+    background-color: #111;
+    color: #fff;
+    text-transform: uppercase;
+    border: 1px solid #111;
+}
+
+.listbox.-lbSort .listbox__selected[aria-expanded="true"] {
+    background-color: #fff;
+    color: #4a4a4a;
+}
+
+.listbox.-lbSort .listbox__selected.-invalid {
+    font-family: inherit !important;
+}
+
+.listbox.-lbSort .listbox__options {
+    overflow: hidden;
+    max-height: 0;
+    outline-width: 0;
+    outline-color: #c1c1c1;
+    transition: outline-width 0.5s, max-height 0.5s;
+}
+
+.listbox.-lbSort .listbox__options.-show {
+    max-height: 266px;
+    outline-width: 1px;
+}
+
+.listbox.-lbSort .listbox__option {
+    font-family: TTNormsPro, sans-serif;
+    font-weight: 450;
+    font-size: 12px;
+}
+
+.listbox.-lbSort .listbox__option[aria-selected="true"] {
+    background-color: #fff;
+    color: #4a4a4a;
+    font-family: TTNormsPro, sans-serif;
+    font-weight: 450;
+}
+
+/* Product List Sort Specific */
+.o-productList__sort {
+    min-width: 190px;
+    font-family: TTNormsPro, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+}
+
+.o-productList__sort svg {
+    display: none;
+}
+
+.o-productList__sort .listbox__selected {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    min-width: 250px;
+    border: 1px solid #111;
+    padding: 0 16px 0 12px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+@media (max-width: 1199.98px) {
+    .o-productList__sort .listbox__selected {
+        min-width: 190px;
+        max-width: 190px;
+    }
+}
+
+.o-productList__sort .listbox__selected:before {
+    content: "";
+    width: 24px;
+    height: 24px;
+    margin-right: 4px;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTE4IDEzLjE2N0wxMiAxOWwtNi01LjgzM2gxMnpNMTIgNWw2IDUuODMzSDZMMTIgNXoiLz48L3N2Zz4=);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.o-productList__sort .listbox__selected:after {
+    content: "";
+    width: 15px;
+    height: 9px;
+    margin-left: auto;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSI5Ij48cGF0aCBmaWxsPSIjRkZGIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0uMzA1IDEuODQ3bDYuNjg2IDYuOTM0YS43MDEuNzAxIDAgMDAxLjAxOCAwbDYuNjg2LTYuOTM0YTEuMTExIDEuMTExIDAgMDAwLTEuNTMgMS4wMTggMS4wMTggMCAwMC0xLjQ3NSAwTDcuNSA2LjI0OCAxLjc4LjMxN2ExLjAxOSAxLjAxOSAwIDAwLTEuNDc2IDAgMS4xMTEgMS4xMTEgMCAwMDAgMS41MyIvPjwvc3ZnPg==);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.o-productList__sort .listbox__selected[aria-expanded="true"]:before {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTE4IDEzLjE2N0wxMiAxOWwtNi01LjgzM2gxMnpNMTIgNWw2IDUuODMzSDZMMTIgNXoiLz48L3N2Zz4=);
+}
+
+.o-productList__sort .listbox__selected[aria-expanded="true"]:after {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSI5Ij48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0uMzA1IDcuMTUzTDYuOTkxLjIxOWEuNzAxLjcwMSAwIDAxMS4wMTggMGw2LjY4NiA2LjkzNGExLjExMSAxLjExMSAwIDAxMCAxLjUzIDEuMDE4IDEuMDE4IDAgMDEtMS40NzUgMEw3LjUgMi43NTIgMS43OCA4LjY4M2ExLjAxOSAxLjAxOSAwIDAxLTEuNDc2IDAgMS4xMTEgMS4xMTEgMCAwMTAtMS41MyIvPjwvc3ZnPg==);
+}
+
+.o-productList__sort .listbox__selected:hover {
+    background-color: #333;
+}
+
+.o-productList__sort .listbox__selected[aria-expanded="true"]:hover {
+    background-color: #fff;
+}
+
+.o-productList__sort .listbox__selected .listbox__text {
+    margin-right: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Listbox Options Dropdown */
+.o-productList__sort .listbox__options {
+    position: absolute;
+    z-index: 4;
+    top: 48px;
+    left: 0;
+    overflow: auto;
+    width: 100%;
+    max-height: 0;
+    padding: 0;
+    margin: 0;
+    background-color: #fff;
+    border-radius: 0;
+    list-style: none;
+    outline-width: 0;
+    outline-style: solid;
+    outline-color: #c1c1c1;
+    transition: max-height 0.3s ease, outline-width 0.3s ease;
+}
+
+.o-productList__sort .listbox__options.-show {
+    max-height: 266px;
+    outline-width: 1px;
+}
+
+/* Listbox Option Items */
+.o-productList__sort .listbox__option {
+    display: flex;
+    align-items: center;
+    height: auto;
+    padding: 0 16px;
+    color: #111;
+    font-size: 13px !important;
+    line-height: 33px;
+    letter-spacing: 0.5px;
+    font-family: TTNormsPro, sans-serif;
+    font-weight: 450;
+    border-bottom: 0;
+    cursor: pointer;
+}
+
+.o-productList__sort .listbox__option.-disabled,
+.o-productList__sort .listbox__option.-disabled:hover {
+    color: #c1c1c1;
+    cursor: default;
+}
+
+.o-productList__sort .listbox__option.-selected {
+    font-family: TTNormsPro, sans-serif !important;
+    font-weight: 600 !important;
+}
+
+.o-productList__sort .listbox__option:hover {
+    text-decoration: none;
+    color: #4a4a4a;
+}
+
+.o-productList__sort .listbox__option .listbox__text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

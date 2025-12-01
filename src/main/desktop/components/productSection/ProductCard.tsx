@@ -46,9 +46,10 @@ export type Product = {
 
 type ProductCardProps = {
   product: Product;
+  variant?: "slider" | "list"; // slider = ana sayfa tiny slider, list = ürün listesi sayfaları
 };
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, variant = "slider" }: ProductCardProps) {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isHoveringImage, setIsHoveringImage] = useState(false);
   const basePath = getBasePath();
@@ -136,13 +137,19 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <div className={styles.productCard}>
+    <div className={`${styles.productCard} ${variant === "list" ? styles.listVariant : ""}`}>
       {/* m-productCard__photo */}
       <div
         className={styles.imageWrapper}
         onMouseLeave={handleImageLeave}
         onMouseMove={handleImageMove}
       >
+        {/* m-productCard__heart - favori ikonu */}
+        <span className={styles.heart} style={{ display: 'none' }}>
+          <svg className="icon icon-favorite-active" fill="#e90808" width="24px" height="24px">
+            <use xlinkHref="#icon-favorite-active"></use>
+          </svg>
+        </span>
         <Link href={product.productUrl || `/urun/${product.id}`} className="-nodrag">
           <Image
             src={mainImage}
@@ -170,10 +177,14 @@ export default function ProductCard({ product }: ProductCardProps) {
 
       {/* m-productCard__detail */}
       <div className={styles.detail}>
-        <Link href={product.productUrl || `/urun/${product.id}`} className="-nodrag">
-          <h3 className={styles.title}>{brandName}</h3>
-          <span className={styles.desc}>{displayName}</span>
-        </Link>
+        <h3>
+          <Link href={product.productUrl || `/urun/${product.id}`}>
+            <span className={styles.title}>{brandName}</span>
+          </Link>
+          <Link href={product.productUrl || `/urun/${product.id}`} className={styles.descLink}>
+            <span className={styles.desc}>{displayName}</span>
+          </Link>
+        </h3>
 
         {/* m-productCard__price */}
         <div className={styles.price}>
@@ -183,7 +194,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           )}
 
           {/* m-productCard__priceWrapper */}
-          <span className={styles.priceWrapper}>
+          <span className={`${styles.priceWrapper} ${!hasDiscount ? styles.onlyOnePrice : ''}`}>
             {hasDiscount && (
               <span className={styles.oldPrice}>{orginalPriceText}</span>
             )}
@@ -192,7 +203,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
           {/* m-productCard__campaign */}
           {hasCampaign && campaign && (
-            <div className={styles.campaign}>
+            <div className={`${styles.campaign} ${!hasDiscount ? styles.campaignOnlyOne : ''}`}>
               <span className={styles.campaignDesc}>{campaign.campaignTitle}</span>
               <span className={styles.campaignPrice}>{campaign.promotedPriceText}</span>
             </div>

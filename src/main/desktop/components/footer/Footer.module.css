@@ -393,7 +393,6 @@
 .o-footer__logo {
   padding-bottom: 24px;
   margin-bottom: 32px;
-  border-bottom: 1px solid #7f7f7f;
 }
 
 @media (max-width: 1199.98px) {
@@ -401,6 +400,47 @@
     width: 100%;
     margin-bottom: 1.25rem;
     max-width: none;
+  }
+}
+
+/* Increase footer logo size without changing footer layout */
+.o-footer__logo {
+  position: relative;
+  /* remove inline border-bottom; we'll draw a positioned line so it can sit nearer the visual logo */
+  padding-bottom: 24px;
+  margin-bottom: 32px;
+}
+
+/* Position logo absolutely so increasing its visual size doesn't expand footer height */
+.o-footer__logo img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 40px;
+  width: auto;
+  display: block;
+  -webkit-filter: brightness(0) invert(1);
+  filter: brightness(0) invert(1);
+}
+
+/* Draw the bottom line as a pseudo-element so we can control its vertical position
+   relative to the visual logo without affecting layout height. */
+.o-footer__logo::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 44px; /* align just under the 40px-high logo with small gap */
+  height: 1px;
+  background: #7f7f7f;
+}
+
+@media (max-width: 1199.98px) {
+  .o-footer__logo img {
+    height: 32px;
+  }
+  .o-footer__logo::after {
+    top: 36px; /* 32px logo + small gap */
   }
 }
 

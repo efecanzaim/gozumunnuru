@@ -1,9 +1,11 @@
 import React from 'react';
 import styles from './Footer.module.css';
+import { getBasePath } from '@/utils/basePath';
 
 
-
-const Footer = () => (
+const Footer = () => {
+  const basePath = getBasePath();
+  return (
   <footer className={styles['o-footer']}>
     <div className={styles['o-footer__top']}>
       <div className={styles['container']}>
@@ -98,8 +100,8 @@ const Footer = () => (
             </div>
           </div>
           <div className={styles['o-footer__col']}>
-            <div className={styles['o-footer__logo']}>
-              <img height="20" src="//cdn.beymen.com/assets/desktop/img/beymen-logo-dot-white.svg" title="Beymen" width="256" alt="Beymen Logo" />
+              <div className={styles['o-footer__logo']}>
+              <img height="20" src={`${basePath}/gozumun-nuru-logo.svg`} title="Gözümün Nuru" width="256" alt="Gözümün Nuru Logo" />
             </div>
             <div className={styles['o-footer__social']}>
               <div className={styles['o-footer__social--title']}>BİZİ TAKİP EDİN</div>
@@ -193,6 +195,7 @@ const Footer = () => (
       </div>
     </div>
   </footer>
-);
+  );
+};
 
 export default Footer;

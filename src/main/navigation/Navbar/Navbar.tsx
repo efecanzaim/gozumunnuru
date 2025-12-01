@@ -5,11 +5,13 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { FocusEvent, TransitionEvent } from "react";
 import { Search, Instagram, User, Heart, ShoppingCart } from "lucide-react";
+import { useRouter } from 'next/navigation'
 import styles from "./Navbar.module.css";
 import { getBasePath } from "@/utils/basePath";
 import { translations } from "../language/language-config";
 import { useLanguageContext } from "../language/language-context";
 import { LanguageSwitcher } from "../language/LanguageSwitcher";
+import SearchOverlay from "./SearchOverlay";
 
 type PanelLink = {
   href: string;
@@ -76,6 +78,7 @@ const giftLinks: PanelLink[] = [
 
 export default function Navbar() {
   const basePath = getBasePath();
+  const router = useRouter();
   const { selectedLanguage } = useLanguageContext();
   const [openPanel, setOpenPanel] = useState<string | null>(null);
   const [panelContent, setPanelContent] = useState<PanelLink[]>([]);
@@ -84,6 +87,7 @@ export default function Navbar() {
   const [isPanelClosing, setIsPanelClosing] = useState(false);
   const [panelContentLabel, setPanelContentLabel] = useState<string | null>(null);
   const [panelImage, setPanelImage] = useState<string | null>(null);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const panelConfigurations: PanelConfig[] = useMemo(
@@ -211,6 +215,7 @@ export default function Navbar() {
             type="search"
             placeholder={t.search}
             aria-label={t.searchLabel}
+            onFocus={() => setIsSearchOpen(true)}
           />
           <button type="submit" className={styles.searchButton} aria-label={t.search} disabled>
             <Search size={18} />
@@ -237,51 +242,64 @@ export default function Navbar() {
         onBlur={handlePanelBlur}
       >
         <div className={styles.bottomBar}>
-          {panelConfigurations.map((panel, index) => (
-            <button
-              key={panel.id}
-              type="button"
-              className={styles.bottomTrigger}
-              aria-expanded={openPanel === panel.id}
-              aria-controls="navbar-bottom-panel"
-              onClick={() =>
-                setOpenPanel((prev) => (prev === panel.id ? null : panel.id))
-              }
-              onMouseEnter={() => {
-                if (closeTimeoutRef.current) {
-                  clearTimeout(closeTimeoutRef.current);
-                  closeTimeoutRef.current = null;
-                }
-                setOpenPanel(panel.id);
-              }}
-              onMouseLeave={(e) => {
-                const relatedTarget = e.relatedTarget as Element | null;
-                const panelElement = document.getElementById("navbar-bottom-panel");
-                const isInPanel = panelElement && relatedTarget && panelElement.contains(relatedTarget);
-                const isInButton = relatedTarget && relatedTarget.classList.contains(styles.bottomTrigger);
-                
-                if (!isInPanel && !isInButton) {
+          {panelConfigurations.map((panel, index) => {
+            const routeMap: Record<string, string> = {
+              jewelry: '/mucevher',
+              collection: '/koleksiyon',
+              bespoke: '/ozel-tasarim',
+              gift: '/hediye',
+            }
+
+            return (
+              <button
+                key={panel.id}
+                type="button"
+                className={styles.bottomTrigger}
+                aria-expanded={openPanel === panel.id}
+                aria-controls="navbar-bottom-panel"
+                onClick={() => {
+                  // open/close panel for hover interactions
+                  setOpenPanel((prev) => (prev === panel.id ? null : panel.id))
+                  // navigate to the category page as well
+                  const target = routeMap[panel.id]
+                  if (target) router.push(target)
+                }}
+                onMouseEnter={() => {
                   if (closeTimeoutRef.current) {
                     clearTimeout(closeTimeoutRef.current);
-                  }
-                  closeTimeoutRef.current = setTimeout(() => {
-                    if (openPanel === panel.id) {
-                      setOpenPanel(null);
-                    }
                     closeTimeoutRef.current = null;
-                  }, 200);
-                }
-              }}
-              onFocus={() => setOpenPanel(panel.id)}
-              onKeyDown={(event) => {
-                if (event.key === "Escape") {
-                  setOpenPanel(null);
-                }
-              }}
-            >
-              {panel.label}
-            </button>
-          ))}
+                  }
+                  setOpenPanel(panel.id);
+                }}
+                onMouseLeave={(e) => {
+                  const relatedTarget = e.relatedTarget as Element | null;
+                  const panelElement = document.getElementById("navbar-bottom-panel");
+                  const isInPanel = panelElement && relatedTarget && panelElement.contains(relatedTarget);
+                  const isInButton = relatedTarget && relatedTarget.classList.contains(styles.bottomTrigger);
+
+                  if (!isInPanel && !isInButton) {
+                    if (closeTimeoutRef.current) {
+                      clearTimeout(closeTimeoutRef.current);
+                    }
+                    closeTimeoutRef.current = setTimeout(() => {
+                      if (openPanel === panel.id) {
+                        setOpenPanel(null);
+                      }
+                      closeTimeoutRef.current = null;
+                    }, 200);
+                  }
+                }}
+                onFocus={() => setOpenPanel(panel.id)}
+                onKeyDown={(event) => {
+                  if (event.key === "Escape") {
+                    setOpenPanel(null);
+                  }
+                }}
+              >
+                {panel.label}
+              </button>
+            )
+          })}
           <nav className={styles.bottomLinks} aria-label="Alt menü bağlantıları">
             {auxiliaryBottomLinks.map((link) => (
               <Link
@@ -367,6 +385,8 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+
+      <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </header>
   );
 }

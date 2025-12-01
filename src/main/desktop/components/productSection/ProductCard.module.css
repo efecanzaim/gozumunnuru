@@ -15,6 +15,61 @@
   text-decoration: none !important;
 }
 
+/* Favori ikonu */
+.heart {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 3;
+  fill: #111;
+  cursor: pointer;
+}
+
+/* Top Badge - örn: "Yeni" etiketi */
+.topBadge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 78px;
+  height: 48px;
+  background-color: #000;
+  color: #fff;
+  padding: 8px;
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 450;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  z-index: 2;
+}
+
+/* Sponsor Badge */
+.sponsorBadge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 32px;
+  background-color: #ac8e56;
+  color: #fff;
+  padding: 8px;
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 450;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  z-index: 2;
+}
+
+.sponsorBadge.withTopBadge {
+  top: 56px;
+}
+
+/* Star icon */
+.star {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 2;
+}
+
 .imageWrapper {
   position: relative;
   min-height: 200px;
@@ -33,6 +88,13 @@
   object-fit: cover;
   width: 100%;
   height: 100%;
+  display: block;
+}
+
+@media (max-width: 1960px) {
+  .image {
+    height: auto;
+  }
 }
 
 .imagePagination {
@@ -75,10 +137,47 @@
   background-color: #111;
 }
 
-.priceWrapper.onlyOnePrice {
-  display: flex;
+.detail {
+  position: relative;
+  overflow: hidden;
+  min-height: 164px;
+  padding: 24px 16px 16px;
+}
+
+.detail h3 {
+  margin: 0;
+  padding: 0;
+}
+
+.title {
+  display: block;
+  margin-bottom: 0.3125rem;
+  color: #111;
+  font-size: 1.0625rem;
+  line-height: 16px;
+}
+
+.title,
+.desc {
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 500;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.desc {
+  display: block;
   align-items: center;
-  height: 36px;
+  margin: 8px 0 16px;
+  color: #616161;
+  font-size: 0.8125rem;
+  line-height: 14px;
+}
+
+.descLink {
+  display: block;
 }
 
 .price {
@@ -110,41 +209,14 @@
   }
 }
 
-.detail {
-  position: relative;
-  overflow: hidden;
-  min-height: 123px;
-  padding: 16px;
-}
-
-.title {
-  margin-bottom: 0.3125rem;
-  color: #111;
-  font-size: 1.0625rem;
-  line-height: 16px;
-}
-
-.title,
-.desc {
-  font-family: TTNormsPro, sans-serif;
-  font-weight: 500;
-  display: block;
-  max-width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.desc {
-  align-items: center;
-  margin: 8px 0 16px;
-  color: #616161;
-  font-size: 0.8125rem;
-  line-height: 14px;
-}
-
 .priceWrapper {
   margin-right: 16px;
+}
+
+.onlyOnePrice {
+  display: flex;
+  align-items: center;
+  height: 36px;
 }
 
 .oldPrice {
@@ -215,7 +287,12 @@
   margin-left: auto;
 }
 
+.campaignOnlyOne {
+  align-self: center;
+}
+
 .campaignDesc {
+  font-family: TTNormsPro, sans-serif;
   font-weight: 500;
   font-size: 0.75rem;
   line-height: 1rem;
@@ -225,13 +302,360 @@
 }
 
 .campaignPrice {
+  font-family: TTNormsPro, sans-serif;
   font-weight: 600;
   font-size: 1rem;
   line-height: 1.125rem;
   color: #111;
 }
 
-/* Home variant styles - Beymen o-productWidget-home */
+/* Badge Wrapper */
+.badgeWrapper {
+  margin: 8px 0 0;
+}
+
+.badgeWrapper.onlyOnePrice {
+  margin: 0;
+}
+
+/* Product Badge Styles */
+.badge {
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 500;
+  font-size: 0.6875rem;
+  line-height: 1.625rem;
+  color: #857750;
+  margin: 8px 0 0;
+  padding: 0 8px;
+  border: 1px solid #857750;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  height: 1.625rem;
+}
+
+.badge.danger {
+  border-color: #e90808;
+  color: #e90808;
+}
+
+.badge.success {
+  border-color: #4c7c36;
+  color: #4c7c36;
+}
+
+.badge.warning {
+  border-color: #857750;
+  color: #857750;
+}
+
+.badge.default {
+  border-color: #4a4a4a;
+  color: #4a4a4a;
+}
+
+/* Size Color Selector */
+.sizeColor {
+  position: absolute;
+  bottom: 16px;
+  background: #fff;
+}
+
+.sizeColor ul {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sizeColor li {
+  display: flex;
+}
+
+.sizeColor button {
+  width: 12px;
+  height: 12px;
+  margin: 0 0.3125rem 0 0;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: transparent;
+}
+
+.sizeColor img {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+}
+
+/* Color Count Badge */
+.colorCount {
+  position: absolute;
+  bottom: 8px;
+  left: 10px;
+  background-color: #fff;
+  border: 0.5px solid #4a4a4a;
+  padding: 3px 5px;
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 450;
+  font-size: 12px;
+  line-height: 14px;
+  color: #4a4a4a;
+  cursor: pointer;
+}
+
+/* Size Select Dropdown */
+.sizeSelect {
+  position: absolute;
+  width: calc(100% - 32px);
+  bottom: 72px;
+}
+
+.sizeSelect select {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid #d8d8d8;
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.sizeSelect.unStock {
+  color: #616161;
+  font-weight: 400;
+}
+
+.sizeSelectDescription {
+  padding: 8px 0;
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+}
+
+/* Add to Basket Button */
+.basket {
+  position: absolute;
+  width: calc(100% - 32px);
+  bottom: 16px;
+}
+
+.basket .btn {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  padding: 0;
+  background-color: #111;
+  color: #fff;
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.basket .btn:hover:not([disabled]) {
+  background-color: #2a2a2a;
+}
+
+.basket .btn[disabled] {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.basketAdded {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  border: 1px solid #d8d8d8;
+  background-color: #efefef;
+  color: #4a4a4a;
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.basketAdded svg {
+  width: 24px;
+  height: 24px;
+  margin: 8px;
+  fill: #50e3c2;
+}
+
+/* Stock Hover Selector */
+.stock {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  overflow: hidden;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  margin: 0 16px 14px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  transition: all 0.2s ease-in-out;
+}
+
+@media (max-width: 991.98px) {
+  .stock {
+    display: none !important;
+  }
+}
+
+.stock:hover {
+  border-color: #111;
+}
+
+.stock:hover.hasMultiStock {
+  border-color: #ddd;
+  width: calc(100% - 32px);
+}
+
+.stockWrapper {
+  position: relative;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 50px !important;
+}
+
+@media (min-width: 1200px) {
+  .stockWrapper {
+    padding: 0 5%;
+  }
+}
+
+.stockItem {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  margin: 0 4px;
+  padding: 0 4px;
+  color: #111;
+  font-family: TTNormsPro, sans-serif;
+  font-weight: 450;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.stockItem.noStock {
+  color: #9b9b9b;
+  pointer-events: none;
+}
+
+.stockItemList {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+
+.stockCartIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+}
+
+.hiddenStock {
+  display: flex;
+}
+
+.hiddenStock .stockItemCount {
+  color: #111;
+  font-family: TTNormsPro, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Loading State */
+.productCard.loading .image {
+  width: 100%;
+}
+
+/* ============================================
+   LIST VARIANT - Ürün Listesi Sayfaları için
+   Beymen'e birebir uyumlu tam boyutlu kartlar
+   ============================================ */
+.listVariant {
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.listVariant .imageWrapper {
+  min-height: 300px;
+}
+
+@media (min-width: 992px) {
+  .listVariant .imageWrapper {
+    min-height: 400px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .listVariant .imageWrapper {
+    min-height: 450px;
+  }
+}
+
+@media (min-width: 1367px) {
+  .listVariant .imageWrapper {
+    min-height: 500px;
+  }
+}
+
+.listVariant .detail {
+  padding: 24px 16px 16px;
+  min-height: 164px;
+}
+
+.listVariant .title {
+  font-size: 1.0625rem;
+  line-height: 16px;
+  margin-bottom: 5px;
+}
+
+.listVariant .desc {
+  font-size: 0.8125rem;
+  line-height: 14px;
+  margin: 8px 0 16px;
+}
+
+.listVariant .priceWrapper {
+  margin-right: 16px;
+}
+
+.listVariant .campaign {
+  padding: 4px 8px;
+}
+
+/* ============================================
+   Home variant styles - Ana sayfa slider için
+   Tiny Slider ile uyumlu - DOKUNMA!
+   ============================================ */
 :global(.productSlider.home) .productCard .imageWrapper {
   position: relative;
   min-height: 200px;

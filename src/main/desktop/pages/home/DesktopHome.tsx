@@ -8,31 +8,28 @@ import CampaignSection from "@/main/desktop/components/campaignSection/CampaignS
 import CategorySlider from "@/main/desktop/components/categorySlider/CategorySlider";
 import FeaturedCategories from "@/main/desktop/components/featuredCategories/FeaturedCategories";
 import Footer from "@/main/desktop/components/footer/Footer";
-import { LanguageProvider } from "@/main/navigation/language/language-context";
 
 const DesktopHome = () => {
     return (
-        <LanguageProvider>
-            <div className="desktop-home">
-                <Navbar />
-                {/* <Header /> */}
-                <div className="container -wide">
-                    <Slider />
-                    <Banner />
-                </div>
-                <div className="container -wide">
-                    <ProductSection title="Gözümün Nuru Öneriyor" products={featuredProducts} variant="home" />
-                </div>
-                <div className="container -wide">
-                    <CampaignSection />
-                </div>
-                <div className="container -wide">
-                    <CategorySlider />
-                </div>
-                <FeaturedCategories />
-                <Footer />
+        <div className="desktop-home">
+            <Navbar />
+            {/* <Header /> */}
+            <div className="container -wide">
+                <Slider />
+                <Banner />
             </div>
-        </LanguageProvider>
+            <div className="container -wide">
+                <ProductSection title="Gözümün Nuru Öneriyor" products={featuredProducts} variant="home" />
+            </div>
+            <div className="container -wide">
+                <CampaignSection />
+            </div>
+            <div className="container -wide">
+                <CategorySlider />
+            </div>
+            <FeaturedCategories />
+            <Footer />
+        </div>
     );
 };
 

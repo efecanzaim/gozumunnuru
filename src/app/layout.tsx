@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/main/navigation/language/language-context";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -31,7 +32,9 @@ export default function RootLayout({
           "--bracelets-image": `url("${basePath}/bracelets.jpg")`
         } as React.CSSProperties}
       >
-        <main>{children}</main>
+        <LanguageProvider>
+          <main>{children}</main>
+        </LanguageProvider>
       </body>
     </html>
   );
