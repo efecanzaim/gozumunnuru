@@ -1,7 +1,5 @@
 import type { Product } from '@/main/desktop/components/productSection/ProductCard';
 
-// Beymen formatına uygun örnek ürün verisi
-// Bu veri gerçek uygulamada API'den gelecek
 export const productListData = {
   categoryId: 10004,
   categoryPath: "Özel Tasarım",
@@ -165,7 +163,6 @@ export const productListData = {
   ] as Product[]
 };
 
-// Sıralama seçenekleri (Beymen formatı)
 export const productListingOrders = [
   { orderOption: "yeniurunler", displayName: "Yeni Ürünler" },
   { orderOption: "artanfiyat", displayName: "Artan Fiyat" },

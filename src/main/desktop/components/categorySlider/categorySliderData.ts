@@ -16,7 +16,7 @@ export type CategorySliderTab = {
 export const categorySliderData: CategorySliderTab[] = [
   {
     id: "new-arrivals",
-    label: "YENİ GELENLER",
+    label: "yeni gelenler",
     items: [
       {
         id: "women-1",
@@ -70,7 +70,7 @@ export const categorySliderData: CategorySliderTab[] = [
   },
   {
     id: "best-sellers",
-    label: "ÇOK SATANLAR",
+    label: "çok satanlar",
     items: [
       {
         id: "men-1",
@@ -123,8 +123,8 @@ export const categorySliderData: CategorySliderTab[] = [
     ],
   },
   {
-    id: "beymen-edit",
-    label: "BEYMEN EDIT",
+    id: "gn-edit",
+    label: "gözümün nuru edit",
     items: [
       {
         id: "kids-1",
@@ -177,8 +177,8 @@ export const categorySliderData: CategorySliderTab[] = [
     ],
   },
   {
-    id: "beymen-exclusive",
-    label: "BEYMEN EXCLUSIVE",
+    id: "gn-exclusive",
+    label: "gözümün nuru preloved",
     items: [
       {
         id: "home-1",

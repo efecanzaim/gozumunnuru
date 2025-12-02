@@ -6,7 +6,7 @@ import ProductCard, { Product } from "./ProductCard";
 import "tiny-slider/dist/tiny-slider.css";
 
 type ProductSectionProps = {
-  title: string;
+  title: React.ReactNode;
   products?: Product[];
   variant?: "default" | "home";
 };

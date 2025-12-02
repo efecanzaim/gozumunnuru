@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <!-- Padded tile: icon centered with transparent margins to create spacing when repeated -->
+  <rect fill="none" width="120" height="120" />
+  <!-- center a rotated square similar to original -->
+  <rect fill="#efebe7" x="38" y="38" width="44" height="44" transform="rotate(-45 60 60)" />
+</svg>

@@ -14,12 +14,12 @@
   padding-bottom: 16px;
   display: inline-block;
   color: #111;
-  font-family: TTNormsPro, sans-serif;
+  font-family: 'Buljirya', TTNormsPro, sans-serif;
   font-weight: 500;
   font-size: 1.375rem;
   line-height: 32px;
   letter-spacing: 2px;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .campaignTitle::before {

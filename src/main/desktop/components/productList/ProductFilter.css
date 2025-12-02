@@ -1,7 +1,3 @@
-/* ============================================
-   Product Filter Styles (Beymen Style)
-   ============================================ */
-
 .o-productFilter {
     outline: none;
 }
@@ -98,11 +94,6 @@
     background: rgba(0, 0, 0, 0.4);
 }
 
-/* 
- * Filter Content - Beymen'deki gibi o-productList__top genişliğinde açılıyor
- * o-productList__top position: relative olduğu için left: 0 container'ın sol kenarı
- * right: 0 ile container'ın sağ kenarına kadar genişliyor
- */
 .o-productFilter__content {
     position: absolute;
     z-index: 9;

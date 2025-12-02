@@ -15,9 +15,6 @@ export const languageOptions: LanguageOption[] = [
 
 export const translations: Record<string, Record<string, string>> = {
   tr: {
-    about: "Hakkımızda",
-    blog: "Blog",
-    contact: "İletişim",
     instagram: "Instagram",
     languageSelection: "Dil Seçimi",
     language: "Dil",
@@ -27,9 +24,6 @@ export const translations: Record<string, Record<string, string>> = {
     searchLabel: "Arama (Search)",
   },
   en: {
-    about: "About",
-    blog: "Blog",
-    contact: "Contact",
     instagram: "Instagram",
     languageSelection: "Language Selection",
     language: "Language",
@@ -39,9 +33,6 @@ export const translations: Record<string, Record<string, string>> = {
     searchLabel: "Search",
   },
   ru: {
-    about: "О нас",
-    blog: "Блог",
-    contact: "Контакты",
     instagram: "Instagram",
     languageSelection: "Выбор языка",
     language: "Язык",

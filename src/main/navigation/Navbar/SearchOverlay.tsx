@@ -179,7 +179,6 @@ export default function SearchOverlay({ isOpen, onClose, initialQuery = '' }: Se
 
   return (
     <div className={`${styles.overlay} ${isSticky ? styles.sticky : ''}`} ref={overlayRef}>
-      {/* Header - Beymen orijinal */}
       <div className={`${styles.header} ${isSticky ? styles.headerSticky : ''}`}>
         <div className={styles.headerContainer}>
           {/* Sol: Logo */}
@@ -194,7 +193,6 @@ export default function SearchOverlay({ isOpen, onClose, initialQuery = '' }: Se
             />
           </Link>
 
-          {/* Orta: Search Form - Beymen orijinal */}
           <form className={styles.searchForm} onSubmit={handleSearchSubmit}>
             <div className={styles.searchInputWrapper}>
               <Search size={16} className={styles.searchIcon} />

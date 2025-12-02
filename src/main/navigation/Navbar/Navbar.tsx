@@ -36,9 +36,6 @@ const panelCtaCopy: Record<string, string> = {
 };
 
 const topLinksConfig = [
-  { href: "/hakkimizda", key: "about" },
-  { href: "/blog", key: "blog" },
-  { href: "/iletisim", key: "contact" },
   { href: "https://instagram.com/", key: "instagram", external: true },
 ];
 
@@ -221,7 +218,7 @@ export default function Navbar() {
             <Search size={18} />
           </button>
         </form>
-        <nav className={styles.middleBarActions}>
+        {/* <nav className={styles.middleBarActions}>
           <Link href="/hesabim" className={styles.middleBarAction}>
             <User size={24} />
             <span>Hesabım</span>
@@ -234,7 +231,7 @@ export default function Navbar() {
             <ShoppingCart size={24} />
             <span>Sepetim</span>
           </Link>
-        </nav>
+        </nav> */}
       </div>
 
       <div
@@ -344,6 +341,13 @@ export default function Navbar() {
             aria-hidden={!showPanelBorder}
             onTransitionEnd={handlePanelTransitionEnd}
           >
+            <div className={styles.bottomPanelPattern} aria-hidden="true">
+              <div className={`${styles.patternRow} ${styles.row1}`} />
+              <div className={`${styles.patternRow} ${styles.row2}`} />
+              <div className={`${styles.patternRow} ${styles.row3}`} />
+              <div className={`${styles.patternRow} ${styles.row4}`} />
+              <div className={`${styles.patternRow} ${styles.row5}`} />
+            </div>
             <div className={styles.bottomPanelInner}>
               <div className={styles.bottomPanelHeadingBlock}>
                 {panelContentLabel && (

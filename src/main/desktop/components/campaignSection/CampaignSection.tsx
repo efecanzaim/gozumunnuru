@@ -13,7 +13,7 @@ type CampaignSectionProps = {
 };
 
 export default function CampaignSection({
-  title = "Kampanyalar",
+  title = "kampanyalar",
   campaigns = campaignsData,
 }: CampaignSectionProps) {
   const basePath = getBasePath();

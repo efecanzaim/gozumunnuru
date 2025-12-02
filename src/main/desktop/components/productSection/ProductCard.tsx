@@ -20,16 +20,16 @@ export type Product = {
   productId?: string;
   productUrl: string;
   images: string[];
-  image?: string; // Ana görsel
+  image?: string;
   brand: string;
-  brandName?: string; // Beymen'de brandName kullanılıyor
+  brandName?: string;
   name: string;
-  displayName?: string; // Beymen'de displayName kullanılıyor
+  displayName?: string;
   price: number;
   actualPrice?: number;
   actualPriceText?: string;
   originalPrice?: number;
-  orginalPriceText?: string; // Beymen'de bu şekilde yazılmış
+  orginalPriceText?: string;
   discountedPrice?: number;
   secondPrice?: number;
   secondPriceText?: string;
@@ -71,7 +71,6 @@ export default function ProductCard({ product, variant = "slider" }: ProductCard
     return `${basePath}${url.startsWith("/") ? "" : "/"}${url}`;
   };
 
-  // Beymen yapısına göre değerleri belirle
   const brandName = product.brandName || product.brand;
   const displayName = product.displayName || product.name;
   const imageList = useMemo(() => {
