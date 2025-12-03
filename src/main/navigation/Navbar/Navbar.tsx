@@ -4,8 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { FocusEvent, TransitionEvent } from "react";
-import { Search, Instagram, User, Heart, ShoppingCart } from "lucide-react";
-import { useRouter } from 'next/navigation'
+import { Instagram } from "lucide-react";
+import { useRouter } from "next/navigation";
 import styles from "./Navbar.module.css";
 import { getBasePath } from "@/utils/basePath";
 import { translations } from "../language/language-config";
@@ -13,6 +13,9 @@ import { useLanguageContext } from "../language/language-context";
 import { LanguageSwitcher } from "../language/LanguageSwitcher";
 import SearchOverlay from "./SearchOverlay";
 
+/* ───────────────────────────────────────────────────────────────────────────
+   TYPES
+─────────────────────────────────────────────────────────────────────────── */
 type PanelLink = {
   href: string;
   label: string;
@@ -21,10 +24,14 @@ type PanelLink = {
 type PanelConfig = {
   id: string;
   label: string;
+  href: string;
   links: PanelLink[];
   image: string;
 };
 
+/* ───────────────────────────────────────────────────────────────────────────
+   CONSTANTS
+─────────────────────────────────────────────────────────────────────────── */
 const placeholderImage =
   "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=900&q=80";
 
@@ -38,8 +45,6 @@ const panelCtaCopy: Record<string, string> = {
 const topLinksConfig = [
   { href: "https://instagram.com/", key: "instagram", external: true },
 ];
-
-const auxiliaryBottomLinks = [{ href: "/yatirim", label: "Yatırım" }];
 
 const jewelryLinks: PanelLink[] = [
   { href: "/mucevher/klasik-pirlanta", label: "Klasik Pırlanta" },
@@ -73,10 +78,18 @@ const giftLinks: PanelLink[] = [
   { href: "/hediye/aksesuar", label: "Aksesuar" },
 ];
 
+// Yatırım sadece link, alt menüsü yok
+const investmentLink: PanelLink = { href: "/yatirim", label: "Yatırım" };
+
+/* ───────────────────────────────────────────────────────────────────────────
+   COMPONENT
+─────────────────────────────────────────────────────────────────────────── */
 export default function Navbar() {
   const basePath = getBasePath();
   const router = useRouter();
   const { selectedLanguage } = useLanguageContext();
+
+  // Panel state
   const [openPanel, setOpenPanel] = useState<string | null>(null);
   const [panelContent, setPanelContent] = useState<PanelLink[]>([]);
   const [panelContentId, setPanelContentId] = useState<string | null>(null);
@@ -84,22 +97,25 @@ export default function Navbar() {
   const [isPanelClosing, setIsPanelClosing] = useState(false);
   const [panelContentLabel, setPanelContentLabel] = useState<string | null>(null);
   const [panelImage, setPanelImage] = useState<string | null>(null);
+
+  // Search overlay
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const panelConfigurations: PanelConfig[] = useMemo(
     () => [
-      { id: "jewelry", label: "Mücevher", links: jewelryLinks, image: placeholderImage },
-      { id: "collection", label: "Koleksiyon", links: collectionLinks, image: placeholderImage },
-      { id: "bespoke", label: "Özel Tasarım", links: bespokeLinks, image: placeholderImage },
-      { id: "gift", label: "Hediye", links: giftLinks, image: placeholderImage },
+      { id: "jewelry", label: "Mücevher", href: "/mucevher", links: jewelryLinks, image: placeholderImage },
+      { id: "collection", label: "Koleksiyon", href: "/koleksiyon", links: collectionLinks, image: placeholderImage },
+      { id: "bespoke", label: "Özel Tasarım", href: "/ozel-tasarim", links: bespokeLinks, image: placeholderImage },
+      { id: "gift", label: "Hediye", href: "/hediye", links: giftLinks, image: placeholderImage },
     ],
     []
   );
 
+  /* ─────────────────────────────────────────────────────────────────────── */
   const handlePanelBlur = (event: FocusEvent<HTMLDivElement>) => {
     const currentTarget = event.currentTarget;
-
     requestAnimationFrame(() => {
       if (!currentTarget.contains(document.activeElement)) {
         setOpenPanel(null);
@@ -109,10 +125,7 @@ export default function Navbar() {
 
   useEffect(() => {
     if (openPanel) {
-      const nextPanel = panelConfigurations.find(
-        (panel) => panel.id === openPanel
-      );
-
+      const nextPanel = panelConfigurations.find((p) => p.id === openPanel);
       if (nextPanel) {
         if (panelContentId !== nextPanel.id) {
           setPanelContent(nextPanel.links);
@@ -120,12 +133,8 @@ export default function Navbar() {
           setPanelContentLabel(nextPanel.label);
           setPanelImage(nextPanel.image);
         }
-
         setIsPanelClosing(false);
-
-        requestAnimationFrame(() => {
-          setIsPanelVisible(true);
-        });
+        requestAnimationFrame(() => setIsPanelVisible(true));
       }
     } else if (panelContentId) {
       setIsPanelVisible(false);
@@ -133,13 +142,8 @@ export default function Navbar() {
     }
   }, [openPanel, panelConfigurations, panelContentId]);
 
-  const handlePanelTransitionEnd = (
-    event: TransitionEvent<HTMLDivElement>
-  ) => {
-    if (event.propertyName !== "max-height") {
-      return;
-    }
-
+  const handlePanelTransitionEnd = (event: TransitionEvent<HTMLDivElement>) => {
+    if (event.propertyName !== "max-height") return;
     if (!isPanelVisible) {
       setPanelContent([]);
       setPanelContentId(null);
@@ -151,17 +155,17 @@ export default function Navbar() {
 
   useEffect(() => {
     return () => {
-      if (closeTimeoutRef.current) {
-        clearTimeout(closeTimeoutRef.current);
-      }
+      if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
     };
   }, []);
 
   const showPanelBorder = isPanelVisible || isPanelClosing;
   const t = translations[selectedLanguage.code] || translations.tr;
 
+  /* ─────────────────────────────────────────────────────────────────────── */
   return (
     <header className={styles.container}>
+      {/* ───────────────── TOP BAR ───────────────── */}
       <div className={styles.topBar}>
         <nav className={styles.topLinks}>
           {topLinksConfig.map((link) => {
@@ -178,9 +182,7 @@ export default function Navbar() {
                 {...anchorProps}
                 className={isInstagram ? styles.topLinkWithIcon : undefined}
               >
-                {isInstagram && (
-                  <Instagram size={14} className={styles.topLinkIcon} />
-                )}
+                {isInstagram && <Instagram size={14} className={styles.topLinkIcon} />}
                 {label}
               </Link>
             );
@@ -189,7 +191,9 @@ export default function Navbar() {
         </nav>
       </div>
 
-      <div className={styles.middleBar}>
+      {/* ───────────────── MIDDLE BAR ───────────────── */}
+      <div className={styles.middleBar} onBlur={handlePanelBlur}>
+        {/* Logo */}
         <div className={styles.mobileHeaderTop}>
           <Link href="/" className={styles.brand} aria-label="gözümün nuru">
             <Image
@@ -203,188 +207,122 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <form className={styles.searchForm} role="search">
-          <label htmlFor="nav-search" className={styles.srOnly}>
-            {t.searchLabel}
-          </label>
-          <input
-            id="nav-search"
-            type="search"
-            placeholder={t.search}
-            aria-label={t.searchLabel}
-            onFocus={() => setIsSearchOpen(true)}
-          />
-          <button type="submit" className={styles.searchButton} aria-label={t.search} disabled>
-            <Search size={18} />
-          </button>
-        </form>
-        {/* <nav className={styles.middleBarActions}>
-          <Link href="/hesabim" className={styles.middleBarAction}>
-            <User size={24} />
-            <span>Hesabım</span>
+        {/* Kategori Butonları */}
+        <nav className={styles.middleNav} aria-label="Kategoriler">
+          {panelConfigurations.map((panel) => (
+            <button
+              key={panel.id}
+              type="button"
+              className={styles.middleTrigger}
+              aria-expanded={openPanel === panel.id}
+              aria-controls="navbar-panel"
+              onClick={() => {
+                setOpenPanel((prev) => (prev === panel.id ? null : panel.id));
+                router.push(panel.href);
+              }}
+              onMouseEnter={() => {
+                if (closeTimeoutRef.current) {
+                  clearTimeout(closeTimeoutRef.current);
+                  closeTimeoutRef.current = null;
+                }
+                setOpenPanel(panel.id);
+              }}
+              onMouseLeave={(e) => {
+                const relatedTarget = e.relatedTarget as Element | null;
+                const panelElement = document.getElementById("navbar-panel");
+                const isInPanel = panelElement && relatedTarget && panelElement.contains(relatedTarget);
+                const isInButton = relatedTarget && relatedTarget.classList.contains(styles.middleTrigger);
+
+                if (!isInPanel && !isInButton) {
+                  if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+                  closeTimeoutRef.current = setTimeout(() => {
+                    if (openPanel === panel.id) setOpenPanel(null);
+                    closeTimeoutRef.current = null;
+                  }, 200);
+                }
+              }}
+              onFocus={() => setOpenPanel(panel.id)}
+              onKeyDown={(event) => {
+                if (event.key === "Escape") setOpenPanel(null);
+              }}
+            >
+              {panel.label}
+            </button>
+          ))}
+
+          {/* Yatırım — sadece link, hover menüsü yok */}
+          <Link
+            href={investmentLink.href}
+            className={styles.middleLink}
+            onMouseEnter={() => setOpenPanel(null)}
+            onFocus={() => setOpenPanel(null)}
+          >
+            {investmentLink.label}
           </Link>
-          <Link href="/favorilerim" className={styles.middleBarAction}>
-            <Heart size={24} />
-            <span>Favorilerim</span>
-          </Link>
-          <Link href="/sepetim" className={styles.middleBarAction}>
-            <ShoppingCart size={24} />
-            <span>Sepetim</span>
-          </Link>
-        </nav> */}
+        </nav>
       </div>
 
+      {/* ───────────────── AÇILIR PANEL ───────────────── */}
       <div
-        className={styles.bottomSection}
-        onBlur={handlePanelBlur}
+        className={styles.panelWrapper}
+        onMouseEnter={() => {
+          if (closeTimeoutRef.current) {
+            clearTimeout(closeTimeoutRef.current);
+            closeTimeoutRef.current = null;
+          }
+          if (openPanel) setOpenPanel(openPanel);
+        }}
+        onMouseLeave={(e) => {
+          const relatedTarget = e.relatedTarget as Element | null;
+          const isInsideNav =
+            relatedTarget && typeof relatedTarget.closest === "function"
+              ? relatedTarget.closest(`.${styles.middleNav}`)
+              : false;
+          if (!isInsideNav) setOpenPanel(null);
+        }}
       >
-        <div className={styles.bottomBar}>
-          {panelConfigurations.map((panel, index) => {
-            const routeMap: Record<string, string> = {
-              jewelry: '/mucevher',
-              collection: '/koleksiyon',
-              bespoke: '/ozel-tasarim',
-              gift: '/hediye',
-            }
-
-            return (
-              <button
-                key={panel.id}
-                type="button"
-                className={styles.bottomTrigger}
-                aria-expanded={openPanel === panel.id}
-                aria-controls="navbar-bottom-panel"
-                onClick={() => {
-                  // open/close panel for hover interactions
-                  setOpenPanel((prev) => (prev === panel.id ? null : panel.id))
-                  // navigate to the category page as well
-                  const target = routeMap[panel.id]
-                  if (target) router.push(target)
-                }}
-                onMouseEnter={() => {
-                  if (closeTimeoutRef.current) {
-                    clearTimeout(closeTimeoutRef.current);
-                    closeTimeoutRef.current = null;
-                  }
-                  setOpenPanel(panel.id);
-                }}
-                onMouseLeave={(e) => {
-                  const relatedTarget = e.relatedTarget as Element | null;
-                  const panelElement = document.getElementById("navbar-bottom-panel");
-                  const isInPanel = panelElement && relatedTarget && panelElement.contains(relatedTarget);
-                  const isInButton = relatedTarget && relatedTarget.classList.contains(styles.bottomTrigger);
-
-                  if (!isInPanel && !isInButton) {
-                    if (closeTimeoutRef.current) {
-                      clearTimeout(closeTimeoutRef.current);
-                    }
-                    closeTimeoutRef.current = setTimeout(() => {
-                      if (openPanel === panel.id) {
-                        setOpenPanel(null);
-                      }
-                      closeTimeoutRef.current = null;
-                    }, 200);
-                  }
-                }}
-                onFocus={() => setOpenPanel(panel.id)}
-                onKeyDown={(event) => {
-                  if (event.key === "Escape") {
-                    setOpenPanel(null);
-                  }
-                }}
-              >
-                {panel.label}
-              </button>
-            )
-          })}
-          <nav className={styles.bottomLinks} aria-label="Alt menü bağlantıları">
-            {auxiliaryBottomLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onMouseEnter={() => setOpenPanel(null)}
-                onFocus={() => setOpenPanel(null)}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-        </div>
-        <div 
-          className={styles.bottomPanelWrapper} 
-          onBlur={handlePanelBlur}
-          onMouseEnter={() => {
-            if (closeTimeoutRef.current) {
-              clearTimeout(closeTimeoutRef.current);
-              closeTimeoutRef.current = null;
-            }
-            if (openPanel) {
-              setOpenPanel(openPanel);
-            }
-          }}
-          onMouseLeave={(e) => {
-            const relatedTarget = e.relatedTarget as Element | null;
-            const isInsideBottomBar =
-              relatedTarget && typeof relatedTarget.closest === "function"
-                ? relatedTarget.closest(`.${styles.bottomBar}`)
-                : false;
-            if (!isInsideBottomBar) {
-              setOpenPanel(null);
-            }
-          }}
+        <div
+          id="navbar-panel"
+          className={`${styles.panelDisplay} ${showPanelBorder ? styles.panelDisplayBorder : ""} ${isPanelVisible ? styles.panelDisplayVisible : ""}`}
+          aria-hidden={!showPanelBorder}
+          onTransitionEnd={handlePanelTransitionEnd}
         >
-          <div
-            id="navbar-bottom-panel"
-            className={`${styles.bottomPanelDisplay} ${
-              showPanelBorder ? styles.bottomPanelDisplayBorder : ""
-            } ${isPanelVisible ? styles.bottomPanelDisplayVisible : ""}`}
-            aria-hidden={!showPanelBorder}
-            onTransitionEnd={handlePanelTransitionEnd}
-          >
-            <div className={styles.bottomPanelPattern} aria-hidden="true">
-              <div className={`${styles.patternRow} ${styles.row1}`} />
-              <div className={`${styles.patternRow} ${styles.row2}`} />
-              <div className={`${styles.patternRow} ${styles.row3}`} />
-              <div className={`${styles.patternRow} ${styles.row4}`} />
-              <div className={`${styles.patternRow} ${styles.row5}`} />
+          <div className={styles.panelPattern} aria-hidden="true">
+            <div className={`${styles.patternRow} ${styles.row1}`} />
+            <div className={`${styles.patternRow} ${styles.row2}`} />
+            <div className={`${styles.patternRow} ${styles.row3}`} />
+            <div className={`${styles.patternRow} ${styles.row4}`} />
+            <div className={`${styles.patternRow} ${styles.row5}`} />
+          </div>
+          <div className={styles.panelInner}>
+            <div className={styles.panelHeadingBlock}>
+              {panelContentLabel && <p className={styles.panelInfoLabel}>{panelContentLabel}</p>}
             </div>
-            <div className={styles.bottomPanelInner}>
-              <div className={styles.bottomPanelHeadingBlock}>
-                {panelContentLabel && (
-                  <p className={styles.bottomPanelInfoLabel}>{panelContentLabel}</p>
-                )}
-              </div>
-              <div className={styles.bottomPanelLinksSection}>
-                <p className={styles.bottomPanelLinksTitle}>Kategori</p>
-                <ul className={styles.bottomPanelList}>
-                  {panelContent.map((link) => (
-                    <li key={link.href} className={styles.bottomPanelItem}>
-                      <Link href={link.href}>{link.label}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className={styles.bottomPanelVisual}>
-                {panelImage && (
-                  <div className={styles.bottomPanelImageWrapper}>
-                    <img
-                      src={panelImage}
-                      alt={
-                        panelContentLabel
-                          ? `${panelContentLabel} koleksiyon görseli`
-                          : "Kategori görseli"
-                      }
-                      className={styles.bottomPanelImage}
-                    />
-                  </div>
-                )}
-                {panelContentId && (
-                  <p className={styles.bottomPanelImageCta}>
-                    {panelCtaCopy[panelContentId] ??
-                      `${panelContentLabel ?? "Kategori"} koleksiyonunu keşfet`}
-                  </p>
-                )}
-              </div>
+            <div className={styles.panelLinksSection}>
+              <p className={styles.panelLinksTitle}>Kategori</p>
+              <ul className={styles.panelList}>
+                {panelContent.map((link) => (
+                  <li key={link.href} className={styles.panelItem}>
+                    <Link href={link.href}>{link.label}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className={styles.panelVisual}>
+              {panelImage && (
+                <div className={styles.panelImageWrapper}>
+                  <img
+                    src={panelImage}
+                    alt={panelContentLabel ? `${panelContentLabel} koleksiyon görseli` : "Kategori görseli"}
+                    className={styles.panelImage}
+                  />
+                </div>
+              )}
+              {panelContentId && (
+                <p className={styles.panelImageCta}>
+                  {panelCtaCopy[panelContentId] ?? `${panelContentLabel ?? "Kategori"} koleksiyonunu keşfet`}
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -394,4 +332,3 @@ export default function Navbar() {
     </header>
   );
 }
-

@@ -4,12 +4,11 @@
   position: relative;
   padding-bottom: 80px;
   text-align: center;
-  background-color: #fbfbfb;
+  background-color: #f0ece8;
 }
 
-
 .productSlider.white {
-  background-color: #fff;
+  background-color: #f0ece8;
 }
 
 .title {
@@ -246,7 +245,7 @@
 }
 
 .productSlider.home {
-  background-color: #fff;
+  background-color: #f0ece8;
 }
 
 .productSlider.home :global(.tns-controls [data-controls="prev"]) {

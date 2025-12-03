@@ -20,9 +20,9 @@
   align-items: center;
   height: 40px;
   padding: 0 45px;
-  background-color: transparent;
+  background-color: #f0ece8;
   font-size: 0.75rem;
-  border-bottom: 1px solid rgba(44, 27, 19, 0.08);
+  /* border-bottom: 2px solid rgba(255, 255, 255, 0.20); */
 }
 
 @media (max-width: 1366px) {
@@ -73,8 +73,8 @@
   align-items: center;
   padding: 0 45px;
   height: 80px;
-  background-color: #ffffff;
-  border-bottom: 1px solid rgba(44, 27, 19, 0.08);
+  background-color: #f0ece8;
+  /* border-bottom: 2px solid rgba(255, 255, 255, 0.20); */
   position: relative;
 }
 
@@ -446,12 +446,12 @@
   gap: 88px;
   height: 64px;
   padding: 0 45px;
-  background-color: transparent;
+  background-color: #f0ece8;
   overflow-x: auto;
   overflow-y: hidden;
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
-  border-bottom: 1px solid rgba(44, 27, 19, 0.08);
+  /* border-bottom: 1px solid rgba(44, 27, 19, 0.08); */
 }
 
 @media (max-width: 1366px) {
@@ -519,7 +519,7 @@
 
 .bottomPanelWrapper {
   position: relative;
-  background-color: transparent;
+  background-color: #dfccbd;
 }
 
 .bottomPanelDisplay {
@@ -528,10 +528,8 @@
   opacity: 0;
   transform: translateY(-8px);
   transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
-  /* background removed for clean preview */
   background-color: transparent;
   background-image: none;
-  border-top: 1px solid transparent;
   pointer-events: none;
 }
 
@@ -567,11 +565,11 @@
   pointer-events: none;
 }
 
-.patternRow.row1 { height: 70px; background-image: url('/gozumun-nuru-bg-s1.svg'); background-size: 120px 120px; background-position: 0 center; }
+/* .patternRow.row1 { height: 70px; background-image: url('/gozumun-nuru-bg-s1.svg'); background-size: 120px 120px; background-position: 0 center; }
 .patternRow.row2 { height: 70px; background-image: url('/gozumun-nuru-bg-s2.svg'); background-size: 120px 120px; background-position: 60px center; }
 .patternRow.row3 { height: 60px; background-image: url('/gozumun-nuru-bg-s3.svg'); background-size: 120px 120px; background-position: 0 center; }
 .patternRow.row4 { height: 50px; background-image: url('/gozumun-nuru-bg-s4.svg'); background-size: 120px 120px; background-position: 60px center; }
-.patternRow.row5 { height: 40px; background-image: url('/gozumun-nuru-bg-s3.svg'); background-size: 120px 120px; background-position: 0 center; }
+.patternRow.row5 { height: 40px; background-image: url('/gozumun-nuru-bg-s3.svg'); background-size: 120px 120px; background-position: 0 center; } */
 
 /* Ensure content sits above pattern */
 .bottomPanelInner {
@@ -743,6 +741,197 @@
 
 /* Desktop Home için navbar yüksekliği kadar padding-top */
 :global(.desktop-home) {
-  padding-top: 184px; /* topBar (40px) + middleBar (80px) + bottomBar (64px) */
+  padding-top: 120px;
+}
+
+/* ─────────
+   MIDDLE NAV 
+────────────── */
+.middleNav {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+
+.middleTrigger {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: inherit;
+  padding: 4px 0;
+  transition: color 0.2s ease;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.middleTrigger:hover,
+.middleTrigger:focus-visible {
+  color: #c08a55;
+}
+
+.middleLink {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.middleLink:hover,
+.middleLink:focus-visible {
+  color: #c08a55;
+}
+
+/* ─────────
+   PANEL 
+──────────── */
+.panelWrapper {
+  position: fixed;
+  top: 120px;
+  left: 0;
+  right: 0;
+  background-color: #dfccbd;
+  z-index: 999;
+}
+
+.panelDisplay {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+  background-color: transparent;
+  background-image: none;
+  pointer-events: none;
+}
+
+.panelDisplayBorder {
+  border-top-color: transparent;
+}
+
+.panelDisplayVisible {
+  max-height: 500px;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.panelPattern {
+  position: absolute;
+  inset: 0 0 0 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  display: block;
+}
+
+.panelInner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 210px minmax(190px, auto) 200px;
+  align-items: start;
+  justify-content: center;
+  column-gap: 128px;
+  padding: 20px 30px;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.panelDisplayVisible .panelInner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.panelHeadingBlock,
+.panelLinksSection,
+.panelVisual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+}
+
+.panelInfoLabel {
+  font-size: 1.4rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #2b2b2b;
+  margin: 0;
+}
+
+.panelLinksSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.panelLinksTitle {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: #777;
+  margin: 0;
+}
+
+.panelList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+}
+
+.panelItem a {
+  color: #3d3d3d;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  transition: color 0.18s ease;
+}
+
+.panelItem a:hover,
+.panelItem a:focus-visible {
+  color: #c08a55;
+}
+
+.panelImageWrapper {
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+.panelImage {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  display: block;
+}
+
+.panelImageCta {
+  margin: 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #2f2f2f;
+}
+
+@media (max-width: 992px) {
+  .middleNav {
+    gap: 24px;
+  }
 }
 
