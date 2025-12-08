@@ -1,3 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Reset Tailwind's base styles interference with existing CSS Modules */
+@layer base {
+  /* Footer specific protection - completely isolate from Tailwind reset */
+  footer,
+  footer *,
+  footer *::before,
+  footer *::after {
+    box-sizing: border-box;
+    margin-block-start: 0 !important;
+    margin-block-end: 0 !important;
+    margin-inline-start: 0 !important;
+    margin-inline-end: 0 !important;
+  }
+  
+  /* Prevent Tailwind from resetting footer links */
+  footer a {
+    display: inline-block;
+  }
+  
+  /* Reset any Tailwind spacing on footer elements */
+  footer div,
+  footer section,
+  footer article {
+    margin: 0;
+  }
+}
+
 :root {
   --white: #ffffff;
   --black: #000;

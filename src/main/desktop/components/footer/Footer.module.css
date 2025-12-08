@@ -14,46 +14,47 @@
 }
 
 .container {
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
+  width: 100% !important;
+  padding-right: 15px !important;
+  padding-left: 15px !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  max-width: none !important;
 }
 
 @media (min-width: 576px) {
   .container {
-    max-width: 540px;
+    max-width: 540px !important;
   }
 }
 
 @media (min-width: 768px) {
   .container {
-    max-width: 720px;
+    max-width: 720px !important;
   }
 }
 
 @media (min-width: 992px) {
   .container {
-    max-width: 960px;
+    max-width: 960px !important;
   }
 }
 
 @media (min-width: 1200px) {
   .container {
-    max-width: 1200px;
+    max-width: 1200px !important;
   }
 }
 
 @media (min-width: 1367px) {
   .container {
-    max-width: 1367px;
+    max-width: 1367px !important;
   }
 }
 
 .o-footer__bottom .container,
 .o-footer__center .container {
-  max-width: 1520px;
+  max-width: 1520px !important;
 }
 
 .row {
@@ -224,14 +225,15 @@
 }
 
 .o-footer__center {
-  padding: 80px 0 40px;
+  padding: 80px 0 40px !important;
   background: var(--footer-bg);
   border-top: var(--footer-border-top);
+  margin: 0 !important;
 }
 
 @media (max-width: 1199.98px) {
   .o-footer__center {
-    padding: 40px 0 10px;
+    padding: 40px 0 10px !important;
   }
 }
 
@@ -291,6 +293,7 @@
 }
 
 .o-footer__col {
+  display: flex;
   flex-direction: column;
   width: calc(20% - 15px);
   margin-right: 0.625rem;
@@ -324,7 +327,8 @@
 .o-footer__group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.875rem;
+  margin-bottom: 1.875rem !important;
+  margin-top: 0 !important;
 }
 
 .o-footer__group:last-child {
@@ -332,7 +336,9 @@
 }
 
 .o-footer__group--title {
-  margin-bottom: 16px;
+  margin-bottom: 16px !important;
+  margin-top: 0 !important;
+  padding: 0 !important;
   color: var(--footer-text-color);
   font-family: TTNormsPro, sans-serif;
   font-size: 0.8125rem;
@@ -346,7 +352,9 @@
 }
 
 .o-footer__group--noLinkTitle {
-  margin-bottom: 16px;
+  margin-bottom: 16px !important;
+  margin-top: 0 !important;
+  padding: 0 !important;
   font-weight: 600;
   line-height: 24px;
 }
@@ -360,7 +368,9 @@
 
 .o-footer__group--link {
   font-weight: 450;
-  margin-bottom: 10px;
+  margin-bottom: 10px !important;
+  margin-top: 0 !important;
+  padding: 0 !important;
 }
 
 .o-footer__group--link:last-child {
@@ -373,8 +383,9 @@
 }
 
 .o-footer__group--upperCase {
-  margin-bottom: 24px;
-  margin-top: 3px;
+  margin-bottom: 24px !important;
+  margin-top: 3px !important;
+  padding: 0 !important;
   color: var(--footer-text-color);
   font-family: TTNormsPro, sans-serif;
   font-weight: 600;
@@ -390,25 +401,22 @@
   color: var(--footer-group-hover-color);
 }
 
+/* Increase footer logo size without changing footer layout */
 .o-footer__logo {
-  padding-bottom: 24px;
-  margin-bottom: 32px;
+  position: relative;
+  /* remove inline border-bottom; we'll draw a positioned line so it can sit nearer the visual logo */
+  padding-bottom: 24px !important;
+  margin-bottom: 32px !important;
+  min-height: 64px; /* 40px logo + 24px padding */
+  display: block;
 }
 
 @media (max-width: 1199.98px) {
   .o-footer__logo {
     width: 100%;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.25rem !important;
     max-width: none;
   }
-}
-
-/* Increase footer logo size without changing footer layout */
-.o-footer__logo {
-  position: relative;
-  /* remove inline border-bottom; we'll draw a positioned line so it can sit nearer the visual logo */
-  padding-bottom: 24px;
-  margin-bottom: 32px;
 }
 
 /* Position logo absolutely so increasing its visual size doesn't expand footer height */
@@ -445,7 +453,12 @@
 }
 
 .o-footer__social {
-  margin-bottom: 32px;
+  margin-top: 0 !important;
+  margin-bottom: 32px !important;
+  display: block;
+  position: relative;
+  z-index: 1;
+  clear: both;
 }
 
 @media (max-width: 1199.98px) {
