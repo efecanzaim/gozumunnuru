@@ -11,7 +11,6 @@ export default function DesktopYatirim() {
     description:
       'Sertifikalı pırlanta ve altın ürünlerinde uzun vadeli değer korunumu için birlikte strateji kuruyoruz. Şeffaf fiyatlandırma, sertifika kontrolleri ve saklama rehberi sağlıyoruz.',
     heroImage: '/gorseller/product4.avif',
-    heroNote: 'Sertifikalı ve şeffaf fiyatlandırma',
     sections: [
       {
         kicker: 'Strateji',

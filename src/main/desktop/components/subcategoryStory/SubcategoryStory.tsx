@@ -33,7 +33,6 @@ type SubcategoryStoryProps = {
   title: string;
   description: string;
   heroImage: string;
-  heroNote?: string;
   bentoImages?: BentoGridImage[];
   bentoContent?: {
     title: string;
@@ -50,7 +49,6 @@ export default function SubcategoryStory({
   title,
   description,
   heroImage,
-  heroNote,
   bentoImages,
   bentoContent,
   sections,
@@ -80,12 +78,6 @@ export default function SubcategoryStory({
             <span className={styles.eyebrow}>{eyebrow}</span>
             <h1 className={styles.mainTitle}>{title}</h1>
             <p className={styles.mainDescription}>{description}</p>
-            {heroNote && (
-              <div className={styles.heroNoteBadge}>
-                <span className={styles.heroNoteIcon}>✨</span>
-                {heroNote}
-              </div>
-            )}
           </div>
         </div>
       </section>

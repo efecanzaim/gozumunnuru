@@ -6,34 +6,33 @@ import CategoryStory from '@/main/desktop/components/categoryStory/CategoryStory
 export default function DesktopMucevher() {
   const story = {
     categoryId: 'mucevher',
-    eyebrow: 'El işçiliği mücevherler',
-    title: 'Mücevher dünyamız',
+    eyebrow: 'Bazı anlar vardır…',
+    title: 'Sessizdir, ama insanın içinde büyük bir kapı açar.',
     description:
-      'Gözümün Nuru atölyesinde el işçiliğiyle hazırlanan zamansız parçalar. Her bir tasarım, taşıyan kişinin karakterini öne çıkaracak şekilde seçilen taşlar ve rafine formlarla tamamlanır.',
-    heroImage: '/gorseller/product1.avif',
-    heroNote: 'GIA sertifikalı taş seçimi',
+      'Bu yüzük, işte o anların içinden doğdu.',
+    heroImage: '/gorseller/urun2.jpg',
     sections: [
       {
-        kicker: 'Günlük ışıltı',
-        title: 'Minimal ve zamansız formlar',
+        kicker: 'Akdeniz’in sabah ışığı',
+        title: 'Yumuşak parlaklık',
         description:
-          'Her gün kullanıma uygun, hafif ve ergonomik formlar. Mat ve parlak yüzeylerin dengesiyle hem ofiste hem davette rahatça kullanılır.',
+          'Akdeniz’in sabah ışığı altınla buluştuğunda oluşan o yumuşak parlaklık… Ustamızın elinde, her kıvrımı sevgiyle işlenen bu yüzükte hayat buldu. Taşının berraklığı, ilk bakışta fark edilen bir huzuru taşır. Çünkü her detay, “gözümün nuru” diye sevilen birine duyulan şefkate adanmıştır.',
         image: '/gorseller/product2.avif',
         tags: ['Hipoalerjenik kaplama', 'Nikel içermez', 'İnce işçilik'],
       },
       {
-        kicker: 'Özel anların imzası',
-        title: 'Pırlanta ve değerli taş seçimi',
+        kicker: 'En nazik cümle',
+        title: 'Sen benim ışığımsın',
         description:
-          'Kesim, berraklık ve karat dengesini birlikte kuruyor; özel günler için kişiye özel taş seçimi yapıyoruz. Her yüzük, ölçü ve parmak formuna göre tasarlanıyor.',
+          'Bu tasarım, sadece bir mücevher değil; bir kalbin diğerine söylenemeyen en nazik cümlesidir. “Sen benim ışığımsın…” demenin zarif bir yoludur.',
         image: '/gorseller/product5.avif',
         tags: ['Kişiye özel ölçü', 'Ömür boyu parlatma', 'Sertifikalı taş'],
       },
       {
-        kicker: 'Atölyede el işçiliği',
-        title: 'Ustaların dokunuşu',
+        kicker: 'Her an hatırlanabilir',
+        title: 'Kalbi anlatır',
         description:
-          'Modelleme, döküm, mıhlama ve polisaj süreçlerinin tamamı kendi atölyemizde gerçekleşir. El cilası ve taş mıhlama, her parçada tekrarlanabilir kalite sağlar.',
+          'Her gün taşınabilir, her anda hatırlanabilir, ama hiçbir zaman sıradanlaşmaz. Çünkü bu yüzük, takanı değil, takılan kişinin kalbini anlatır.',
         image: '/gorseller/product6.avif',
         tags: ['El cilası', 'Hassas mıhlama', 'Kalite kontrol'],
       },

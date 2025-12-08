@@ -6,34 +6,33 @@ import CategoryStory from '@/main/desktop/components/categoryStory/CategoryStory
 export default function DesktopHediye() {
   const story = {
     categoryId: 'hediye',
-    eyebrow: 'Hediye seçimi rehberi',
-    title: 'Hediye etmek için ilham',
+    eyebrow: 'Kalpten Kalbe',
+    title: 'Sevginin En Saf Hali',
     description:
-      'Özel günlere, kutlamalara ve sürpriz anlara uygun, anlamı güçlü hediyeler. Alıcının stiline göre seçilen taş ve form önerileriyle seçim sürecini kolaylaştırıyoruz.',
+      'Bir kutunun kapağı açıldığında, sadece bir mücevher değil, bir gülümseme, bir hatıra ve "Seni seviyorum" demenin binbir yolu çıkar ortaya.',
     heroImage: '/gorseller/campaign3.webp',
-    heroNote: 'Stile göre hediye önerileri',
     sections: [
       {
-        kicker: 'Özel günler',
-        title: 'Kutlamalara eşlik eden zarafet',
+        kicker: 'Unutulmaz Anlar',
+        title: 'Zamanı Durduran Hediyeler',
         description:
-          'Yıldönümü, mezuniyet veya terfi hediyeleri için hafif ve günlük kullanımda konforlu tasarımlar. Kişisel not kartı ve premium paketleme dahildir.',
+          'Yıllar geçse de o günü hatırlatan, her bakışta o anın sıcaklığını hissettiren bir armağan. Kutlamaların en zarif şahidi.',
         image: '/gorseller/campaign1.jpg',
         tags: ['Kişisel not kartı', 'Premium paketleme', 'Hızlı teslim'],
       },
       {
-        kicker: 'Kişiye özel dokunuş',
-        title: 'İsim, tarih ve anlamlı semboller',
+        kicker: 'Sadece Ona Özel',
+        title: 'İsminle Yaşayan Hatıra',
         description:
-          'İnisyal, tarih veya sembol gravürüyle kişiselleştirme seçenekleri. Taş rengi ve metal rengi tercihine göre küçük varyasyonlar sunuyoruz.',
+          'Küçük bir harf, gizli bir tarih... Sadece ikinizin bildiği o sırrı, altının üzerine fısıldıyoruz. Dünyada tek, sadece onun için.',
         image: '/gorseller/campaign2.avif',
         tags: ['Gravür', 'Metal rengi seçimi', 'Taş rengi alternatifi'],
       },
       {
-        kicker: 'Hızlı seçim',
-        title: 'Mini bütçeli ve hazır öneriler',
+        kicker: 'Beklenmedik Mutluluk',
+        title: 'Sebepsiz Gülümsemeler İçin',
         description:
-          'Son dakikada bile şık bir hediye gönderebilmeniz için seçtiğimiz hafif parçalar. Aynı gün kargo seçeneği stoklu ürünlerde aktif.',
+          'Bazen bir neden gerekmez. Sadece "Aklımdasın" demek, günün ortasında bir güneş gibi doğmak için. Küçük ama anlamı büyük dokunuşlar.',
         image: '/gorseller/campaign4.avif',
         tags: ['Aynı gün kargo', 'Stoklu ürünler', 'Hafif formlar'],
       },

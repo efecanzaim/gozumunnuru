@@ -6,34 +6,33 @@ import CategoryStory from '@/main/desktop/components/categoryStory/CategoryStory
 export default function DesktopKoleksiyon() {
   const story = {
     categoryId: 'koleksiyon',
-    eyebrow: 'Sınırlı sayıda koleksiyonlar',
-    title: 'Koleksiyon seçkimizi keşfedin',
+    eyebrow: 'Nadide Hikayeler',
+    title: 'Her Biri Kendi Masalını Anlatır',
     description:
-      'Sanat, mimari ve doğadan ilham alan kapsül koleksiyonlar. Her parçanın hikayesi, kullanılan taş ve form diliyle birleşiyor.',
+      'Doğanın fısıltıları, mimarinin sessiz gücü ve sanatın dokunuşu... Bu koleksiyonlar, sıradanlığa bir başkaldırı, estetiğe bir övgüdür.',
     heroImage: '/gorseller/queenkoleksiyon.jpg',
-    heroNote: 'Sınırlı edisyon üretim',
     sections: [
       {
-        kicker: 'Cherry Koleksiyonu',
-        title: 'Renkli taşlarla modern nostalji',
+        kicker: 'Doğanın Neşesi',
+        title: 'Renklerin Sıcak Kucaklaşması',
         description:
-          'Canlı tonlar, yuvarlak formlar ve günlük kullanım için konforlu ağırlık. Renk uyumunu doğal taşların ton farklılıklarıyla dengeliyoruz.',
+          'Bir yaz akşamının tatlı esintisi gibi... Doğal taşların o canlı, hayat dolu enerjisi, modern formlarla buluştu. İçindeki çocuğu hiç kaybetmeyenler için.',
         image: '/gorseller/cherrykoleksiyon.jpg',
         tags: ['Doğal taş seçimi', 'Hafif form', 'Parlak cilalı yüzey'],
       },
       {
-        kicker: 'Laranja Koleksiyonu',
-        title: 'Akışkan hatlar ve yumuşak köşeler',
+        kicker: 'Suyun Yolu',
+        title: 'Yumuşaklığın Gücü',
         description:
-          'Organik formlar, hareket halinde bile rahat hissettiren yüzeyler. Vücut ergonomisine göre kavis alan form dili ile hazırlanıyor.',
+          'Keskin köşeler yok, sadece akıp giden bir huzur var. Vücudunla bütünleşen, seninle hareket eden, seni kısıtlamayan özgür formlar.',
         image: '/gorseller/laranjkoleksiyonu.jpg',
         tags: ['Organik form dili', 'Mat-parlak kontrast', 'Maksimum konfor'],
       },
       {
-        kicker: 'Wedding Koleksiyonu',
-        title: 'İkonik ve zamansız imzalar',
+        kicker: 'İki Kalp, Tek Hikaye',
+        title: 'Sözlerin En Güzeli',
         description:
-          'Eşleşen setler, incelikli taş mıhlama ve uzun ömürlü kullanım. Alyans ve set tasarımlarında kişiselleştirme seçenekleri sunuyoruz.',
+          '"Evet" dediğin o anın sonsuzluğa mühürlenmesi. Sadece bir yüzük değil, parmağında taşıdığın bir yemin, her bakışta hatırlanan o büyülü söz.',
         image: '/gorseller/weddingkoleksiyonu.jpg',
         tags: ['Eşleşen set', 'Kişiselleştirilebilir', 'Ayar garantisi'],
       },

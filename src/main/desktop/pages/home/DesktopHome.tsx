@@ -23,12 +23,12 @@ const DesktopHome = () => {
             <div className="container -wide">
                 <ProductSection title={<><span className="gzn-brand">gözümün nuru</span> öneriyor</>} products={featuredProducts} variant="home" />
             </div>
-            <div className="container -wide">
+            {/* <div className="container -wide">
                 <CampaignSection />
-            </div>
-            <div className="container -wide">
+            </div> */}
+            {/* <div className="container -wide">
                 <CategorySlider />
-            </div>
+            </div> */}
             <FeaturedCategories />
             <Footer />
         </div>

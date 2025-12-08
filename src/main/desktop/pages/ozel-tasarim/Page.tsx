@@ -6,34 +6,33 @@ import CategoryStory from '@/main/desktop/components/categoryStory/CategoryStory
 export default function DesktopOzelTasarim() {
   const story = {
     categoryId: 'ozel-tasarim',
-    eyebrow: 'Kişiye özel tasarım',
-    title: 'Özel tasarım sürecimiz',
+    eyebrow: 'Hayallerin Sınırı Yok',
+    title: 'Senin Hikayen, Senin İmzan',
     description:
-      'Hayalinizdeki parçayı birlikte modelliyoruz. Taş seçimi, modelleme ve prova aşamalarını tamamen şeffaf yürütüyor, her aşamada size onay imkânı veriyoruz.',
+      'Zihninde canlanan o silik görüntüyü, parmaklarında ışıldayan bir gerçeğe dönüştürüyoruz. Bu yolculuk, senin hayalinle başlıyor.',
     heroImage: '/banner2.jpg',
-    heroNote: '3D modelleme & hızlı prova',
     sections: [
       {
-        kicker: '1. İlham & çizim',
-        title: 'Sizin için eskiz hazırlıyoruz',
+        kicker: 'İlk Kıvılcım',
+        title: 'Seni Dinliyor, Seni Anlıyoruz',
         description:
-          'Kişisel hikayenizi, stil tercihlerinizi ve kullanım alışkanlıklarınızı dinleyip eskizler çıkarıyoruz. Form, kalınlık ve taş yerleşiminde sizi rahatlatacak alternatifler sunuyoruz.',
+          'Bir kağıt, bir kalem ve senin anlattıkların... Ruhunu yansıtan o çizgiyi bulana kadar arıyoruz. Çünkü bu, sadece bir takı değil, senin bir uzvun olacak.',
         image: '/banner1.jpg',
         tags: ['Stil analizi', 'Form seçenekleri', 'Taş yerleşim planı'],
       },
       {
-        kicker: '2. 3D model & prova',
-        title: 'Gerçek boyutlu model',
+        kicker: 'Şekil Alan Düşler',
+        title: 'Hayaline Dokunmak',
         description:
-          '3D baskı veya mum prova ile gerçek ölçüde deneme yapıyoruz. Ağırlık, oturuş ve parlaklık dengesi için küçük düzeltmeleri bu aşamada tamamlıyoruz.',
+          'Henüz altın olmadan önce, mumun yumuşaklığında hissedersin onu. Parmağına tam oturduğunda, "İşte bu" dediğin o an, bizim en büyük ödülümüzdür.',
         image: '/slider1.jpg',
         tags: ['Gerçek boyutlu prova', 'Hafiflik ayarı', 'Kişisel ölçü'],
       },
       {
-        kicker: '3. Üretim & teslim',
-        title: 'Atölyede el işçiliği',
+        kicker: 'Ateş ve Sabır',
+        title: 'Ustalığın Zirvesi',
         description:
-          'Döküm, mıhlama ve polisaj süreçlerini atölyemizde yürütüyoruz. Teslim öncesi kalite kontrol ve sertifika hazırlığı ile güvence sağlıyoruz.',
+          'Ateşin korunda eriyen altın, ustanın sabrıyla yeniden doğar. Ve o son cila atıldığında, artık o bir metal değil, nesilden nesile aktarılacak bir mirastır.',
         image: '/newsection.jpg',
         tags: ['El işçiliği', 'Kalite kontrol', 'Sertifika'],
       },

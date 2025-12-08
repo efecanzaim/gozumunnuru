@@ -31,7 +31,6 @@ type CategoryStoryProps = {
   title: string;
   description: string;
   heroImage: string;
-  heroNote?: string;
   sections: StorySection[];
   highlights: Highlight[];
   highlightTitle?: string;
@@ -45,7 +44,6 @@ export default function CategoryStory({
   title,
   description,
   heroImage,
-  heroNote,
   sections,
   highlights,
   highlightTitle = "Öne çıkan detaylar",
@@ -80,7 +78,6 @@ export default function CategoryStory({
             <span className={styles.heroAccentEyebrow}>{eyebrow}</span>
             <h1 className={styles.heroAccentTitle}>{title}</h1>
             <p className={styles.heroAccentLead}>{description}</p>
-            {heroNote ? <span className={styles.heroAccentNote}>{heroNote}</span> : null}
           </div>
         </section>
 
@@ -162,7 +159,6 @@ export default function CategoryStory({
           <p className={styles.eyebrow}>{eyebrow}</p>
           <h1 className={styles.heading}>{title}</h1>
           <p className={styles.lead}>{description}</p>
-          {heroNote ? <span className={styles.heroNote}>{heroNote}</span> : null}
         </div>
         <div className={styles.heroMedia}>
           <div className={styles.heroImage}>
