@@ -7,10 +7,10 @@ export default function DesktopYatirim() {
   const story = {
     categoryId: 'yatirim',
     eyebrow: 'Yatırım için değerli taşlar',
-    title: 'Yatırım danışmanlığı',
+    title: 'Portfoy Yönetimi',
     description:
       'Sertifikalı pırlanta ve altın ürünlerinde uzun vadeli değer korunumu için birlikte strateji kuruyoruz. Şeffaf fiyatlandırma, sertifika kontrolleri ve saklama rehberi sağlıyoruz.',
-    heroImage: '/gorseller/product4.avif',
+    heroImage: '/gorseller/danismanlik.jpg',
     sections: [
       {
         kicker: 'Strateji',

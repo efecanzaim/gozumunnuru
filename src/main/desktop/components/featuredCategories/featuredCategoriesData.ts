@@ -15,25 +15,25 @@ export const featuredCategoryBanners: FeaturedCategoryBanner[] = [
   {
     id: "wedding-edit",
     title: "KOLYELER",
-    image: "/gorseller/category1.avif",
+    image: "/gorseller/kolye.jpg",
     url: "/koleksiyon/wedding-edit",
   },
   {
     id: "jewelry",
     title: "BİLEKLİKLER",
-    image: "/gorseller/category2.avif",
+    image: "/gorseller/bileklik.jpg",
     url: "/koleksiyon/fine-jewelry",
   },
   {
     id: "evening",
     title: "KÜPELER",
-    image: "/gorseller/category3.avif",
+    image: "/gorseller/kupe.jpg",
     url: "/koleksiyon/gece-elbisesi",
   },
   {
     id: "resort",
     title: "YÜZÜKLER",
-    image: "/gorseller/category4.avif",
+    image: "/gorseller/yuzuk.jpg",
     url: "/koleksiyon/resort",
   },
 ];

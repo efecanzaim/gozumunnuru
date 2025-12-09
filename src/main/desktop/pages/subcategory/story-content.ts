@@ -39,7 +39,7 @@ export const subcategoryStories: StoryMap = {
     title: "Sessiz Bir Yemin Gibi",
     description:
       "Moda değişir, mevsimler döner ama bazı şeyler hep aynı kalır. Klasik pırlanta, sadeliğin en güçlü halidir. Senin ışığını, hiç söz söylemeden anlatır.",
-    heroImage: "/gorseller/product1.avif",
+    heroImage: "/gorseller/yuzuk.jpg",
     bentoImages: [
       { image: "/gorseller/product1.avif", alt: "Klasik pırlanta yüzük" },
       { image: "/gorseller/product2.avif", alt: "Pırlanta detay" },
@@ -96,7 +96,7 @@ export const subcategoryStories: StoryMap = {
     title: "Parmak İzlerin Kadar Eşsiz",
     description:
       "Dünyada milyarlarca insan var ama sen teksin. Senin hikayen, senin aşkın, senin hayalin... Hepsi biricik. Bu yüzden, senin pırlantan da sadece sana özel olmalı.",
-    heroImage: "/gorseller/product5.avif",
+    heroImage: "/gorseller/kolye.jpg",
     bentoImages: [
       { image: "/gorseller/product5.avif", alt: "Özel üretim pırlanta" },
       { image: "/gorseller/product6.avif", alt: "Pırlanta tasarım" },
@@ -152,7 +152,7 @@ export const subcategoryStories: StoryMap = {
     title: "Her An Seninle",
     description:
       "Altın, sadece bir maden değil, teninde taşıdığın bir sıcaklıktır. Günün her saatinde, hayatın her anında sana eşlik eden, varlığıyla seni tamamlayan bir dost.",
-    heroImage: "/gorseller/product2.avif",
+    heroImage: "/gorseller/klasikaltin.jpg",
     bentoImages: [
       { image: "/gorseller/product2.avif", alt: "Klasik altın yüzük" },
       { image: "/gorseller/product5.avif", alt: "Altın bilezik" },
@@ -206,7 +206,7 @@ export const subcategoryStories: StoryMap = {
     title: "Cesur ve Özgür",
     description:
       "Sıradanlığa bir başkaldırı... Her çizgi, her kıvrım bir hikaye anlatır. Bu tasarımlar, kalıplara sığmayan ruhlar için.",
-    heroImage: "/gorseller/adapt_media_ttm25_plp_1.avif",
+    heroImage: "/gorseller/ozguntasarim.jpg",
     bentoImages: [
       { image: "/gorseller/adapt_media_ttm25_plp_1.avif", alt: "Özgün tasarım" },
       { image: "/gorseller/adapt_media_ttm25_plp_5.avif", alt: "Özgün form" },
@@ -261,7 +261,7 @@ export const subcategoryStories: StoryMap = {
     title: "Geçmişin Işıltısı, Geleceğin Mirası",
     description:
       "Her çizik bir anı, her parıltı bir hikaye... Geçmişin ruhunu taşıyan bu parçalar, seninle yeni bir hayata başlıyor.",
-    heroImage: "/gorseller/product4.avif",
+    heroImage: "/gorseller/preloved.jpg",
     bentoImages: [
       { image: "/gorseller/product4.avif", alt: "Preloved mücevher" },
       { image: "/gorseller/product3.avif", alt: "Vintage parça" },
@@ -317,7 +317,7 @@ export const subcategoryStories: StoryMap = {
     title: "Vazgeçilmez Olan",
     description:
       "Bazı şarkılar hiç eskimez, bazı kokular hep huzur verir. Klasikler Koleksiyonu, işte o tanıdık ve güvenli liman. Her zaman şık, her zaman sen.",
-    heroImage: "/gorseller/queenkoleksiyon.jpg",
+    heroImage: "/gorseller/klasikler.jpg",
     sections: [
       {
         kicker: "Denge",
@@ -359,7 +359,7 @@ export const subcategoryStories: StoryMap = {
     title: "Kusursuz Kusurlar",
     description:
       "Makinenin soğukluğu değil, elin sıcaklığı... Her çekiç darbesi, her törpü izi bir imza. Mükemmel olmayan, ama tam da bu yüzden mükemmel olan parçalar.",
-    heroImage: "/gorseller/storksklasik1.jpg",
+    heroImage: "/gorseller/atolye.jpg",
     sections: [
       {
         kicker: "İz",
@@ -402,7 +402,7 @@ export const subcategoryStories: StoryMap = {
     title: "Hafif, Özgür ve Sen",
     description:
       "Şehrin ritmine ayak uyduran, seninle koşan, seninle duran... Modern zamanların ruhunu taşıyan, varlığıyla seni yormayan, sadece tamamlayan tasarımlar.",
-    heroImage: "/gorseller/product6.avif",
+    heroImage: "/gorseller/yeninesil.jpg",
     sections: [
       {
         kicker: "Hava",
@@ -447,7 +447,7 @@ export const subcategoryStories: StoryMap = {
     title: "Senin Hayalin, Bizim Ellerimiz",
     description:
       "Zihninde bir resim var, biliyoruz. Belki bir rüya, belki bir anı... Gel, o resmi birlikte gerçeğe dönüştürelim. Sen anlat, biz şekil verelim.",
-    heroImage: "/banner1.jpg",
+    heroImage: "/gorseller/atolye.jpg",
     sections: [
       {
         kicker: "Başlangıç",
@@ -488,7 +488,7 @@ export const subcategoryStories: StoryMap = {
     title: "Kendi Hikayenin Yazarı Ol",
     description:
       "Seçimlerin seni anlatır. Hangi taş, hangi renk, hangi form... Parçaları birleştir, kendi şaheserini yarat. Bu senin sahnen.",
-    heroImage: "/slider3.jpg",
+    heroImage: "/gorseller/kendintasarla.jpg",
     sections: [
       {
         kicker: "Temel",
@@ -529,7 +529,7 @@ export const subcategoryStories: StoryMap = {
     title: "İki Kalp, Tek Yol",
     description:
       "Birbirini tamamlayan iki ruh gibi, birbirini tamamlayan iki yüzük... Bu yolculukta attığınız her adımda, parmağınızdaki o ışıltı size eşlik edecek.",
-    heroImage: "/gorseller/weddingkoleksiyonu.jpg",
+    heroImage: "/gorseller/nisan.jpg",
     sections: [
       {
         kicker: "Ahenk",
@@ -571,7 +571,7 @@ export const subcategoryStories: StoryMap = {
     title: "En Güzel Hediye Sensin",
     description:
       "Bir hediye, bin kelimeye bedeldir. Ona verdiğin değer, seçtiğin bu özel parçada hayat bulsun. Sadece onun için, sadece ona özel.",
-    heroImage: "/gorseller/product6.avif",
+    heroImage: "/gorseller/kisiyeozel.jpg",
     sections: [
       {
         kicker: "İmza",
@@ -614,7 +614,7 @@ export const subcategoryStories: StoryMap = {
     title: "Zamanı Durduran Hatıralar",
     description:
       "Takvimdeki bir yaprak değil, kalpteki bir izdir özel günler. O günü sonsuz kılacak, her bakışta o anı hatırlatacak bir armağan.",
-    heroImage: "/gorseller/campaign2.avif",
+    heroImage: "/gorseller/ozelgunler.jpg",
     sections: [
       {
         kicker: "Zarafet",
@@ -655,7 +655,7 @@ export const subcategoryStories: StoryMap = {
     title: "Yeni Yaşın Işıltısı",
     description:
       "Her yaş yeni bir hikaye, her doğum günü yeni bir başlangıç. Bu yeni sayfayı, ışıltılı bir anıyla açmaya ne dersin?",
-    heroImage: "/gorseller/product5.avif",
+    heroImage: "/gorseller/dogumgunu.jpg",
     sections: [
       {
         kicker: "Uyum",
@@ -696,7 +696,7 @@ export const subcategoryStories: StoryMap = {
     title: "Şefkatin Karşılığı",
     description:
       "Seni koşulsuz seven, her anında yanında olan o güzel kalbe... Teşekkür etmenin en zarif, en kalıcı yolu.",
-    heroImage: "/gorseller/product3.avif",
+    heroImage: "/gorseller/annelergunu.jpg",
     sections: [
       {
         kicker: "Huzur",
@@ -737,7 +737,7 @@ export const subcategoryStories: StoryMap = {
     title: "Kendi Işığını Yansıtanlara",
     description:
       "Hayata dokunan, üreten, seven ve güzelleştiren tüm kadınlara... Gücünü zarafetinden alan, ilham veren tasarımlar.",
-    heroImage: "/gorseller/product2.avif",
+    heroImage: "/gorseller/kadinlargunu.jpg",
     sections: [
       {
         kicker: "Duruş",
@@ -778,7 +778,7 @@ export const subcategoryStories: StoryMap = {
     title: "İlk Hediye, İlk Hatıra",
     description:
       "Dünyaya gözlerini açan o minik mucizeye... Saflığın, masumiyetin ve yeni başlangıçların simgesi.",
-    heroImage: "/gorseller/product6.avif",
+    heroImage: "/gorseller/yenidogan.jpg",
     sections: [
       {
         kicker: "Koruma",
@@ -819,7 +819,7 @@ export const subcategoryStories: StoryMap = {
     title: "Gücün Sessiz İfadesi",
     description:
       "Sözlere gerek bırakmayan, duruşuyla konuşan tasarımlar. Modern erkeğin stilini tamamlayan, güçlü ve karizmatik detaylar.",
-    heroImage: "/gorseller/product4.avif",
+    heroImage: "/gorseller/erkekhediye.jpg",
     sections: [
       {
         kicker: "Karakter",
@@ -860,7 +860,7 @@ export const subcategoryStories: StoryMap = {
     title: "Zarafetin Bedeli Olmaz",
     description:
       "Bazen küçük bir dokunuş, dünyalara bedeldir. Bütçeni yormayan ama kalbini dolduran, zarif ve anlamlı seçenekler.",
-    heroImage: "/gorseller/product2.avif",
+    heroImage: "/gorseller/dusukbutceli.jpg",
     sections: [
       {
         kicker: "Hafiflik",
@@ -901,7 +901,7 @@ export const subcategoryStories: StoryMap = {
     title: "Mücevherinin Evi",
     description:
       "Onlar senin en değerli hazinelerin. Işıltılarını korumak, düzenli tutmak ve güvenle saklamak için en şık çözümler.",
-    heroImage: "/gorseller/file.svg",
+    heroImage: "/gorseller/aksesuar.jpg",
     sections: [
       {
         kicker: "Koruma",

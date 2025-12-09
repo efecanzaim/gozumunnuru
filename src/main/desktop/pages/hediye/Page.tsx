@@ -10,7 +10,7 @@ export default function DesktopHediye() {
     title: 'Sevginin En Saf Hali',
     description:
       'Bir kutunun kapağı açıldığında, sadece bir mücevher değil, bir gülümseme, bir hatıra ve "Seni seviyorum" demenin binbir yolu çıkar ortaya.',
-    heroImage: '/gorseller/campaign3.webp',
+    heroImage: '/gorseller/hediye.jpg',
     sections: [
       {
         kicker: 'Unutulmaz Anlar',

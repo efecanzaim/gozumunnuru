@@ -82,7 +82,7 @@ export default function SubcategoryStory({
         </div>
       </section>
 
-      {/* Bento Grid Section */}
+      {/* Bento Grid Section
       {bentoImages && bentoImages.length >= 4 && bentoContent && (
         <BentoGrid
           title={bentoContent.title}
@@ -105,7 +105,7 @@ export default function SubcategoryStory({
             };
           })}
         />
-      )}
+      )} */}
 
       {/* Horizontal CTA Bar */}
       {cta && (

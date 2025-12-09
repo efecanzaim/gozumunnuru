@@ -10,7 +10,7 @@ export default function DesktopKoleksiyon() {
     title: 'Her Biri Kendi Masalını Anlatır',
     description:
       'Doğanın fısıltıları, mimarinin sessiz gücü ve sanatın dokunuşu... Bu koleksiyonlar, sıradanlığa bir başkaldırı, estetiğe bir övgüdür.',
-    heroImage: '/gorseller/queenkoleksiyon.jpg',
+    heroImage: '/gorseller/koleksiyon.jpg',
     sections: [
       {
         kicker: 'Doğanın Neşesi',

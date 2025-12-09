@@ -10,7 +10,7 @@ export default function DesktopOzelTasarim() {
     title: 'Senin Hikayen, Senin İmzan',
     description:
       'Zihninde canlanan o silik görüntüyü, parmaklarında ışıldayan bir gerçeğe dönüştürüyoruz. Bu yolculuk, senin hayalinle başlıyor.',
-    heroImage: '/banner2.jpg',
+    heroImage: '/gorseller/ozeltasarim.jpg',
     sections: [
       {
         kicker: 'İlk Kıvılcım',

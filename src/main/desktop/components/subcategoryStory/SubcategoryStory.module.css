@@ -16,7 +16,7 @@
   max-height: calc(100vh - 150px);
   padding-top: 150px;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .heroImageContainer {
@@ -378,6 +378,7 @@
   position: relative;
   z-index: 1;
   padding: 80px min(5vw, 80px) 80px;
+  margin-top: clamp(48px, 6vw, 96px);
 }
 
 .ctaBarContent {
@@ -466,6 +467,7 @@
     min-height: auto;
     max-height: none;
     padding-top: 140px;
+    padding-bottom: 60px;
   }
 
   .heroImageContainer {
@@ -531,6 +533,7 @@
     min-height: auto;
     max-height: none;
     padding-top: 130px;
+    padding-bottom: 40px;
   }
 
   .heroImageContainer {
