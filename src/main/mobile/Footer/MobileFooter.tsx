@@ -32,7 +32,7 @@ const MobileFooter = () => {
                     <Link href="#" className="o-footer__menu--link">Üyelik Bilgilerim</Link>
 
                     <Link href="#" className="o-footer__menu--link --bold mt20 pt0 --mt --pt">Mağazalar</Link>
-                    <Link href="#" className="o-footer__menu--link --bold mt20 pt0 --mt --pt">Gözümün Nuru Blog</Link>
+                    <Link href="/blog" className="o-footer__menu--link --bold mt20 pt0 --mt --pt">Gözümün Nuru Blog</Link>
                     <Link href="#" className="o-footer__menu--link --bold mt20 pt0 --mt --pt">Gözümün Nuru Magazine</Link>
                     <Link href="#" className="o-footer__menu--link --bold mt20 pt0 --mt --pt">Gözümün Nuru Promise</Link>
                 </div>

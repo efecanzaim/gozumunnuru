@@ -3,8 +3,10 @@ import { notFound } from 'next/navigation'
 import Navbar from '@/main/navigation/Navbar/Navbar'
 import Footer from '@/main/desktop/components/footer/Footer'
 import SubcategoryStory from '@/main/desktop/components/subcategoryStory/SubcategoryStory'
-import { getAllSubcategories } from '@/data/products'
 import { getSubcategoryStoryKey, subcategoryStories } from '@/main/desktop/pages/subcategory/story-content'
+import { getAllSubcategories } from '@/data/products'
+
+export const dynamicParams = false
 
 export default async function SubcategoryPage({ 
   params 
@@ -32,5 +34,36 @@ export default async function SubcategoryPage({
 }
 
 export async function generateStaticParams() {
-  return getAllSubcategories()
+  const params: { category: string; subcategory: string }[] = []
+  
+  try {
+    for (const key of Object.keys(subcategoryStories)) {
+      const parts = key.split('/').filter(Boolean)
+      if (parts.length === 2) {
+        params.push({
+          category: parts[0],
+          subcategory: parts[1]
+        })
+      }
+    }
+  } catch (error) {
+    console.error('Error generating static params from subcategoryStories:', error)
+  }
+  
+  // Fallback: products.ts'den de ekle (eğer eksik varsa)
+  try {
+    const productSubcategories = getAllSubcategories()
+    const existingKeys = new Set(params.map(p => `${p.category}/${p.subcategory}`))
+    
+    for (const sub of productSubcategories) {
+      const key = `${sub.category}/${sub.subcategory}`
+      if (!existingKeys.has(key)) {
+        params.push(sub)
+      }
+    }
+  } catch (error) {
+    console.error('Error generating static params from getAllSubcategories:', error)
+  }
+  
+  return params
 }

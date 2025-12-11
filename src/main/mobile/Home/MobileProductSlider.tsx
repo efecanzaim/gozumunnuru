@@ -3,7 +3,6 @@
 import React, { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Scrollbar } from 'swiper/modules';
-import Link from 'next/link';
 import { Product } from '@/main/desktop/components/productSection/ProductCard';
 import { featuredProducts } from '@/main/desktop/components/productSection/productsData';
 import { getBasePath } from '@/utils/basePath';
@@ -74,7 +73,7 @@ const MobileProductSlider: React.FC<MobileProductSliderProps> = ({
                         
                         return (
                             <SwiperSlide key={product.id} className="o-productCard -scrollCard swiper-slide" data-index={index}>
-                                <Link href={product.productUrl} className="o-productCard__link">
+                                <div className="o-productCard__link">
                                     <div className="o-productCard__imageWrapper">
                                         <figure className="o-productCard__figure">
                                             <img
@@ -129,7 +128,7 @@ const MobileProductSlider: React.FC<MobileProductSliderProps> = ({
                                         ) : null}
                                     </div>
                                 </div>
-                            </Link>
+                            </div>
                         </SwiperSlide>
                         );
                     })}

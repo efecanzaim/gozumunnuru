@@ -1,7 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./SubcategoryStory.module.css";
 import { getBasePath } from "@/utils/basePath";
-import BentoGrid from "@/components/ui/bento";
+// import BentoGrid from "@/components/ui/bento";
 
 type StorySection = {
   title: string;
@@ -119,9 +120,9 @@ export default function SubcategoryStory({
               )}
             </div>
             <div className={styles.ctaBarActions}>
-              <button className={styles.ctaBarButton} type="button">
+              <Link href="/randevu" className={styles.ctaBarButton}>
                 Randevu Al
-              </button>
+              </Link>
               {cta.note && (
                 <span className={styles.ctaBarNote}>{cta.note}</span>
               )}

@@ -3,9 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import type { FocusEvent, TransitionEvent } from "react";
 import { Instagram } from "lucide-react";
-import { useRouter } from "next/navigation";
 import styles from "./Navbar.module.css";
 import { getBasePath } from "@/utils/basePath";
 import { translations } from "../language/language-config";
@@ -32,9 +32,6 @@ type PanelConfig = {
 /* ───────────────────────────────────────────────────────────────────────────
    CONSTANTS
 ─────────────────────────────────────────────────────────────────────────── */
-const placeholderImage =
-  "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=900&q=80";
-
 const panelCtaCopy: Record<string, string> = {
   jewelry: "Mücevherleri keşfet",
   collection: "Koleksiyonları keşfet",
@@ -43,7 +40,7 @@ const panelCtaCopy: Record<string, string> = {
 };
 
 const topLinksConfig = [
-  { href: "https://instagram.com/", key: "instagram", external: true },
+  { href: "https://instagram.com/gozumunnuruantalya", key: "instagram", external: true },
 ];
 
 const jewelryLinks: PanelLink[] = [
@@ -86,7 +83,6 @@ const investmentLink: PanelLink = { href: "/yatirim", label: "Yatırım" };
 ─────────────────────────────────────────────────────────────────────────── */
 export default function Navbar() {
   const basePath = getBasePath();
-  const router = useRouter();
   const { selectedLanguage } = useLanguageContext();
 
   // Panel state
@@ -105,12 +101,12 @@ export default function Navbar() {
 
   const panelConfigurations: PanelConfig[] = useMemo(
     () => [
-      { id: "jewelry", label: "Mücevher", href: "/mucevher", links: jewelryLinks, image: placeholderImage },
-      { id: "collection", label: "Koleksiyon", href: "/koleksiyon", links: collectionLinks, image: placeholderImage },
-      { id: "bespoke", label: "Özel Tasarım", href: "/ozel-tasarim", links: bespokeLinks, image: placeholderImage },
-      { id: "gift", label: "Hediye", href: "/hediye", links: giftLinks, image: placeholderImage },
+      { id: "jewelry", label: "Mücevher", href: "/mucevher", links: jewelryLinks, image: `${basePath}/gorseller/yuzuk.jpg` },
+      { id: "collection", label: "Koleksiyon", href: "/koleksiyon", links: collectionLinks, image: `${basePath}/gorseller/koleksiyon.jpg` },
+      { id: "bespoke", label: "Özel Tasarım", href: "/ozel-tasarim", links: bespokeLinks, image: `${basePath}/gorseller/ozeltasarim.jpg` },
+      { id: "gift", label: "Hediye", href: "/hediye", links: giftLinks, image: `${basePath}/gorseller/hediye.jpg` },
     ],
-    []
+    [basePath]
   );
 
   /* ─────────────────────────────────────────────────────────────────────── */
@@ -162,9 +158,84 @@ export default function Navbar() {
   const showPanelBorder = isPanelVisible || isPanelClosing;
   const t = translations[selectedLanguage.code] || translations.tr;
 
+  // Panel wrapper'ı portal ile render etmek için
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const panelPortalContent = (
+    <div
+      className={styles.panelWrapper}
+      onMouseEnter={() => {
+        if (closeTimeoutRef.current) {
+          clearTimeout(closeTimeoutRef.current);
+          closeTimeoutRef.current = null;
+        }
+        if (openPanel) setOpenPanel(openPanel);
+      }}
+      onMouseLeave={(e) => {
+        const relatedTarget = e.relatedTarget as Element | null;
+        const isInsideNav =
+          relatedTarget && typeof relatedTarget.closest === "function"
+            ? relatedTarget.closest(`.${styles.middleNav}`)
+            : false;
+        if (!isInsideNav) setOpenPanel(null);
+      }}
+    >
+      <div
+        id="navbar-panel"
+        className={`${styles.panelDisplay} ${showPanelBorder ? styles.panelDisplayBorder : ""} ${isPanelVisible ? styles.panelDisplayVisible : ""}`}
+        aria-hidden={!showPanelBorder}
+        onTransitionEnd={handlePanelTransitionEnd}
+      >
+        <div className={styles.panelPattern} aria-hidden="true">
+          <div className={`${styles.patternRow} ${styles.row1}`} />
+          <div className={`${styles.patternRow} ${styles.row2}`} />
+          <div className={`${styles.patternRow} ${styles.row3}`} />
+          <div className={`${styles.patternRow} ${styles.row4}`} />
+          <div className={`${styles.patternRow} ${styles.row5}`} />
+        </div>
+        <div className={styles.panelInner}>
+          <div className={styles.panelHeadingBlock}>
+            {panelContentLabel && <p className={styles.panelInfoLabel}>{panelContentLabel}</p>}
+          </div>
+          <div className={styles.panelLinksSection}>
+            <p className={styles.panelLinksTitle}>Kategori</p>
+            <ul className={styles.panelList}>
+              {panelContent.map((link) => (
+                <li key={link.href} className={styles.panelItem}>
+                  <Link href={link.href}>{link.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className={styles.panelVisual}>
+            {panelImage && (
+              <div className={styles.panelImageWrapper}>
+                <img
+                  src={panelImage}
+                  alt={panelContentLabel ? `${panelContentLabel} koleksiyon görseli` : "Kategori görseli"}
+                  className={styles.panelImage}
+                />
+              </div>
+            )}
+            {panelContentId && (
+              <p className={styles.panelImageCta}>
+                {panelCtaCopy[panelContentId] ?? `${panelContentLabel ?? "Kategori"} koleksiyonunu keşfet`}
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   /* ─────────────────────────────────────────────────────────────────────── */
   return (
-    <header className={styles.container}>
+    <>
+      <header className={styles.container}>
       {/* ───────────────── TOP BAR ───────────────── */}
       <div className={styles.topBar}>
         <nav className={styles.topLinks}>
@@ -210,16 +281,12 @@ export default function Navbar() {
         {/* Kategori Butonları */}
         <nav className={styles.middleNav} aria-label="Kategoriler">
           {panelConfigurations.map((panel) => (
-            <button
+            <Link
               key={panel.id}
-              type="button"
+              href={panel.href}
               className={styles.middleTrigger}
               aria-expanded={openPanel === panel.id}
               aria-controls="navbar-panel"
-              onClick={() => {
-                setOpenPanel((prev) => (prev === panel.id ? null : panel.id));
-                router.push(panel.href);
-              }}
               onMouseEnter={() => {
                 if (closeTimeoutRef.current) {
                   clearTimeout(closeTimeoutRef.current);
@@ -247,7 +314,7 @@ export default function Navbar() {
               }}
             >
               {panel.label}
-            </button>
+            </Link>
           ))}
 
           {/* Yatırım — sadece link, hover menüsü yok */}
@@ -262,73 +329,9 @@ export default function Navbar() {
         </nav>
       </div>
 
-      {/* ───────────────── AÇILIR PANEL ───────────────── */}
-      <div
-        className={styles.panelWrapper}
-        onMouseEnter={() => {
-          if (closeTimeoutRef.current) {
-            clearTimeout(closeTimeoutRef.current);
-            closeTimeoutRef.current = null;
-          }
-          if (openPanel) setOpenPanel(openPanel);
-        }}
-        onMouseLeave={(e) => {
-          const relatedTarget = e.relatedTarget as Element | null;
-          const isInsideNav =
-            relatedTarget && typeof relatedTarget.closest === "function"
-              ? relatedTarget.closest(`.${styles.middleNav}`)
-              : false;
-          if (!isInsideNav) setOpenPanel(null);
-        }}
-      >
-        <div
-          id="navbar-panel"
-          className={`${styles.panelDisplay} ${showPanelBorder ? styles.panelDisplayBorder : ""} ${isPanelVisible ? styles.panelDisplayVisible : ""}`}
-          aria-hidden={!showPanelBorder}
-          onTransitionEnd={handlePanelTransitionEnd}
-        >
-          <div className={styles.panelPattern} aria-hidden="true">
-            <div className={`${styles.patternRow} ${styles.row1}`} />
-            <div className={`${styles.patternRow} ${styles.row2}`} />
-            <div className={`${styles.patternRow} ${styles.row3}`} />
-            <div className={`${styles.patternRow} ${styles.row4}`} />
-            <div className={`${styles.patternRow} ${styles.row5}`} />
-          </div>
-          <div className={styles.panelInner}>
-            <div className={styles.panelHeadingBlock}>
-              {panelContentLabel && <p className={styles.panelInfoLabel}>{panelContentLabel}</p>}
-            </div>
-            <div className={styles.panelLinksSection}>
-              <p className={styles.panelLinksTitle}>Kategori</p>
-              <ul className={styles.panelList}>
-                {panelContent.map((link) => (
-                  <li key={link.href} className={styles.panelItem}>
-                    <Link href={link.href}>{link.label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className={styles.panelVisual}>
-              {panelImage && (
-                <div className={styles.panelImageWrapper}>
-                  <img
-                    src={panelImage}
-                    alt={panelContentLabel ? `${panelContentLabel} koleksiyon görseli` : "Kategori görseli"}
-                    className={styles.panelImage}
-                  />
-                </div>
-              )}
-              {panelContentId && (
-                <p className={styles.panelImageCta}>
-                  {panelCtaCopy[panelContentId] ?? `${panelContentLabel ?? "Kategori"} koleksiyonunu keşfet`}
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-
       <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
-    </header>
+      </header>
+      {mounted && typeof window !== "undefined" && createPortal(panelPortalContent, document.body)}
+    </>
   );
 }

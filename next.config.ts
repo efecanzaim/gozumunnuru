@@ -1,15 +1,27 @@
 import type { NextConfig } from "next";
 
-const isProduction = process.env.NODE_ENV === "production";
-const basePath = isProduction ? "/gozumunnuru" : "";
-
+// Site kökte (/) yayınlandığı için basePath/assetPrefix boş bırakıyoruz.
+// Görseller CDN'den geldiği için assetPrefix'e gerek yok.
 const nextConfig: NextConfig = {
   output: "export",
+  trailingSlash: true,
   images: {
     unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.gozumunnuru.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "gozumunnuru.com",
+        pathname: "/**",
+      },
+    ],
   },
-  basePath: basePath,
-  assetPrefix: basePath,
+  basePath: "",
+  assetPrefix: "",
 };
 
 export default nextConfig;

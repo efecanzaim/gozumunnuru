@@ -133,9 +133,9 @@ export default function CategoryStory({
                 <p className={styles.accentCtaDescription}>{cta.description}</p>
               </div>
               <div className={styles.accentCtaActions}>
-                <button className={styles.accentCtaButton} type="button">
+                <Link href="/randevu" className={styles.accentCtaButton}>
                   Randevu Al
-                </button>
+                </Link>
                 {cta.note && <span className={styles.accentCtaNote}>{cta.note}</span>}
               </div>
             </div>
@@ -225,9 +225,9 @@ export default function CategoryStory({
               <p className={styles.ctaDescription}>{cta.description}</p>
             </div>
             <div className={styles.ctaActions}>
-              <button className={styles.ctaButton} type="button">
+              <Link href="/randevu" className={styles.ctaButton}>
                 Randevu Al
-              </button>
+              </Link>
               {cta.note ? <span className={styles.ctaNote}>{cta.note}</span> : null}
             </div>
           </div>

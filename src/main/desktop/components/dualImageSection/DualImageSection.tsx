@@ -38,13 +38,13 @@ const DualImageSection = () => {
     <section className={styles.section}>
       <div className={styles.container}>
         <ImageCard
-          imageSrc="./gorseller/dualImage1.jpg"
+          imageSrc="/gorseller/dualImage1.jpg"
           title="Özel Koleksiyon"
           description="Benzersiz tasarımlarımızı keşfedin"
           link="/koleksiyon"
         />
         <ImageCard
-          imageSrc="./gorseller/dualImage2.jpg"
+          imageSrc="/gorseller/dualImage2.jpg"
           title="Yeni Sezon"
           description="En yeni mücevher tasarımları"
           link="/mucevher"

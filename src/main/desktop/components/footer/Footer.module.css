@@ -497,6 +497,23 @@
   opacity: 0.75;
 }
 
+.o-footer__social--instagram {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  color: black;
+  margin-top: 8px;
+  transition: opacity 0.2s;
+}
+
+.o-footer__social--instagram:hover {
+  opacity: 0.8;
+}
+
 @media (max-width: 1199.98px) {
   .o-footer__app {
     width: 50%;

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/main/navigation/language/language-context";
+import { getBasePath } from "@/utils/basePath";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -18,7 +19,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const basePath = process.env.NODE_ENV === "production" ? "/gozumunnuru" : "";
+  const basePath = getBasePath();
 
   return (
     <html lang="tr">

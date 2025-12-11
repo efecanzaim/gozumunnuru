@@ -100,8 +100,8 @@ export const subcategoryStories: StoryMap = {
     bentoImages: [
       { image: "/gorseller/product5.avif", alt: "Özel üretim pırlanta" },
       { image: "/gorseller/product6.avif", alt: "Pırlanta tasarım" },
-      { image: "/slider1.jpg", alt: "3D modelleme" },
-      { image: "/slider2.jpg", alt: "Atölye işçiliği" },
+      { image: "/gorseller/slider1.jpg", alt: "3D modelleme" },
+      { image: "/gorseller/slider2.jpg", alt: "Atölye işçiliği" },
       { image: "/gorseller/product1.avif", alt: "Özel tasarım detay" },
     ],
     bentoContent: {
@@ -123,7 +123,7 @@ export const subcategoryStories: StoryMap = {
         title: "Hayaline Dokunmak",
         description:
           "Henüz altın dökülmeden, hayalini ellerinde tutarsın. Her detay içine sinene kadar, o sadece bir taslaktır.",
-        image: "/slider1.jpg",
+        image: "/gorseller/slider1.jpg",
         tags: ["3D baskı", "Ağırlık dengesi", "Yükseklik ayarı"],
       },
       {
@@ -131,7 +131,7 @@ export const subcategoryStories: StoryMap = {
         title: "Ustanın Dokunuşu",
         description:
           "Ve sonra ateş, sabır ve ustalık devreye girer. Senin hayalin, bizim ellerimizde ölümsüz bir esere dönüşür.",
-        image: "/slider2.jpg",
+        image: "/gorseller/slider2.jpg",
         tags: ["Usta mıhlama", "El cilası", "Sertifika"],
       },
     ],
@@ -453,21 +453,21 @@ export const subcategoryStories: StoryMap = {
         kicker: "Başlangıç",
         title: "İlk Kıvılcım",
         description: "Her şey bir sohbetle başlar. Senin stilin, senin bütçen, senin hayalin... Kağıda dökülen ilk çizgiler, yolculuğumuzun haritası olur.",
-        image: "/banner2.jpg",
+        image: "/gorseller/banner2.jpg",
         tags: ["Stil analizi", "Bütçe planı", "Hızlı eskiz"],
       },
       {
         kicker: "Deneyim",
         title: "Gerçeğe Dokunmak",
         description: "Henüz bitmeden, onu hissetmeni isteriz. 3D prova ile parmağındaki duruşunu, ağırlığını test ederiz. Sürprizlere yer yok, sadece mutluluk var.",
-        image: "/slider1.jpg",
+        image: "/gorseller/slider1.jpg",
         tags: ["3D prova", "Ağırlık ayarı", "Konfor testi"],
       },
       {
         kicker: "Sonuç",
         title: "Ustalık Eseri",
         description: "Ve atölyenin büyüsü... Ateş ve el emeğiyle yoğrulan metal, senin hikayeni anlatan eşsiz bir mücevhere dönüşür.",
-        image: "/newsection.jpg",
+        image: "/gorseller/newsection.jpg",
         tags: ["El işçiliği", "Sertifika", "Bakım rehberi"],
       },
     ],
@@ -494,21 +494,21 @@ export const subcategoryStories: StoryMap = {
         kicker: "Temel",
         title: "Tuvalini Seç",
         description: "Her şey bir formla başlar. İster klasik, ister modern... Senin ruhuna en yakın olanı bul ve üzerine inşa etmeye başla.",
-        image: "/slider4.jpg",
+        image: "/gorseller/slider4.jpg",
         tags: ["Hızlı seçim", "Özelleştirilebilir", "Çevrim içi onay"],
       },
       {
         kicker: "Renk",
         title: "Ruhunu Yansıt",
         description: "Taşın rengi, metalin tonu... Senin enerjini yansıtan o mükemmel uyumu yakala. Kurallar yok, sadece sen varsın.",
-        image: "/product1.jpg",
+        image: "/gorseller/product1.jpg",
         tags: ["Taş seçimi", "Metal rengi", "Bütçe kontrolü"],
       },
       {
         kicker: "Zaman",
         title: "Hızla Kavuş",
         description: "Sen tasarla, biz hızla hayata geçirelim. Beklemeye gerek yok, hayalin en kısa sürede parmaklarında olsun.",
-        image: "/product2.jpg",
+        image: "/gorseller/product2.jpg",
         tags: ["Hızlı üretim", "Takip edilebilir süreç", "Bakım desteği"],
       },
     ],
@@ -535,7 +535,7 @@ export const subcategoryStories: StoryMap = {
         kicker: "Ahenk",
         title: "Mükemmel Uyum",
         description: "Tektaşın zarafeti, alyansın sadeliğiyle buluşuyor. Yan yana geldiklerinde, tıpkı sizin gibi, daha güçlü ve daha güzeller.",
-        image: "/product3.jpg",
+        image: "/gorseller/product3.jpg",
         tags: ["Eşleşen yükseklik", "Parlaklık uyumu", "Konfor iç yüzey"],
       },
       {
@@ -543,7 +543,7 @@ export const subcategoryStories: StoryMap = {
         title: "Yıllara Söz Verdik",
         description:
           "Hayatın her anına, her zorluğuna dayanacak kadar güçlü. Bu yüzükler, verdiğiniz sözün somut bir kanıtı.",
-        image: "/product4.jpg",
+        image: "/gorseller/product4.jpg",
         tags: ["Sağlam köprü", "Ayar garantisi", "Parlatma"],
       },
       {

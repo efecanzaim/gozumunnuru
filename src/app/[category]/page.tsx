@@ -9,6 +9,22 @@ import DesktopYatirim from '@/main/desktop/pages/yatirim/Page'
 
 const allowed = new Set(['mucevher','koleksiyon','ozel-tasarim','hediye','yatirim'])
 
+// Footer linkleri - bunlar için 404 gösterilecek
+const footerLinks = [
+  'tarihce-c',
+  'han-kuyumculuk',
+  'ozel-urunler',
+  'bize-sorun',
+  'sikca-sorulan-sorular-c',
+  'aydinlatma-metinleri-c',
+  'iletisim-c',
+  'yilbasi-hediyeleri',
+  'sevgililer-gunu-hediye-secenekleri-53731',
+  'yasam-hediye-anneler-gunu-hediyeleri-54528',
+]
+
+export const dynamicParams = false
+
 export default async function CategoryRoute({ 
   params 
 }: { 
@@ -20,6 +36,7 @@ export default async function CategoryRoute({
     return notFound()
   }
 
+  // Footer linkleri veya geçersiz kategoriler için 404 göster
   if (!allowed.has(category)) {
     return notFound()
   }
@@ -34,6 +51,12 @@ export default async function CategoryRoute({
 }
 
 export async function generateStaticParams() {
-  return Array.from(allowed).map((category) => ({ category }))
+  // Gerçek kategoriler
+  const categoryParams = Array.from(allowed).map((category) => ({ category }))
+  
+  // Footer linkleri - build için gerekli ama sayfada 404 gösterilecek
+  const footerParams = footerLinks.map((category) => ({ category }))
+  
+  return [...categoryParams, ...footerParams]
 }
 

@@ -430,7 +430,8 @@
   flex-shrink: 0;
 }
 
-.ctaBarButton {
+.ctaBarButton,
+a.ctaBarButton {
   padding: 18px 40px;
   background: #2f3238;
   border: none;
@@ -443,6 +444,8 @@
   transition: transform 0.2s, box-shadow 0.2s;
   box-shadow: 0 8px 24px rgba(47, 50, 56, 0.25);
   white-space: nowrap;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .ctaBarButton:hover {

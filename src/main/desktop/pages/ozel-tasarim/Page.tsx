@@ -17,7 +17,7 @@ export default function DesktopOzelTasarim() {
         title: 'Seni Dinliyor, Seni Anlıyoruz',
         description:
           'Bir kağıt, bir kalem ve senin anlattıkların... Ruhunu yansıtan o çizgiyi bulana kadar arıyoruz. Çünkü bu, sadece bir takı değil, senin bir uzvun olacak.',
-        image: '/banner1.jpg',
+        image: '/gorseller/banner1.jpg',
         tags: ['Stil analizi', 'Form seçenekleri', 'Taş yerleşim planı'],
       },
       {
@@ -25,7 +25,7 @@ export default function DesktopOzelTasarim() {
         title: 'Hayaline Dokunmak',
         description:
           'Henüz altın olmadan önce, mumun yumuşaklığında hissedersin onu. Parmağına tam oturduğunda, "İşte bu" dediğin o an, bizim en büyük ödülümüzdür.',
-        image: '/slider1.jpg',
+        image: '/gorseller/slider1.jpg',
         tags: ['Gerçek boyutlu prova', 'Hafiflik ayarı', 'Kişisel ölçü'],
       },
       {
@@ -33,7 +33,7 @@ export default function DesktopOzelTasarim() {
         title: 'Ustalığın Zirvesi',
         description:
           'Ateşin korunda eriyen altın, ustanın sabrıyla yeniden doğar. Ve o son cila atıldığında, artık o bir metal değil, nesilden nesile aktarılacak bir mirastır.',
-        image: '/newsection.jpg',
+        image: '/gorseller/newsection.jpg',
         tags: ['El işçiliği', 'Kalite kontrol', 'Sertifika'],
       },
     ],

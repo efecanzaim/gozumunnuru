@@ -3,41 +3,26 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./FeaturedCategories.module.css";
-import { useState } from "react";
 import {
   FeaturedCategoryBanner,
-  FeaturedCategoryLink,
   featuredCategoryBanners,
-  featuredCategoryLinks,
 } from "./featuredCategoriesData";
 import { getBasePath } from "@/utils/basePath";
 
 type FeaturedCategoriesProps = {
   title?: string;
   banners?: FeaturedCategoryBanner[];
-  links?: FeaturedCategoryLink[];
 };
 
 export default function FeaturedCategories({
   title = "Öne Çıkan Kategoriler",
   banners = featuredCategoryBanners,
-  links = featuredCategoryLinks,
 }: FeaturedCategoriesProps) {
   const basePath = getBasePath();
-  const [showLinks, setShowLinks] = useState(false);
 
   if (!banners.length) {
     return null;
   }
-
-  const linksClassName = [
-    "o-featuredCategoriesLinks",
-    styles.links,
-    showLinks ? "-show" : "",
-    showLinks ? styles.linksVisible : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
 
   return (
     <div className="container -wide">
@@ -83,39 +68,6 @@ export default function FeaturedCategories({
             </div>
           ))}
         </div>
-        {links.length > 0 ? (
-          <>
-            <div className="o-featuredCategories__links">
-              <ul className={linksClassName}>
-                {links.map((link) => (
-                  <li
-                    key={link.id}
-                    className={`o-featuredCategoriesLinks__item ${styles.linkItem}`}
-                  >
-                    <Link
-                      href={link.url}
-                      className={`o-featuredCategoriesLinks__link ${styles.link}`}
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div
-              className={`o-ShowMoreContent ${styles.showMoreContent}`}
-            >
-              <button
-                type="button"
-                className={`o-ShowMoreContent__btn ${styles.showMoreButton}`}
-                onClick={() => setShowLinks((prev) => !prev)}
-                aria-expanded={showLinks}
-              >
-                {showLinks ? "Daha Az Göster" : "Daha Fazla Göster"}
-              </button>
-            </div>
-          </>
-        ) : null}
       </section>
     </div>
   );
