@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { Globe, X } from "lucide-react";
 import styles from "./LanguageSwitcher.module.css";
-import { languageOptions, translations } from "./language-config";
-import { useLanguageContext } from "./language-context";
+import { languageOptions, translations } from "./LanguageConfig";
+import { useLanguageContext } from "./LanguageContext";
 
 type LanguageSwitcherProps = {
   variant?: "navbar" | "footer";

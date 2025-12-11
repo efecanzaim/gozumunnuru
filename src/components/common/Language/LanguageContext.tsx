@@ -1,8 +1,8 @@
 "use client";
 
 import { createContext, useContext, useMemo, useState } from "react";
-import type { LanguageOption } from "./language-config";
-import { languageOptions } from "./language-config";
+import type { LanguageOption } from "./LanguageConfig";
+import { languageOptions } from "./LanguageConfig";
 
 type LanguageContextValue = {
   selectedLanguage: LanguageOption;

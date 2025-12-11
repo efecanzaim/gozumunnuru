@@ -345,3 +345,58 @@
   color: #62944c;
   margin-bottom: 2px;
 }
+
+/* Mobile tweaks */
+@media (max-width: 768px) {
+  .productSlider {
+    padding-bottom: 48px;
+  }
+
+  .productSlider :global(.tns-inner) {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .title {
+    font-size: 1.125rem;
+    line-height: 26px;
+    letter-spacing: 1px;
+    margin-top: 28px;
+    margin-bottom: 18px;
+  }
+
+  .title::after {
+    top: 72px;
+    left: 0;
+    right: 0;
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .title::before {
+    top: 36px;
+    left: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  .wrapper {
+    justify-content: flex-start;
+  }
+
+  .wrapperMobile {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    overflow-y: visible;
+    padding: 0 0 8px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .item {
+    max-width: 100%;
+    padding-right: 5px;
+    scroll-snap-align: start;
+  }
+}

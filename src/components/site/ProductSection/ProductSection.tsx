@@ -15,13 +15,17 @@ export default function ProductSection({ title, products = [], variant = "defaul
   const sliderRef = useRef<HTMLDivElement>(null);
   const sliderInstanceRef = useRef<any>(null);
   const [isTablet, setIsTablet] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") {
       return;
     }
 
-    const detectDevice = () => setIsTablet(window.innerWidth <= 991);
+    const detectDevice = () => {
+      setIsTablet(window.innerWidth <= 991);
+      setIsMobile(window.innerWidth <= 768);
+    };
     detectDevice();
 
     window.addEventListener("resize", detectDevice);
@@ -32,7 +36,7 @@ export default function ProductSection({ title, products = [], variant = "defaul
     if (typeof window === "undefined") return;
 
     const initSlider = async () => {
-      if (!sliderRef.current || products.length === 0) return;
+      if (!sliderRef.current || products.length === 0 || isMobile) return;
 
       if (sliderInstanceRef.current) {
         sliderInstanceRef.current.destroy();
@@ -41,23 +45,25 @@ export default function ProductSection({ title, products = [], variant = "defaul
 
       const { tns } = await import("tiny-slider/src/tiny-slider");
 
-      const isMobile = window.innerWidth <= 991;
-      const sliderItems = variant === "home" ? 4 : (isMobile ? 3 : 4);
+      const isMobileWidth = window.innerWidth <= 768;
+      const sliderItems = variant === "home" ? 4 : (isMobileWidth ? 1.2 : 4);
 
       sliderInstanceRef.current = tns({
         container: sliderRef.current,
         controlsText: ["", ""],
         autoplay: false,
         items: sliderItems,
-        gutter: 0,
+        gutter: isMobileWidth ? 12 : 0,
         mouseDrag: true,
+        touch: true,
+        swipeAngle: false,
         lazyload: true,
         lazyloadSelector: ".-lazyImage",
         nav: false,
         navPosition: "bottom",
-        preventScrollOnTouch: "auto",
+        preventScrollOnTouch: false,
         arrowKeys: true,
-        slideBy: "page",
+        slideBy: isMobileWidth ? 1 : "page",
         speed: 600,
         loop: false,
         onInit: function(e: any) {
@@ -85,7 +91,7 @@ export default function ProductSection({ title, products = [], variant = "defaul
         sliderInstanceRef.current = null;
       }
     };
-  }, [products, variant]);
+  }, [products, variant, isMobile]);
 
   const sliderId = variant === "home" ? "sliderRecommendByIdHome" : `slider${variant}`;
 
@@ -98,13 +104,19 @@ export default function ProductSection({ title, products = [], variant = "defaul
       <div className={styles.container}>
         <div 
           ref={sliderRef} 
-          className={`${styles.wrapper} ${products.length === 0 ? styles.withLoading : ""}`}
+          className={`${styles.wrapper} ${isMobile ? styles.wrapperMobile : ""} ${products.length === 0 ? styles.withLoading : ""}`}
         >
           {products.map((product, index) => (
             <div 
               key={product.id} 
               className={styles.item}
-              style={{ minWidth: isTablet ? "275px" : "387px" }}
+              style={{ 
+                minWidth: isMobile 
+                  ? `calc(100vw - 40px)` 
+                  : isTablet 
+                    ? "275px" 
+                    : "387px" 
+              }}
               data-index={index}
             >
               <ProductCard product={product} />

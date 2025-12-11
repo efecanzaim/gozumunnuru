@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
-import { LanguageProvider } from "@/components/common/Language/language-context";
+import { LanguageProvider } from "@/components/common/Language/LanguageContext";
 import { getBasePath } from "@/utils/basePath";
 
 const dmSans = DM_Sans({

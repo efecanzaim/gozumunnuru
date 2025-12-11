@@ -5,11 +5,11 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import type { FocusEvent, TransitionEvent } from "react";
-import { Instagram } from "lucide-react";
+import { Instagram, Menu, X, ChevronDown, ChevronUp } from "lucide-react";
 import styles from "./Navbar.module.css";
 import { getBasePath } from "@/utils/basePath";
-import { translations } from "../Language/language-config";
-import { useLanguageContext } from "../Language/language-context";
+import { translations } from "../Language/LanguageConfig";
+import { useLanguageContext } from "../Language/LanguageContext";
 import { LanguageSwitcher } from "../Language/LanguageSwitcher";
 import SearchOverlay from "./SearchOverlay";
 
@@ -97,6 +97,10 @@ export default function Navbar() {
   // Search overlay
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
+  // Mobile menu
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [expandedMobilePanel, setExpandedMobilePanel] = useState<string | null>(null);
+
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const panelConfigurations: PanelConfig[] = useMemo(
@@ -154,6 +158,18 @@ export default function Navbar() {
       if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
     };
   }, []);
+
+  // Body scroll lock when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
 
   const showPanelBorder = isPanelVisible || isPanelClosing;
   const t = translations[selectedLanguage.code] || translations.tr;
@@ -236,100 +252,166 @@ export default function Navbar() {
   return (
     <>
       <header className={styles.container}>
-      {/* ───────────────── TOP BAR ───────────────── */}
-      <div className={styles.topBar}>
-        <nav className={styles.topLinks}>
-          {topLinksConfig.map((link) => {
-            const anchorProps = link.external
-              ? { target: "_blank", rel: "noopener noreferrer" }
-              : {};
-            const label = t[link.key];
-            const isInstagram = link.key === "instagram";
-
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                {...anchorProps}
-                className={isInstagram ? styles.topLinkWithIcon : undefined}
-              >
-                {isInstagram && <Instagram size={14} className={styles.topLinkIcon} />}
-                {label}
-              </Link>
-            );
-          })}
-          <LanguageSwitcher variant="navbar" className={styles.languageSelectWrapper} />
-        </nav>
-      </div>
-
-      {/* ───────────────── MIDDLE BAR ───────────────── */}
-      <div className={styles.middleBar} onBlur={handlePanelBlur}>
-        {/* Logo */}
-        <div className={styles.mobileHeaderTop}>
-          <Link href="/" className={styles.brand} aria-label="gözümün nuru">
-            <Image
-              src={`${basePath}/gozumun-nuru-logo.svg`}
-              alt="gözümün nuru"
-              width={211}
-              height={16}
-              className={styles.brandImage}
-              priority
-            />
-          </Link>
+        {/* ───────────────── TOP BAR ───────────────── */}
+        <div className={styles.topBar}>
+          <nav className={styles.topLinks}>
+            {topLinksConfig.map((link) => {
+              const anchorProps = link.external
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {};
+              const label = t[link.key];
+              const isInstagram = link.key === "instagram";
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  {...anchorProps}
+                  className={isInstagram ? styles.topLinkWithIcon : undefined}
+                >
+                  {isInstagram && <Instagram size={14} className={styles.topLinkIcon} />}
+                  {label}
+                </Link>
+              );
+            })}
+            <LanguageSwitcher variant="navbar" className={styles.languageSelectWrapper} />
+          </nav>
         </div>
-
-        {/* Kategori Butonları */}
-        <nav className={styles.middleNav} aria-label="Kategoriler">
-          {panelConfigurations.map((panel) => (
-            <Link
-              key={panel.id}
-              href={panel.href}
-              className={styles.middleTrigger}
-              aria-expanded={openPanel === panel.id}
-              aria-controls="navbar-panel"
-              onMouseEnter={() => {
-                if (closeTimeoutRef.current) {
-                  clearTimeout(closeTimeoutRef.current);
-                  closeTimeoutRef.current = null;
-                }
-                setOpenPanel(panel.id);
-              }}
-              onMouseLeave={(e) => {
-                const relatedTarget = e.relatedTarget as Element | null;
-                const panelElement = document.getElementById("navbar-panel");
-                const isInPanel = panelElement && relatedTarget && panelElement.contains(relatedTarget);
-                const isInButton = relatedTarget && relatedTarget.classList.contains(styles.middleTrigger);
-
-                if (!isInPanel && !isInButton) {
-                  if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
-                  closeTimeoutRef.current = setTimeout(() => {
-                    if (openPanel === panel.id) setOpenPanel(null);
-                    closeTimeoutRef.current = null;
-                  }, 200);
-                }
-              }}
-              onFocus={() => setOpenPanel(panel.id)}
-              onKeyDown={(event) => {
-                if (event.key === "Escape") setOpenPanel(null);
-              }}
-            >
-              {panel.label}
+        {/* ───────────────── MIDDLE BAR ───────────────── */}
+        <div className={styles.middleBar} onBlur={handlePanelBlur}>
+          {/* Logo */}
+          <div className={styles.mobileHeaderTop}>
+            <Link href="/" className={styles.brand} aria-label="gözümün nuru">
+              <Image
+                src={`${basePath}/gozumun-nuru-logo.svg`}
+                alt="gözümün nuru"
+                width={211}
+                height={16}
+                className={styles.brandImage}
+                priority
+              />
             </Link>
-          ))}
-
-          {/* Yatırım — sadece link, hover menüsü yok */}
-          <Link
-            href={investmentLink.href}
-            className={styles.middleLink}
-            onMouseEnter={() => setOpenPanel(null)}
-            onFocus={() => setOpenPanel(null)}
+          </div>
+          {/* Hamburger Menu Button - Mobile Only */}
+          <button
+            className={styles.mobileMenuButton}
+            onClick={() => {
+              setIsSearchOpen(false);
+              setIsMobileMenuOpen((prev) => !prev);
+            }}
+            aria-label={isMobileMenuOpen ? "Menüyü kapat" : "Menüyü aç"}
+            aria-expanded={isMobileMenuOpen}
           >
-            {investmentLink.label}
-          </Link>
-        </nav>
-      </div>
-
-      <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+          {/* Kategori Butonları - Desktop */}
+          <nav className={styles.middleNav} aria-label="Kategoriler">
+            {panelConfigurations.map((panel) => (
+              <Link
+                key={panel.id}
+                href={panel.href}
+                className={styles.middleTrigger}
+                aria-expanded={openPanel === panel.id}
+                aria-controls="navbar-panel"
+                onMouseEnter={() => {
+                  if (closeTimeoutRef.current) {
+                    clearTimeout(closeTimeoutRef.current);
+                    closeTimeoutRef.current = null;
+                  }
+                  setOpenPanel(panel.id);
+                }}
+                onMouseLeave={(e) => {
+                  const relatedTarget = e.relatedTarget as Element | null;
+                  const panelElement = document.getElementById("navbar-panel");
+                  const isInPanel = panelElement && relatedTarget && panelElement.contains(relatedTarget);
+                  const isInButton = relatedTarget && relatedTarget.classList.contains(styles.middleTrigger);
+                  if (!isInPanel && !isInButton) {
+                    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+                    closeTimeoutRef.current = setTimeout(() => {
+                      if (openPanel === panel.id) setOpenPanel(null);
+                      closeTimeoutRef.current = null;
+                    }, 200);
+                  }
+                }}
+                onFocus={() => setOpenPanel(panel.id)}
+                onKeyDown={(event) => {
+                  if (event.key === "Escape") setOpenPanel(null);
+                }}
+              >
+                {panel.label}
+              </Link>
+            ))}
+            {/* Yatırım — sadece link, hover menüsü yok */}
+            <Link
+              href={investmentLink.href}
+              className={styles.middleLink}
+              onMouseEnter={() => setOpenPanel(null)}
+              onFocus={() => setOpenPanel(null)}
+            >
+              {investmentLink.label}
+            </Link>
+          </nav>
+        </div>
+        {/* ───────────────── MOBILE MENU ───────────────── */}
+        <div className={isMobileMenuOpen ? `${styles.mobileMenu} ${styles.mobileMenuOpen}` : styles.mobileMenu}>
+          <nav className={styles.mobileMenuNav}>
+            {panelConfigurations.map((panel) => (
+              <div key={panel.id} className={styles.mobileMenuCategory}>
+                <button
+                  className={styles.mobileMenuCategoryButton}
+                  onClick={() => setExpandedMobilePanel(expandedMobilePanel === panel.id ? null : panel.id)}
+                  aria-expanded={expandedMobilePanel === panel.id}
+                >
+                  <span>{panel.label}</span>
+                  {expandedMobilePanel === panel.id ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                </button>
+                <div className={expandedMobilePanel === panel.id ? `${styles.mobileMenuSubmenu} ${styles.mobileMenuSubmenuOpen}` : styles.mobileMenuSubmenu}>
+                  <Link
+                    href={panel.href}
+                    className={styles.mobileMenuSubmenuLink}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Tümünü Gör
+                  </Link>
+                  {panel.links.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={styles.mobileMenuSubmenuLink}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+            {/* Yatırım - sadece link */}
+            <Link
+              href={investmentLink.href}
+              className={styles.mobileMenuDirectLink}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              {investmentLink.label}
+            </Link>
+            {/* Social Links */}
+            <div className={styles.mobileMenuSocial}>
+              <a
+                href="https://instagram.com/gozumunnuruantalya"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.mobileMenuSocialLink}
+              >
+                <Instagram size={24} />
+                <span>Instagram</span>
+              </a>
+            </div>
+          </nav>
+        </div>
+        {/* Mobile Menu Overlay */}
+        {isMobileMenuOpen && (
+          <div className={styles.mobileMenuOverlay} onClick={() => setIsMobileMenuOpen(false)} aria-hidden="true" />
+        )}
+        <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
       </header>
       {mounted && typeof window !== "undefined" && createPortal(panelPortalContent, document.body)}
     </>
