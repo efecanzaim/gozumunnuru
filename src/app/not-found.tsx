@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import Navbar from '@/main/navigation/Navbar/Navbar';
-import Footer from '@/main/desktop/components/footer/Footer';
+import Navbar from '@/components/common/Navbar/Navbar';
+import Footer from '@/components/site/Footer/Footer';
 import { Home, Search } from 'lucide-react';
 import styles from './not-found.module.css';
 

@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import Navbar from '@/main/navigation/Navbar/Navbar';
-import Footer from '@/main/desktop/components/footer/Footer';
+import Navbar from '@/components/common/Navbar/Navbar';
+import Footer from '@/components/site/Footer/Footer';
 import { blogPosts } from '@/data/blog-posts';
 import { getBasePath } from '@/utils/basePath';
 import { Calendar, Clock, ArrowLeft, Tag } from 'lucide-react';

@@ -1,11 +1,11 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
 
-import DesktopMucevher from '@/main/desktop/pages/mucevher/Page'
-import DesktopKoleksiyon from '@/main/desktop/pages/koleksiyon/Page'
-import DesktopOzelTasarim from '@/main/desktop/pages/ozel-tasarim/Page'
-import DesktopHediye from '@/main/desktop/pages/hediye/Page'
-import DesktopYatirim from '@/main/desktop/pages/yatirim/Page'
+import MucevherPage from '@/features/mucevher/MucevherPage'
+import KoleksiyonPage from '@/features/koleksiyon/KoleksiyonPage'
+import OzelTasarimPage from '@/features/ozel-tasarim/OzelTasarimPage'
+import HediyePage from '@/features/hediye/HediyePage'
+import YatirimPage from '@/features/yatirim/YatirimPage'
 
 const allowed = new Set(['mucevher','koleksiyon','ozel-tasarim','hediye','yatirim'])
 
@@ -19,6 +19,7 @@ const footerLinks = [
   'aydinlatma-metinleri-c',
   'iletisim-c',
   'yilbasi-hediyeleri',
+  'kadinler-gunu',
   'sevgililer-gunu-hediye-secenekleri-53731',
   'yasam-hediye-anneler-gunu-hediyeleri-54528',
 ]
@@ -41,11 +42,11 @@ export default async function CategoryRoute({
     return notFound()
   }
 
-  if (category === 'mucevher') return <DesktopMucevher />
-  if (category === 'koleksiyon') return <DesktopKoleksiyon />
-  if (category === 'ozel-tasarim') return <DesktopOzelTasarim />
-  if (category === 'hediye') return <DesktopHediye />
-  if (category === 'yatirim') return <DesktopYatirim />
+  if (category === 'mucevher') return <MucevherPage />
+  if (category === 'koleksiyon') return <KoleksiyonPage />
+  if (category === 'ozel-tasarim') return <OzelTasarimPage />
+  if (category === 'hediye') return <HediyePage />
+  if (category === 'yatirim') return <YatirimPage />
 
   return notFound()
 }

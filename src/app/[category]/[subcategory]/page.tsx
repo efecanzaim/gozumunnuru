@@ -1,10 +1,10 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
-import Navbar from '@/main/navigation/Navbar/Navbar'
-import Footer from '@/main/desktop/components/footer/Footer'
-import SubcategoryStory from '@/main/desktop/components/subcategoryStory/SubcategoryStory'
-import { getSubcategoryStoryKey, subcategoryStories } from '@/main/desktop/pages/subcategory/story-content'
-import { getAllSubcategories } from '@/data/products'
+import Navbar from '@/components/common/Navbar/Navbar'
+import Footer from '@/components/site/Footer/Footer'
+import SubcategoryStory from '@/components/site/SubcategoryStory/SubcategoryStory'
+import { getSubcategoryStoryKey, subcategoryStories } from '@/data/story-content'
+import { getAllSubcategories } from '@/data/categories'
 
 export const dynamicParams = false
 

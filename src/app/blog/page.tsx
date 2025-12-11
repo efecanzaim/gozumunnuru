@@ -1,5 +1,5 @@
-import Navbar from '@/main/navigation/Navbar/Navbar';
-import Footer from '@/main/desktop/components/footer/Footer';
+import Navbar from '@/components/common/Navbar/Navbar';
+import Footer from '@/components/site/Footer/Footer';
 import { BlogSection } from '@/components/ui/blog-section-with-rich-preview';
 import { blogPosts } from '@/data/blog-posts';
 

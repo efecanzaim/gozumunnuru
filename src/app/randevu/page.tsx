@@ -1,6 +1,6 @@
-import Navbar from '@/main/navigation/Navbar/Navbar';
-import Footer from '@/main/desktop/components/footer/Footer';
-import AppointmentForm from '@/components/appointment/AppointmentForm';
+import Navbar from '@/components/common/Navbar/Navbar';
+import Footer from '@/components/site/Footer/Footer';
+import AppointmentForm from '@/components/forms/AppointmentForm/AppointmentForm';
 
 export default function RandevuPage() {
   return (

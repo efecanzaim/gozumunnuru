@@ -1,6 +1,6 @@
-import DesktopHome from "@/main/desktop/pages/home/DesktopHome";
+import HomePage from "@/features/home/HomePage";
 
-export default function HomePage() {
-  return <DesktopHome />;
+export default function Home() {
+  return <HomePage />;
 }
 
